@@ -1,5 +1,3 @@
 <!-- @format -->
 
-# Universal Physiotherapy Center website
-
-- 
+# Universal Physiotherapy center

@@ -7,6 +7,8 @@ import { users } from '@/db/schema/users';
 import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 import { hash_password, verify_password } from '@/lib/utils';
+import { cookies } from 'next/headers';
+import { AuthError } from 'next-auth';
 
 // Signup Form Schema
 const FromSchema = z.object({
@@ -146,4 +148,62 @@ export async function signup(prevState: SignupState, formData: FormData) {
 	}
 }
 
+// login form schema
+const LoginFormSchema = FromSchema.omit({
+	first_name: true,
+	last_name: true,
+	confirmPassword: true,
+});
 
+// const login state
+export type LoginState = string | undefined | Response;
+
+// Login/Authentication users function
+export async function login(prevState: LoginState, formData: FormData) {
+	// verify user input
+	const validateInputs = LoginFormSchema.safeParse({
+		email: formData.get('email'),
+		password: formData.get('password'),
+	});
+	// check user inpue valid or not
+	if (!validateInputs.success) {
+		return 'Invalid users credentials';
+	}
+
+	// parse user input
+	const { email, password } = validateInputs.data;
+
+	try {
+		// Query user from database
+		const user = await (await db())
+			.select()
+			.from(users)
+			.where(eq(users.email, email));
+		// check user exist or not
+		if (user.length !== 0) {
+			// if user exist verify user password
+			const verify = await verify_password(password, user[0].password);
+			if (verify) {
+				cookies().set({
+					name: 'bear',
+					value: 'authentication',
+					httpOnly: true,
+					secure: true,
+					path: '/',
+				});
+				return Response.redirect('/dashboard');
+			}
+		}
+		return 'Invalid user';
+	} catch (error) {
+		if (error instanceof AuthError) {
+			switch (error.type) {
+				case 'CredentialsSignin':
+					return 'Invalid credentials';
+				default:
+					return 'Somethings went wrong';
+			}
+		}
+		throw error;
+	}
+}

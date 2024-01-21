@@ -19,10 +19,14 @@ export const connection = async () => {
 };
 
 export const db = async () => {
-	const database = drizzle(await connection(), {
-		mode: 'default',
-		schema: schema,
-	});
+	try {
+		const database = drizzle(await connection(), {
+			mode: 'default',
+			schema: schema,
+		});
 
-	return database;
+		return database;
+	} catch (error) {
+		throw Error('Database connection error');
+	}
 };

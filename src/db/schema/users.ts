@@ -8,12 +8,8 @@ import {
 	text,
 } from 'drizzle-orm/mysql-core';
 
-// user categories
-export enum UsersType {
-	'admin' = '872137232',
-	'super-admin' = '9817238972',
-	'client' = '1287398721',
-}
+import { UsersType } from '@/lib/definitions';
+
 
 export const users = mysqlTable('users', {
 	id: bigint('id', { mode: 'number' }).primaryKey().autoincrement(),

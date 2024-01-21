@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "6c0cb55b-5b8f-48e3-8679-21b13df78e1d",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "9bacb3b5-2272-448f-a426-3be7f5845ee0",
+  "prevId": "6c0cb55b-5b8f-48e3-8679-21b13df78e1d",
   "tables": {
     "users": {
       "name": "users",
@@ -35,9 +35,9 @@
           "notNull": true,
           "autoincrement": false
         },
-        "phone_number": {
-          "name": "phone_number",
-          "type": "varchar(256)",
+        "password": {
+          "name": "password",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false

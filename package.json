@@ -1,7 +1,6 @@
 {
 	"name": "universel_physio",
 	"version": "0.1.0",
-	"type": "module",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
@@ -12,25 +11,31 @@
 		"migrate": "npx tsx ./src/db/migrate.ts"
 	},
 	"dependencies": {
+		"@radix-ui/react-slot": "^1.0.2",
+		"@types/bcryptjs": "^2.4.6",
+		"bcryptjs": "^2.4.3",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.0",
 		"drizzle-orm": "^0.29.3",
-		"lucide-react": "^0.311.0",
+		"lucide-react": "^0.312.0",
 		"mysql2": "^3.7.1",
-		"next": "14.0.4",
-		"next-auth": "^5.0.0-beta.5",
+		"next": "14.1.0",
+		"next-auth": "^4.24.5",
 		"react": "^18",
 		"react-dom": "^18",
 		"tailwind-merge": "^2.2.0",
-		"tailwindcss-animate": "^1.0.7"
+		"tailwindcss-animate": "^1.0.7",
+		"zod": "^3.22.4"
 	},
 	"devDependencies": {
 		"@types/node": "^20",
 		"@types/react": "^18",
 		"@types/react-dom": "^18",
 		"autoprefixer": "^10.0.1",
-		"dotenv": "^16.3.1",
+		"dotenv": "^16.3.2",
 		"drizzle-kit": "^0.20.13",
+		"eslint": "^8",
+		"eslint-config-next": "14.1.0",
 		"postcss": "^8",
 		"tailwindcss": "^3.3.0",
 		"typescript": "^5"

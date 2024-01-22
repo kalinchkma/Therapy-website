@@ -80,8 +80,8 @@ export default function BigNavigationMenu() {
 						<Link href={link.path} legacyBehavior passHref>
 							<NavigationMenuLink
 								className={cn(
-									'group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-md font-medium transition-colors hover:bg-accent hover:text-accent-foreground  focus:outline-none disabled:pointer-events-none ',
-									link.path === pathname && 'text-blue-800',
+									'group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-md font-bold text-zinc-700 transition-colors hover:bg-accent hover:text-accent-foreground  focus:outline-none disabled:pointer-events-none ',
+									link.path === pathname && 'text-fuchsia-800',
 								)}>
 								{link.name}
 							</NavigationMenuLink>
@@ -90,7 +90,7 @@ export default function BigNavigationMenu() {
 				))}
 				<NavigationMenuItem>
 					<Link href={'/appointment'} legacyBehavior passHref>
-						<NavigationMenuLink className='flex text-wrap ml-4 bg-blue-900 hover:bg-blue-800 transition-colors py-3 px-4 rounded-3xl text-white font-bold'>
+						<NavigationMenuLink className='flex text-wrap ml-4 bg-fuchsia-900 hover:bg-fuchsia-800 transition-colors py-3 px-5 rounded-3xl text-white font-bold'>
 							Book Appointment
 						</NavigationMenuLink>
 					</Link>

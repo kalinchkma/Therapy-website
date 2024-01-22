@@ -45,8 +45,8 @@ export default function SmallNavigation() {
 										<Link
 											href={link.path}
 											className={cn(
-												'flex items-center justify-start font-bold text-xl text-stone-600 pb-2 h-10 w-max rounded-md bg-background px-4 py-2 text-md transition-colors hover:bg-accent hover:text-accent-foreground  focus:outline-none disabled:pointer-events-none ',
-												link.path === pathname && 'text-blue-800',
+												'flex items-center justify-start font-bold  text-xl text-zinc-700  pb-2 h-10 w-max rounded-md bg-background px-4 py-2 text-md transition-colors hover:bg-accent hover:text-accent-foreground  focus:outline-none disabled:pointer-events-none ',
+												link.path === pathname && 'text-fuchsia-800',
 											)}>
 											{link.name}
 										</Link>
@@ -56,7 +56,7 @@ export default function SmallNavigation() {
 							<div className='flex items-center justify-center md:justify-start w-full'>
 								<Link
 									href={'/appointment'}
-									className='inline-flex text-wrap mt-5 bg-blue-900 hover:bg-blue-800 transition-colors py-3 px-4 rounded-3xl text-white font-bold'>
+									className='inline-flex text-wrap mt-5 bg-fuchsia-900 hover:bg-fuchsia-800 transition-colors py-3 px-4 rounded-3xl text-white font-bold'>
 									Book Appointment
 								</Link>
 							</div>

@@ -46,7 +46,7 @@ export default function SmallNavigation() {
 											href={link.path}
 											className={cn(
 												'flex items-center justify-start font-bold  text-xl text-zinc-700  pb-2 h-10 w-max rounded-md bg-background px-4 py-2 text-md transition-colors hover:bg-accent hover:text-accent-foreground  focus:outline-none disabled:pointer-events-none ',
-												link.path === pathname && 'text-fuchsia-800',
+												link.path === pathname && 'text-fuchsia-900',
 											)}>
 											{link.name}
 										</Link>

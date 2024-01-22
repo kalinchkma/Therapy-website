@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import React from 'react';
-import Logo from '@/assets/logo.jpeg';
+import Logo from '@/assets/logo-2.jpeg';
 
 export default function AppLogo() {
 	return (

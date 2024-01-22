@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import React from 'react';
 import { SocialLinks } from '@/lib/static_data';
-import SocialLinkCreator from '../social-link';
+import SocialLinkCreator from '../common/social-link';
 import { cn } from '@/lib/utils';
 import { MdOutlineContactPhone } from 'react-icons/md';
 import { IoMdTimer } from 'react-icons/io';

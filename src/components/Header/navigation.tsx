@@ -4,7 +4,7 @@ import React from 'react';
 
 import BigNavigationMenu from './big-navigation';
 import SmallNavigation from './small-navigation';
-import AppLogo from '../app_logo';
+import AppLogo from '../common/app_logo';
 import { cn } from '@/lib/utils';
 
 export default function Navigation({ className }: { className?: string }) {

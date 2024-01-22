@@ -10,14 +10,20 @@ import {
 	CarouselPrevious,
 } from '@/components/ui/carousel';
 
+import PageBanner from '../common/page-banner';
+
 export function HomePageBanner() {
 	return (
-		<div className='container'>
+		<div className='w-full'>
 			<Carousel opts={{ loop: true }}>
 				<CarouselContent>
 					{Array.from({ length: 5 }).map((_, index) => (
 						<CarouselItem key={index}>
-							<div className='p-52'>Slight Content</div>
+							<PageBanner bgImageUrl='/images/slide1.jpg'>
+								<div>
+
+								</div>
+							</PageBanner>
 						</CarouselItem>
 					))}
 				</CarouselContent>

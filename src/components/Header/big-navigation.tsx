@@ -19,6 +19,7 @@ import {
 	NavigationMenuTrigger,
 	navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import ActionButton from '../common/action-button';
 
 const ListItem = React.forwardRef<
 	React.ElementRef<'a'>,
@@ -81,20 +82,15 @@ export default function BigNavigationMenu() {
 							<NavigationMenuLink
 								className={cn(
 									'group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-md font-bold text-zinc-700 transition-colors hover:bg-accent hover:text-accent-foreground  focus:outline-none disabled:pointer-events-none ',
-									link.path === pathname && 'text-fuchsia-800',
+									link.path === pathname && 'text-purple-800',
 								)}>
 								{link.name}
 							</NavigationMenuLink>
 						</Link>
 					</NavigationMenuItem>
 				))}
-				<NavigationMenuItem>
-					<Link href={'/appointment'} legacyBehavior passHref>
-						<NavigationMenuLink className='flex text-wrap ml-4 bg-fuchsia-900 hover:bg-fuchsia-800 transition-colors py-3 px-5 rounded-3xl text-white font-bold'>
-							Book Appointment
-						</NavigationMenuLink>
-					</Link>
-				</NavigationMenuItem>
+
+				<ActionButton link='/appointment' title='Book Appointment' />
 			</NavigationMenuList>
 		</NavigationMenu>
 	);

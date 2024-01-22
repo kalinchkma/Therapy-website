@@ -45,7 +45,7 @@ export default function TopHeader({ className }: { className?: string }) {
 					<div className='flex'>
 						<ul className='flex items-center justify-end gap-4'>
 							{SocialLinks.map((link) => (
-								<li key={link.link}>
+								<li key={link.title}>
 									<SocialLinkCreator
 										icon={link.icon}
 										link={link.link}

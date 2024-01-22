@@ -82,7 +82,7 @@ export default function BigNavigationMenu() {
 							<NavigationMenuLink
 								className={cn(
 									'group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-md font-bold text-zinc-700 transition-colors hover:bg-accent hover:text-accent-foreground  focus:outline-none disabled:pointer-events-none ',
-									link.path === pathname && 'text-purple-800',
+									link.path === pathname && 'text-blue-800',
 								)}>
 								{link.name}
 							</NavigationMenuLink>

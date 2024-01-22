@@ -4,17 +4,20 @@ import React, { useEffect, useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { useFormState, useFormStatus } from 'react-dom';
-import { signup, SignupState } from '@/actions/users_actions';
+import { signup, SignupState } from '@/actions/auth_actions';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 export default function SignupForm() {
 	// password matching input
+	const [passwordMatch, setPasswordMatch] = useState<boolean>(true);
 	const [password, setPassword] = useState<string | undefined>(undefined);
 	const [confirmPassword, setConfirmPassword] = useState<string | undefined>(
 		undefined,
 	);
-	const [passwordMatch, setPasswordMatch] = useState<boolean>(true);
+	const [first_name, setFirst_name] = useState<string | undefined>(undefined);
+	const [last_name, setLast_name] = useState<string | undefined>(undefined);
+	const [email, setEmail] = useState<string | undefined>(undefined);
 
 	// check passowrd equal
 	const check_password_equal = () => {
@@ -41,6 +44,14 @@ export default function SignupForm() {
 	// set local state
 	useEffect(() => {
 		setLocalState(state);
+
+		if (state.message !== '') {
+			setFirst_name('');
+			setLast_name('');
+			setEmail('');
+			setPassword('');
+			setConfirmPassword('');
+		}
 	}, [state]);
 
 	return (
@@ -68,7 +79,11 @@ export default function SignupForm() {
 						name='fname'
 						placeholder='First name...'
 						className='w-full'
-						onChange={() => setLocalState(initialState)}
+						value={first_name}
+						onChange={(e) => {
+							setLocalState(initialState);
+							setFirst_name(e.target.value);
+						}}
 						required
 					/>
 					{localState.errors?.first_name?.map((error) => (
@@ -83,7 +98,11 @@ export default function SignupForm() {
 						name='lname'
 						placeholder='Last name...'
 						className='w-full'
-						onChange={() => setLocalState(initialState)}
+						value={last_name}
+						onChange={(e) => {
+							setLocalState(initialState);
+							setLast_name(e.target.value);
+						}}
 						required
 					/>
 					{localState.errors?.last_name?.map((error) => (
@@ -99,7 +118,11 @@ export default function SignupForm() {
 					name='email'
 					placeholder='Enter your email...'
 					className='w-full'
-					onChange={() => setLocalState(initialState)}
+					value={email}
+					onChange={(e) => {
+						setLocalState(initialState);
+						setEmail(e.target.value);
+					}}
 					required
 				/>
 				{localState.errors?.email?.map((error) => (

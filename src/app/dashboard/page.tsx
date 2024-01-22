@@ -2,6 +2,9 @@
 
 import React from 'react';
 
-export default function DashboardPage() {
+import { redirect } from 'next/navigation';
+
+export default async function DashboardPage() {
+
 	return <div>DashboardPage</div>;
 }

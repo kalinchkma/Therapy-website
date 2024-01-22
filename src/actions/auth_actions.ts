@@ -8,7 +8,11 @@ import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 import { hash_password, verify_password } from '@/lib/utils';
 import { cookies } from 'next/headers';
-import { AuthError } from 'next-auth';
+import { create_auth_token, verify_auth_token } from '@/lib/utils';
+import { AuthTokenData } from '@/lib/definitions';
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
+import { AuthTokenName } from '@/lib/definitions';
 
 // Signup Form Schema
 const FromSchema = z.object({
@@ -184,26 +188,27 @@ export async function login(prevState: LoginState, formData: FormData) {
 			// if user exist verify user password
 			const verify = await verify_password(password, user[0].password);
 			if (verify) {
-				cookies().set({
-					name: 'bear',
-					value: 'authentication',
-					httpOnly: true,
-					secure: true,
-					path: '/',
-				});
-				return Response.redirect('/dashboard');
+				// create auth token for app access
+				const authData: AuthTokenData = {
+					name: user[0].first_name + ' ' + user[0].last_name,
+					email: user[0].email,
+				};
+				const token = await create_auth_token(authData);
+				if (token) {
+					cookies().set({
+						name: AuthTokenName,
+						value: token,
+						httpOnly: true,
+						secure: true,
+						path: '/',
+					});
+					redirect('/dashboard');
+				}
+				return 'Somethings went wrong, Try again';
 			}
 		}
-		return 'Invalid user';
+		return 'Invalid Email and password';
 	} catch (error) {
-		if (error instanceof AuthError) {
-			switch (error.type) {
-				case 'CredentialsSignin':
-					return 'Invalid credentials';
-				default:
-					return 'Somethings went wrong';
-			}
-		}
-		throw error;
+		return 'Somethings went wrong, Try again';
 	}
 }

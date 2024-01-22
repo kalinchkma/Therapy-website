@@ -32,4 +32,38 @@ export async function verify_password(password: string, hash_password: string) {
 }
 
 // create authentication token
-export async function create_auth_token(data: AuthTokenData, secret: string) {}
+export async function create_auth_token(data: AuthTokenData) {
+	try {
+		const token = await jwt.sign(data, process.env.SECRET!, {
+			algorithm: 'HS512',
+		});
+		return token;
+	} catch (error) {
+		return false;
+	}
+}
+
+// verify auth token
+export async function verify_auth_token(token: string) {
+	try {
+		const decode_token = await jwt.verify(token, process.env.SECRET!);
+		return decode_token;
+	} catch (error) {
+		return false;
+	}
+}
+// Test code
+// (async () => {
+// 	const token = await create_auth_token({
+// 		name: 'hunter',
+// 		email: 'Collins@gmail.com',
+// 	});
+
+// 	console.log('Generated Token', token);
+// 	const modToken = token + '10';
+// 	console.log('Mod Token', modToken);
+// 	if (token) {
+// 		const verify = await verify_auth_token(token);
+// 		console.log('Token verifiyed', verify);
+// 	}
+// })();

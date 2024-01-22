@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { useFormState, useFormStatus } from 'react-dom';
-import { login } from '@/actions/users_actions';
+import { login } from '@/actions/auth_actions';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
@@ -16,7 +16,11 @@ export default function LoginForm() {
 	return (
 		<form action={dispatch} className='w-full p-10 md:p-0 md:w-[450px] mx-auto'>
 			<h1 className='text-3xl font-bold text-center mb-8'>Login</h1>
-
+			{errorMessage && (
+				<h2 className='mb-3 text-center p-2 bg-red-100 text-red-500 rounded-xl'>
+					Invalid users credentials
+				</h2>
+			)}
 			<div className='flex flex-col mb-4'>
 				<Input
 					type='email'
@@ -46,11 +50,6 @@ export default function LoginForm() {
 					</Link>
 				</p>
 			</div>
-			{errorMessage && (
-				<h2 className='mb-3 text-center p-2 bg-red-100 text-red-500 rounded-xl'>
-					Invalid users credentials
-				</h2>
-			)}
 		</form>
 	);
 }

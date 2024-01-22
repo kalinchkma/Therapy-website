@@ -1,6 +1,6 @@
 /** @format */
 
-import { NavigationLink, SocialLink } from './definitions';
+import { NavigationLink, SocialLink, IconType } from './definitions';
 
 export const NavigationLinks: NavigationLink[] = [
 	{
@@ -37,28 +37,28 @@ export const IgnoreNavigation: string[] = ['/login', '/signup', '/dashboard'];
 
 export const SocialLinks: SocialLink[] = [
 	{
-		name: 'Facebook',
+		title: 'Facebook',
 		link: 'https://facebook.com',
-		icon: 'facebook',
+		icon: IconType.Facebook,
 	},
 	{
-		name: 'Facebook',
+		title: 'LinkedIn',
 		link: 'https://facebook.com',
-		icon: 'facebook',
+		icon: IconType.LinkedIn,
 	},
 	{
-		name: 'Facebook',
+		title: 'Twitter',
 		link: 'https://facebook.com',
-		icon: 'facebook',
+		icon: IconType.XTwitter,
 	},
 	{
-		name: 'Facebook',
+		title: 'Youtube',
 		link: 'https://facebook.com',
-		icon: 'facebook',
+		icon: IconType.YouTube,
 	},
 	{
-		name: 'Facebook',
+		title: 'WhatsApp',
 		link: 'https://facebook.com',
-		icon: 'facebook',
+		icon: IconType.WhatsApp,
 	},
 ];

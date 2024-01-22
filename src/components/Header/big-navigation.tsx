@@ -5,6 +5,8 @@
 import * as React from 'react';
 import Link from 'next/link';
 
+import { usePathname } from 'next/navigation';
+
 import { cn } from '@/lib/utils';
 import { NavigationLinks } from '@/lib/static_data';
 
@@ -44,6 +46,8 @@ const ListItem = React.forwardRef<
 ListItem.displayName = 'ListItem';
 
 export default function BigNavigationMenu() {
+	const pathname = usePathname();
+
 	return (
 		<NavigationMenu className='hidden lg:flex'>
 			<NavigationMenuList>
@@ -74,7 +78,11 @@ export default function BigNavigationMenu() {
 				{NavigationLinks.map((link) => (
 					<NavigationMenuItem key={link.name}>
 						<Link href={link.path} legacyBehavior passHref>
-							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+							<NavigationMenuLink
+								className={cn(
+									'group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-md font-medium transition-colors hover:bg-accent hover:text-accent-foreground  focus:outline-none disabled:pointer-events-none ',
+									link.path === pathname && 'text-blue-800',
+								)}>
 								{link.name}
 							</NavigationMenuLink>
 						</Link>

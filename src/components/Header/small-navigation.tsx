@@ -1,8 +1,9 @@
 /** @format */
-
+'use client';
 import React from 'react';
 import { AlignRight, X as Close } from 'lucide-react';
 import { NavigationLinks } from '@/lib/static_data';
+import { usePathname } from 'next/navigation';
 
 import {
 	Drawer,
@@ -15,18 +16,20 @@ import {
 import { Button } from '../ui/button';
 import AppLogo from '../app_logo';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 export default function SmallNavigation() {
+	const pathname = usePathname();
 	return (
 		<div className='flex lg:hidden'>
-			<Drawer direction='top'>
+			<Drawer direction='left'>
 				<DrawerTrigger asChild>
 					<Button variant='outline' size='icon'>
 						<AlignRight />
 					</Button>
 				</DrawerTrigger>
 				<DrawerContent>
-					<div className='w-full h-[100vh]'>
+					<div className='w-full py-8 px-8'>
 						<DrawerHeader className='flex justify-between'>
 							<AppLogo />
 							<DrawerClose asChild>
@@ -41,7 +44,10 @@ export default function SmallNavigation() {
 									<li key={link.name + link.path}>
 										<Link
 											href={link.path}
-											className='flex items-center justify-start font-bold text-xl text-stone-600 pb-2 '>
+											className={cn(
+												'flex items-center justify-start font-bold text-xl text-stone-600 pb-2 h-10 w-max rounded-md bg-background px-4 py-2 text-md transition-colors hover:bg-accent hover:text-accent-foreground  focus:outline-none disabled:pointer-events-none ',
+												link.path === pathname && 'text-blue-800',
+											)}>
 											{link.name}
 										</Link>
 									</li>

@@ -3,32 +3,73 @@
 import Link from 'next/link';
 import React from 'react';
 import { SocialLinks } from '@/lib/static_data';
-import { FaSquareFacebook } from 'react-icons/fa6';
+import SocialLinkCreator from '../social-link';
+import { cn } from '@/lib/utils';
+import { MdOutlineContactPhone } from 'react-icons/md';
+import { IoMdTimer } from 'react-icons/io';
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from '../ui/select';
 
-import Image from 'next/image';
-
-export default function TopHeader() {
+export default function TopHeader({ className }: { className?: string }) {
 	return (
-		<nav className='w-full flex justify-between pt-2'>
-			<div className='flex'></div>
-			<div className='flex'>
-				<ul className='flex'>
-					<li>
-						<Link href={''} className='inline-flex text-blue-800'>
-							<FaSquareFacebook />
-						</Link>
-					</li>
-					<li>
-						<Link href={''}>
-							<FaSquareFacebook />
-						</Link>
-					</li>
-					<li>
-						<Link href={''}>
-							<FaSquareFacebook />
-						</Link>
-					</li>
-				</ul>
+		<nav className='bg-zinc-100 w-full'>
+			<div
+				className={cn(
+					'flex container flex-col md:flex-row items-center justify-center gap-2 md:justify-between py-2 ',
+					className,
+				)}>
+				<div className='flex'>
+					<ul className='flex flex-col sm:flex-row items-center justify-end gap-4'>
+						<li>
+							<Link href={''} className='flex items-center gap-2'>
+								<MdOutlineContactPhone />
+								<span>+8801723675431</span>
+							</Link>
+						</li>
+						<li>
+							<Link href={''} className='flex items-center gap-2'>
+								<IoMdTimer />
+								<span>Sat-Fri: 9:00AM-12PM</span>
+							</Link>
+						</li>
+					</ul>
+				</div>
+				<div className='flex gap-3'>
+					<div className='flex'>
+						<ul className='flex items-center justify-end gap-4'>
+							{SocialLinks.map((link) => (
+								<li key={link.link}>
+									<SocialLinkCreator
+										icon={link.icon}
+										link={link.link}
+										className='font-bold text-xl'
+									/>
+								</li>
+							))}
+						</ul>
+					</div>
+					<Select>
+						<SelectTrigger className='focus:ring-0 focus:ring-ring focus:ring-offset-0 px-2 py-1'>
+							<SelectValue placeholder='Lang' defaultChecked={true} />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectGroup>
+								<SelectLabel>Select Language</SelectLabel>
+								<SelectItem value='English' defaultChecked={true}>
+									English
+								</SelectItem>
+								<SelectItem value='Bangla'>Bangla</SelectItem>
+							</SelectGroup>
+						</SelectContent>
+					</Select>
+				</div>
 			</div>
 		</nav>
 	);

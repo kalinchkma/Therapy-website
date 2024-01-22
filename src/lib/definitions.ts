@@ -30,9 +30,19 @@ export type NavigationLink = {
 	path: string;
 };
 
+// icon type
+export enum IconType {
+	'Facebook' = 'facebook',
+	'XTwitter' = 'xtwitter',
+	'Twitter' = 'twitter',
+	'LinkedIn' = 'linkedIn',
+	'YouTube' = 'youtube',
+	'WhatsApp' = 'whatsapp',
+}
+
 // social links
-export type SocialLink = {
-	name: string;
+export interface SocialLink {
+	title?: string;
 	link: string;
-	icon: string;
-};
+	icon: IconType;
+}

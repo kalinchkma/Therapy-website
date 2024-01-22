@@ -10,9 +10,9 @@ export default function Header() {
 	const pathname = usePathname();
 	return (
 		!IgnoreNavigation.includes(pathname.trim()) && (
-			<header className='flex flex-col container'>
-				<TopHeader />
-				<Navigation />
+			<header className='flex flex-col'>
+				<TopHeader className='px-5 md:px-10 lg:px-16' />
+				<Navigation className='px-5 md:px-10 lg:px-16' />
 			</header>
 		)
 	);

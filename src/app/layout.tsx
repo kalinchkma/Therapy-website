@@ -7,7 +7,7 @@ import Header from '@/components/Header';
 
 const nunito = Nunito({
 	subsets: ['latin'],
-	weight: ['200', '300', '400', '500', '700'],
+	weight: ['200', '300', '400', '500', '700', '800', '900'],
 });
 
 export const metadata: Metadata = {

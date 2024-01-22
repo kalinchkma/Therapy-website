@@ -62,3 +62,4 @@ export const SocialLinks: SocialLink[] = [
 		icon: IconType.WhatsApp,
 	},
 ];
+

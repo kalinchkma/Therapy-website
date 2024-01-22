@@ -46,3 +46,11 @@ export interface SocialLink {
 	link: string;
 	icon: IconType;
 }
+
+// banner slider content
+export type BannserSliderItemType = {
+	title: string;
+	secondaryTitle: string;
+	btnTitle: string;
+	btnLink: string;
+};

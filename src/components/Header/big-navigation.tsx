@@ -81,7 +81,7 @@ export default function BigNavigationMenu() {
 						<Link href={link.path} legacyBehavior passHref>
 							<NavigationMenuLink
 								className={cn(
-									'group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-md font-bold text-zinc-700 transition-colors hover:bg-accent hover:text-accent-foreground  focus:outline-none disabled:pointer-events-none ',
+									'group inline-flex h-10 w-max items-center justify-center  px-4 py-2 text-base font-bold text-zinc-700 transition-colors hover:text-blue-800',
 									link.path === pathname && 'text-blue-800',
 								)}>
 								{link.name}
@@ -90,7 +90,11 @@ export default function BigNavigationMenu() {
 					</NavigationMenuItem>
 				))}
 
-				<ActionButton link='/appointment' title='Book Appointment' />
+				<ActionButton
+					link='/appointment'
+					title='Book Appointment'
+					className='ml-4'
+				/>
 			</NavigationMenuList>
 		</NavigationMenu>
 	);

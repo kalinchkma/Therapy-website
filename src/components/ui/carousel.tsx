@@ -208,7 +208,7 @@ const CarouselPrevious = React.forwardRef<
 			variant={variant}
 			size={size}
 			className={cn(
-				'absolute h-14 w-14 bg-zinc-600 hover:bg-zinc-600 hover:bg-opacity-20 bg-opacity-15 border-0 rounded-none',
+				'absolute h-10 w-10 md:h-14 md:w-14 bg-zinc-600 hover:bg-zinc-600 hover:bg-opacity-20 bg-opacity-15 border-0 rounded-none',
 				orientation === 'horizontal'
 					? '-left-[-20px] top-1/2 -translate-y-1/2'
 					: '-top-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -217,7 +217,7 @@ const CarouselPrevious = React.forwardRef<
 			disabled={!canScrollPrev}
 			onClick={scrollPrev}
 			{...props}>
-			<IoMdArrowDropleft className='h-10 w-10 text-white' />
+			<IoMdArrowDropleft className='h-8 w-8 md:h-10 md:w-10 text-white' />
 			<span className='sr-only'>Previous slide</span>
 		</Button>
 	);
@@ -236,7 +236,7 @@ const CarouselNext = React.forwardRef<
 			variant={variant}
 			size={size}
 			className={cn(
-				'absolute h-14 w-14 bg-zinc-600 hover:bg-zinc-600 hover:bg-opacity-20 bg-opacity-15 border-0 rounded-none',
+				'absolute h-10 w-10 md:h-14 md:w-14 bg-zinc-600 hover:bg-zinc-600 hover:bg-opacity-20 bg-opacity-15 border-0 rounded-none',
 				orientation === 'horizontal'
 					? '-right-[-20px] top-1/2 -translate-y-1/2'
 					: '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -245,7 +245,7 @@ const CarouselNext = React.forwardRef<
 			disabled={!canScrollNext}
 			onClick={scrollNext}
 			{...props}>
-			<IoMdArrowDropright className='h-10 w-10 text-white' />
+			<IoMdArrowDropright className='h-8 w-8 md:h-10 md:w-10 text-white' />
 			<span className='sr-only'>Next slide</span>
 		</Button>
 	);

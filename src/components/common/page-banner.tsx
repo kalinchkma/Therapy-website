@@ -18,11 +18,13 @@ export default function PageBanner({
 	return (
 		<div
 			className={cn(
-				'w-full p-3 bg-fixed bg-center bg-origin-border bg-cover bg-no-repeat h-[80vh]',
+				'w-full p-3 bg-fixed bg-top bg-origin-border bg-cover bg-no-repeat h-[50vh] md:h-[75vh]',
 				className,
 			)}
 			style={{ backgroundImage: `url('${bgImageUrl}')` }}>
-			<div className='container'>{children}</div>
+			<div className='container flex h-full items-center justify-start'>
+				{children}
+			</div>
 		</div>
 	);
 }

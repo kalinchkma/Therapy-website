@@ -11,6 +11,8 @@ import {
 } from '@/components/ui/carousel';
 
 import PageBanner from '../common/page-banner';
+import ActionButton from '../common/action-button';
+import BannerContent from './banner-content';
 
 export function HomePageBanner() {
 	return (
@@ -20,9 +22,13 @@ export function HomePageBanner() {
 					{Array.from({ length: 5 }).map((_, index) => (
 						<CarouselItem key={index}>
 							<PageBanner bgImageUrl='/images/slide1.jpg'>
-								<div>
-
-								</div>
+								<BannerContent
+									bannerTitle='We are a unique physio therapy clinic'
+									bannerSecondaryTitle='Commited to helping'
+									btnLink='/about'
+									btnTitle='More About Us'
+									className='w-full md:w-8/12'
+								/>
 							</PageBanner>
 						</CarouselItem>
 					))}

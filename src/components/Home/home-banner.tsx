@@ -11,22 +11,22 @@ import {
 } from '@/components/ui/carousel';
 
 import PageBanner from '../common/page-banner';
-import ActionButton from '../common/action-button';
 import BannerContent from './banner-content';
+import { BannserSlideData } from '@/lib/static_data';
 
 export function HomePageBanner() {
 	return (
 		<div className='w-full'>
 			<Carousel opts={{ loop: true }}>
 				<CarouselContent>
-					{Array.from({ length: 5 }).map((_, index) => (
-						<CarouselItem key={index}>
-							<PageBanner bgImageUrl='/images/slide1.jpg'>
+					{BannserSlideData.map((data) => (
+						<CarouselItem key={data.title}>
+							<PageBanner bgImageUrl={data.slideImage}>
 								<BannerContent
-									bannerTitle='We are a unique physio therapy clinic'
-									bannerSecondaryTitle='Commited to helping'
-									btnLink='/about'
-									btnTitle='More About Us'
+									bannerTitle={data.title}
+									bannerSecondaryTitle={data.secondaryTitle}
+									btnLink={data.btnLink}
+									btnTitle={data.btnTitle}
 									className='w-full md:w-8/12'
 								/>
 							</PageBanner>

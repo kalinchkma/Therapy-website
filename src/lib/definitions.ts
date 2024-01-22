@@ -53,4 +53,5 @@ export type BannserSliderItemType = {
 	secondaryTitle: string;
 	btnTitle: string;
 	btnLink: string;
+	slideImage?: string;
 };

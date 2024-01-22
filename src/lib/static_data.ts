@@ -1,6 +1,11 @@
 /** @format */
 
-import { NavigationLink, SocialLink, IconType } from './definitions';
+import {
+	NavigationLink,
+	SocialLink,
+	IconType,
+	BannserSliderItemType,
+} from './definitions';
 
 export const NavigationLinks: NavigationLink[] = [
 	{
@@ -63,3 +68,34 @@ export const SocialLinks: SocialLink[] = [
 	},
 ];
 
+// banner slide test data
+export const BannserSlideData: BannserSliderItemType[] = [
+	{
+		title: 'A practice built on honesty and integrity',
+		secondaryTitle: 'GOAL-ORIENTED APPROACH',
+		btnLink: '/subscribe',
+		btnTitle: 'Get In Touch',
+		slideImage: '/images/slide1.jpg',
+	},
+	{
+		title: 'We are a unique physical therapy clinic',
+		secondaryTitle: 'COMMITTED TO HELPING',
+		btnLink: '/about',
+		btnTitle: 'More About Us',
+		slideImage: '/images/slide2.jpg',
+	},
+	{
+		title: 'We offer highly specialized treatments',
+		secondaryTitle: 'HELPING YOU LIVE LIFE',
+		btnTitle: 'Services',
+		btnLink: '/service',
+		slideImage: '/images/slide3.jpg',
+	},
+	{
+		title: 'We’ve been in business since 1996',
+		secondaryTitle: 'SUPERIOR EXPERTISE',
+		btnTitle: 'Book Appointment',
+		btnLink: '/appointment',
+		slideImage: '/images/slide4.jpg',
+	},
+];

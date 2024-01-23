@@ -4,6 +4,7 @@ import React from 'react';
 import HomePageBanner from './home-banner';
 import ServiceSummary from './service-summary';
 import ContactSummary from './contact-summary';
+import CustomerReview from './customer-review';
 
 export default function HomePage() {
 	return (
@@ -14,6 +15,8 @@ export default function HomePage() {
 			<ServiceSummary />
 			{/* Contact summary */}
 			<ContactSummary />
+			{/* Customer review */}
+			<CustomerReview />
 		</div>
 	);
 }

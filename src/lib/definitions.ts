@@ -55,3 +55,11 @@ export type BannserSliderItemType = {
 	btnLink: string;
 	slideImage?: string;
 };
+
+// service type
+export type ServiceType = {
+	title: string;
+	description: string;
+	thumbnailImage: string;
+	serviceLink: string,
+};

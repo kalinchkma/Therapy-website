@@ -14,9 +14,9 @@ import PageBanner from '../common/page-banner';
 import BannerContent from './banner-content';
 import { BannserSlideData } from '@/lib/static_data';
 
-export function HomePageBanner() {
+export default function HomePageBanner() {
 	return (
-		<div className='w-full'>
+		<section className='w-full'>
 			<Carousel opts={{ loop: true }}>
 				<CarouselContent>
 					{BannserSlideData.map((data) => (
@@ -36,6 +36,6 @@ export function HomePageBanner() {
 				<CarouselPrevious />
 				<CarouselNext />
 			</Carousel>
-		</div>
+		</section>
 	);
 }

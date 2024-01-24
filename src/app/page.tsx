@@ -1,10 +1,10 @@
 /** @format */
-import HomePage from '@/components/Home';
+import HomePageComponent from '@/components/Home';
 
-export default function Home() {
+export default function HomePage() {
 	return (
 		<main className='w-full'>
-			<HomePage />
+			<HomePageComponent />
 		</main>
 	);
 }

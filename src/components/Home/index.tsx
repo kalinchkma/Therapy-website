@@ -9,7 +9,7 @@ import Team from './team';
 import OurLocation from './our-location';
 import LatestBlog from './latest-blog';
 
-export default function HomePage() {
+export default function HomePageComponent() {
 	return (
 		<div className='w-full'>
 			{/* banner with slider */}

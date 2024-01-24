@@ -8,12 +8,14 @@ interface BannerProps {
 	className?: string;
 	bgImageUrl?: string;
 	children: React.ReactNode;
+	overlayStyles?: string;
 }
 
 export default function PageBanner({
 	className,
 	bgImageUrl,
 	children,
+	overlayStyles,
 }: BannerProps) {
 	return (
 		<div
@@ -22,7 +24,11 @@ export default function PageBanner({
 				className,
 			)}
 			style={{ backgroundImage: `url('${bgImageUrl}')` }}>
-			<div className='container flex h-full items-center justify-start'>
+			<div
+				className={cn(
+					'container flex h-full items-center justify-start',
+					overlayStyles,
+				)}>
 				{children}
 			</div>
 		</div>

@@ -7,7 +7,7 @@ import PageBanner from '../common/page-banner';
 export default function ServicesPageComponent() {
 	return (
 		<ContentWrapper>
-			<PageBanner>
+			<PageBanner className='h-auto w-full'>
 				<h1>Services</h1>
 			</PageBanner>
 		</ContentWrapper>

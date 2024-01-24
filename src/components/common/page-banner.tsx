@@ -20,13 +20,13 @@ export default function PageBanner({
 	return (
 		<div
 			className={cn(
-				'w-full p-3 bg-fixed bg-top bg-origin-border bg-cover bg-no-repeat h-[50vh] md:h-[75vh]',
+				'w-full bg-fixed bg-top bg-origin-border bg-cover bg-no-repeat',
 				className,
 			)}
 			style={{ backgroundImage: `url('${bgImageUrl}')` }}>
 			<div
 				className={cn(
-					'container flex h-full items-center justify-start',
+					' flex h-full items-center justify-start',
 					overlayStyles,
 				)}>
 				{children}

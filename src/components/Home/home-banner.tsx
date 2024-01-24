@@ -21,7 +21,9 @@ export default function HomePageBanner() {
 				<CarouselContent>
 					{BannserSlideData.map((data) => (
 						<CarouselItem key={data.title}>
-							<PageBanner bgImageUrl={data.slideImage}>
+							<PageBanner
+								bgImageUrl={data.slideImage}
+								className='h-[50vh] md:h-[75vh] p-3 container'>
 								<BannerContent
 									bannerTitle={data.title}
 									bannerSecondaryTitle={data.secondaryTitle}

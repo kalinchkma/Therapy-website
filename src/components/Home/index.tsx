@@ -7,6 +7,7 @@ import ContactSummary from './contact-summary';
 import CustomerReview from './customer-review';
 import Team from './team';
 import OurLocation from './our-location';
+import LatestBlog from './latest-blog';
 
 export default function HomePage() {
 	return (
@@ -23,6 +24,8 @@ export default function HomePage() {
 			<Team />
 			{/* Location */}
 			<OurLocation />
+			{/* Latest blog */}
+			<LatestBlog />
 		</div>
 	);
 }

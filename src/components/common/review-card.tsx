@@ -5,6 +5,7 @@ import { Card, CardContent } from '../ui/card';
 import { cn } from '@/lib/utils';
 import { IoPlayForwardOutline } from 'react-icons/io5';
 import { IoPlayForwardSharp } from 'react-icons/io5';
+import { FaPlay } from 'react-icons/fa';
 import {
 	Dialog,
 	DialogContent,
@@ -48,9 +49,9 @@ export default function ReviewCard({
 								height={400}
 								className='object-cover min-h-[100%] min-w-[100%]'
 							/>
-							<div className='absolute transition-all w-full h-full bg-zinc-800 bg-opacity-0 hover:bg-opacity-20 top-0 left-0 flex items-center justify-center'>
+							<div className='absolute transition-all w-full h-full bg-zinc-800 bg-opacity-0 hover:bg-opacity-50 top-0 left-0 flex items-center justify-center'>
 								<button className='py-4 px-5 border border-zinc-500 hover:text-white hover:border-zinc-800 hover:bg-zinc-800 hover:bg-opacity-50 transition-colors'>
-									<IoPlayForwardSharp className='h-8 w-8 text-blue-600' />
+									<FaPlay className='h-8 w-8 text-purple-600' />
 								</button>
 							</div>
 						</div>

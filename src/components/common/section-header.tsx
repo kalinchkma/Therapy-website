@@ -15,7 +15,7 @@ export default function SectionHeader({
 	return (
 		<h4
 			className={cn(
-				'flex justify-start items-center text-3xl font-extrabold capitalize tracking-widest text-zinc-600 mb-3',
+				'flex justify-start items-center text-3xl font-bold capitalize tracking-widest text-zinc-700 mb-8',
 				className,
 			)}>
 			{title}

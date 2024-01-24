@@ -6,6 +6,7 @@ import {
 	IconType,
 	BannserSliderItemType,
 	ServiceType,
+	MemberType,
 } from './definitions';
 
 export const NavigationLinks: NavigationLink[] = [
@@ -130,5 +131,129 @@ export const Services: ServiceType[] = [
 			'Your first appointment will be no different from the usual osteopathic consultation and evaluation (see osteopathy page). You will be asked specific questions related to your particular sport or even to demonstrate some movements. Your diagnosis and treatment plan will be discussed in the usual way.Treatment is likely to involve the use of osteopathic techniques within the treatment room combined with a more specific exercise based program in the studio gym. The aim is to return to full physical activity.',
 		thumbnailImage: '/images/service3.jpg',
 		serviceLink: '/service',
+	},
+];
+
+// semple members
+export const Members: MemberType[] = [
+	{
+		name: 'Md. Musfik',
+		imageUrl: '/images/service1.jpg',
+		profession: 'Physio therapist',
+		socialLinks: [
+			{
+				icon: IconType.Facebook,
+				link: 'https://facebook.com',
+				title: 'Facebook',
+			},
+		],
+		profileUrl: '/musfik',
+		summary:
+			'We are proud to offer a wide range of comprehensive services to meet the needs of adults, seniors, and pediatric patients. Our team of professional caregivers specialize in providing personalized medical care, rehabilitative therapy and companion assistance',
+	},
+	{
+		name: 'Hunter Kalin',
+		imageUrl: '/images/service2.jpg',
+		profession: 'Cutting Master',
+		socialLinks: [
+			{
+				icon: IconType.Twitter,
+				link: 'https://facebook.com',
+				title: 'Facebook',
+			},
+		],
+		profileUrl: '/musfik',
+		summary:
+			'We are proud to offer a wide range of comprehensive services to meet the needs of adults, seniors, and pediatric patients. Our team of professional caregivers specialize in providing personalized medical care, rehabilitative therapy and companion assistance',
+	},
+	{
+		name: 'Md. Shahid Afridi',
+		imageUrl: '/images/service4.jpg',
+		profession: 'Eating master',
+		socialLinks: [
+			{
+				icon: IconType.LinkedIn,
+				link: 'https://facebook.com',
+				title: 'Facebook',
+			},
+		],
+		profileUrl: '/musfik',
+		summary:
+			'We are proud to offer a wide range of comprehensive services to meet the needs of adults, seniors, and pediatric patients. Our team of professional caregivers specialize in providing personalized medical care, rehabilitative therapy and companion assistance',
+	},
+	{
+		name: 'Md. Motu',
+		imageUrl: '/images/service3.jpg',
+		profession: 'Cooking master',
+		socialLinks: [
+			{
+				icon: IconType.Facebook,
+				link: 'https://facebook.com',
+				title: 'Facebook',
+			},
+		],
+		profileUrl: '/musfik',
+		summary:
+			'We are proud to offer a wide range of comprehensive services to meet the needs of adults, seniors, and pediatric patients. Our team of professional caregivers specialize in providing personalized medical care, rehabilitative therapy and companion assistance',
+	},
+	{
+		name: 'Md. Maruf',
+		imageUrl: '/images/service1.jpg',
+		profession: 'Massage therapist',
+		socialLinks: [
+			{
+				icon: IconType.Instagram,
+				link: 'https://facebook.com',
+				title: 'Facebook',
+			},
+			{
+				icon: IconType.Facebook,
+				link: 'https://facebook.com',
+				title: 'Facebook',
+			},
+			{
+				icon: IconType.LinkedIn,
+				link: 'https://facebook.com',
+				title: 'Facebook',
+			},
+			{
+				icon: IconType.Twitter,
+				link: 'https://facebook.com',
+				title: 'Facebook',
+			},
+			{
+				icon: IconType.YouTube,
+				link: 'https://facebook.com',
+				title: 'Facebook',
+			},
+		],
+		profileUrl: '/musfik',
+		summary:
+			'We are proud to offer a wide range of comprehensive services to meet the needs of adults, seniors, and pediatric patients. Our team of professional caregivers specialize in providing personalized medical care, rehabilitative therapy and companion assistance',
+	},
+	{
+		name: 'Md. Kamrujamman',
+		imageUrl: '/images/service2.jpg',
+		profession: 'Chiropractor',
+		socialLinks: [
+			{
+				icon: IconType.Facebook,
+				link: 'https://facebook.com',
+				title: 'Facebook',
+			},
+			{
+				icon: IconType.Instagram,
+				link: 'https://facebook.com',
+				title: 'Facebook',
+			},
+			{
+				icon: IconType.Twitter,
+				link: 'https://facebook.com',
+				title: 'Facebook',
+			},
+		],
+		profileUrl: '/musfik',
+		summary:
+			'We are proud to offer a wide range of comprehensive services to meet the needs of adults, seniors, and pediatric patients. Our team of professional caregivers specialize in providing personalized medical care, rehabilitative therapy and companion assistance',
 	},
 ];

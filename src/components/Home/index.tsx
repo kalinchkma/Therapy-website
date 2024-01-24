@@ -5,6 +5,8 @@ import HomePageBanner from './home-banner';
 import ServiceSummary from './service-summary';
 import ContactSummary from './contact-summary';
 import CustomerReview from './customer-review';
+import Team from './team';
+import OurLocation from './our-location';
 
 export default function HomePage() {
 	return (
@@ -17,6 +19,10 @@ export default function HomePage() {
 			<ContactSummary />
 			{/* Customer review */}
 			<CustomerReview />
+			{/* Meet our Theam */}
+			<Team />
+			{/* Location */}
+			<OurLocation />
 		</div>
 	);
 }

@@ -4,8 +4,7 @@ import React from 'react';
 import { Card, CardContent } from '../ui/card';
 import { cn } from '@/lib/utils';
 import { IoPlayForwardOutline } from 'react-icons/io5';
-
-import { Button } from '@/components/ui/button';
+import { IoPlayForwardSharp } from 'react-icons/io5';
 import {
 	Dialog,
 	DialogContent,
@@ -51,7 +50,7 @@ export default function ReviewCard({
 							/>
 							<div className='absolute transition-all w-full h-full bg-zinc-800 bg-opacity-0 hover:bg-opacity-20 top-0 left-0 flex items-center justify-center'>
 								<button className='py-4 px-5 border border-zinc-500 hover:text-white hover:border-zinc-800 hover:bg-zinc-800 hover:bg-opacity-50 transition-colors'>
-									<IoPlayForwardOutline className='h-8 w-8' />
+									<IoPlayForwardSharp className='h-8 w-8 text-blue-600' />
 								</button>
 							</div>
 						</div>

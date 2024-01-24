@@ -38,6 +38,7 @@ export enum IconType {
 	'LinkedIn' = 'linkedIn',
 	'YouTube' = 'youtube',
 	'WhatsApp' = 'whatsapp',
+	'Instagram' = 'instagram',
 }
 
 // social links
@@ -61,5 +62,16 @@ export type ServiceType = {
 	title: string;
 	description: string;
 	thumbnailImage: string;
-	serviceLink: string,
+	serviceLink: string;
+};
+
+// members type
+export type MemberType = {
+	imageUrl: string;
+	socialLinks: SocialLink[];
+	name: string;
+	profession: string;
+	summary: string;
+	profileUrl: string;
+	education?: string;
 };

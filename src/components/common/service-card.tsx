@@ -9,6 +9,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { ServiceType } from '@/lib/definitions';
 
 import { cn } from '@/lib/utils';
+import MoreBtn from './more-btn';
 
 interface ServiceCardProps extends ServiceType {
 	className?: string;
@@ -54,11 +55,7 @@ export function ServiceCard({
 				{description}
 			</p>
 
-			<Link
-				href={serviceLink}
-				className='inline-flex gap-2 hover:gap-1 transition-all mt-2 font-extrabold text-blue-700 items-center justify-center'>
-				Find out More <IoIosArrowForward />
-			</Link>
+			<MoreBtn link={serviceLink} title='Find out More' />
 		</div>
 	);
 }

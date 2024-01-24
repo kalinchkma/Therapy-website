@@ -10,6 +10,7 @@ import {
 	FaSquareYoutube,
 	FaSquareXTwitter,
 	FaTwitter,
+	FaInstagram,
 } from 'react-icons/fa6';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -59,6 +60,12 @@ export default function SocialLinkCreator({
 			return (
 				<Link href={link} className={cn('text-zinc-900', className)}>
 					<FaSquareXTwitter />
+				</Link>
+			);
+		case IconType.Instagram:
+			return (
+				<Link href={link} className={cn('text-pink-600', className)}>
+					<FaInstagram />
 				</Link>
 			);
 	}

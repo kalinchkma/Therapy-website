@@ -17,10 +17,12 @@ import {
 	SelectValue,
 } from '../ui/select';
 
+import ContentWrapper from '../common/content-wrapper';
+
 export default function TopHeader({ className }: { className?: string }) {
 	return (
 		<nav className='bg-zinc-100 w-full'>
-			<div
+			<ContentWrapper
 				className={cn(
 					'flex container flex-col md:flex-row items-center justify-center gap-2 md:justify-between py-2 ',
 					className,
@@ -70,7 +72,7 @@ export default function TopHeader({ className }: { className?: string }) {
 						</SelectContent>
 					</Select>
 				</div>
-			</div>
+			</ContentWrapper>
 		</nav>
 	);
 }

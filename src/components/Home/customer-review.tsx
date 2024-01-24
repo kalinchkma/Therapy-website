@@ -15,6 +15,7 @@ import {
 import SectionHeader from '../common/section-header';
 import ReviewCard from '../common/review-card';
 import ReactPlayer from 'react-player';
+import ContentWrapper from '../common/content-wrapper';
 
 const test_data = [
 	{
@@ -41,8 +42,8 @@ const test_data = [
 
 export default function CustomerReview() {
 	return (
-		<section className='w-full py-14'>
-			<div className='container'>
+		<section className='w-full py-16'>
+			<ContentWrapper>
 				<div className='flex justify-center md:justify-start'>
 					<SectionHeader title='Customer Review' />
 				</div>
@@ -66,7 +67,7 @@ export default function CustomerReview() {
 						<CarouselNext />
 					</Carousel>
 				</div>
-			</div>
+			</ContentWrapper>
 		</section>
 	);
 }

@@ -6,11 +6,12 @@ import BigNavigationMenu from './big-navigation';
 import SmallNavigation from './small-navigation';
 import AppLogo from '../common/app_logo';
 import { cn } from '@/lib/utils';
+import ContentWrapper from '../common/content-wrapper';
 
 export default function Navigation({ className }: { className?: string }) {
 	return (
 		<nav className='w-full'>
-			<div className={cn('container flex flex-row py-5', className)}>
+			<ContentWrapper className={cn('flex flex-row py-5', className)}>
 				{/* logo */}
 				<div className='flex'>
 					<AppLogo />
@@ -22,7 +23,7 @@ export default function Navigation({ className }: { className?: string }) {
 					{/* Small Screen Navigation */}
 					<SmallNavigation />
 				</div>
-			</div>
+			</ContentWrapper>
 		</nav>
 	);
 }

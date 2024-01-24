@@ -13,7 +13,10 @@ import {
 	FaInstagram,
 	FaHouseChimney,
 	FaLocationDot,
+	FaAngleLeft,
+	FaAngleRight,
 } from 'react-icons/fa6';
+import { AiFillSchedule } from 'react-icons/ai';
 import { MdAttachEmail } from 'react-icons/md';
 import { IoMdChatboxes } from 'react-icons/io';
 import { MdContactPhone } from 'react-icons/md';
@@ -50,5 +53,11 @@ export default function IconCreator({ icon, className }: IconCreatorProps) {
 			return <FaSquareXTwitter className={cn(className)} />;
 		case IconType.YouTube:
 			return <FaSquareYoutube className={cn(className)} />;
+		case IconType.LeftArrow:
+			return <FaAngleLeft className={cn(className)} />;
+		case IconType.RightArrow:
+			return <FaAngleRight className={cn(className)} />;
+		case IconType.Schedule:
+			return <AiFillSchedule className={cn(className)} />;
 	}
 }

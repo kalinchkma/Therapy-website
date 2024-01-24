@@ -9,6 +9,7 @@ import {
 	MemberType,
 	Contact,
 	ContactType,
+	OpenningHourType,
 } from './definitions';
 
 export const NavigationLinks: NavigationLink[] = [
@@ -17,12 +18,38 @@ export const NavigationLinks: NavigationLink[] = [
 		path: '/',
 	},
 	{
-		name: 'Service',
-		path: '/service',
+		name: 'Services',
+		path: '/services',
+		nestedLinks: [
+			{
+				name: 'Physio Therapy',
+				path: '/physio-therapy',
+			},
+			{
+				name: 'Massage Therapy',
+				path: '/massage-therapy',
+			},
+			{
+				name: 'Sport Injury',
+				path: '/sport-injury',
+			},
+			{
+				name: 'Chronical Disease',
+				path: '/chronical',
+			},
+			{
+				name: 'Ebnormal moute',
+				path: '/',
+			},
+		],
 	},
 	{
 		name: 'Service Area',
 		path: '/service-area',
+	},
+	{
+		name: 'Packages',
+		path: '/packages',
 	},
 	{
 		name: 'Blog',
@@ -278,14 +305,48 @@ export const ContactData: Contact[] = [
 		contact: {
 			title: 'Easy way to Contact',
 			emails: {
+				icon: IconType.Email,
 				title: 'Mail Us',
 				data: ['maruf@gmail.com', 'musfque@gmail.com', 'uprc@gmail.com'],
 			},
 			phoneNumbers: {
 				title: 'Give us Call',
 				data: ['+880112345123423', '+8801652341236'],
+				icon: IconType.Contact,
 			},
 		},
 		icon: IconType.Contact,
+	},
+];
+
+// openning hours
+export const OpenningHours: OpenningHourType[] = [
+	{
+		day: 'Friday',
+		openningHours: '9:00am - 10:00pm',
+	},
+	{
+		day: 'Saturday',
+		openningHours: '9:00am - 10:00pm',
+	},
+	{
+		day: 'Sunday',
+		openningHours: '9:00am - 10:00pm',
+	},
+	{
+		day: 'Monday',
+		openningHours: '9:00am - 10:00pm',
+	},
+	{
+		day: 'Tuesday',
+		openningHours: '9:00am - 10:00pm',
+	},
+	{
+		day: 'Wednessday',
+		openningHours: '9:00am - 10:00pm',
+	},
+	{
+		day: 'Thursday',
+		openningHours: '9:00am - 10:00pm',
 	},
 ];

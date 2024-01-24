@@ -28,6 +28,10 @@ export type AuthTokenData = {
 export type NavigationLink = {
 	name: string;
 	path: string;
+	nestedLinks?: {
+		name: string;
+		path: string;
+	}[];
 };
 
 // icon type
@@ -44,6 +48,9 @@ export enum IconType {
 	'House' = 'house',
 	'Email' = 'email',
 	'Contact' = 'contact',
+	'LeftArrow' = 'leftarrow',
+	'RightArrow' = 'rightarrow',
+	'Schedule' = 'schedule',
 }
 
 // social links
@@ -82,7 +89,7 @@ export type MemberType = {
 };
 
 // opening types
-export type OpenningStatus = {
+export type OpenningHourType = {
 	day: string;
 	openningHours: string;
 };
@@ -100,10 +107,12 @@ export type Contact = {
 		emails?: {
 			title: string;
 			data: string[];
+			icon?: IconType;
 		};
 		phoneNumbers?: {
 			title: string;
 			data: string[];
+			icon?: IconType;
 		};
 	};
 	location?: {
@@ -111,4 +120,11 @@ export type Contact = {
 		details: string;
 	};
 	icon?: IconType;
+};
+
+// web information
+export type WebInfo = {
+	title: string;
+	description: string;
+	links: NavigationLink[];
 };

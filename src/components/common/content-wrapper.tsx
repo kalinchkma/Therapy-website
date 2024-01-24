@@ -11,7 +11,7 @@ export default function ContentWrapper({
 	className?: string;
 }) {
 	return (
-		<div className={cn('w-full px-5 md:px-10 lg:px-16', className)}>
+		<div className={cn('container px-5 md:px-8 lg:px-10 xl:px-16', className)}>
 			{children}
 		</div>
 	);

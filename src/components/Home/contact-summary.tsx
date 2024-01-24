@@ -15,7 +15,7 @@ export default function ContactSummary() {
 					<div className='col-span-1'>
 						<div className='flex w-full flex-col'>
 							<h4 className='flex items-center text-zinc-500 justify-start text-xl md:text-2xl lg:text-3xl font-extrabold gap-2 mb-8 capitalize'>
-								<IconCreator icon={IconType.Message} />
+								<IconCreator icon={IconType.Schedule} />
 								<span>appointment</span>
 							</h4>
 							<h5 className='font-bold text-base mb-4'>Book an appointment</h5>

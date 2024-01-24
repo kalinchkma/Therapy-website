@@ -31,7 +31,7 @@ export default function MemberCard({
 					className='min-h-[250px] min-w-[100%] object-cover'
 				/>
 				<div className='absolute flex items-center justify-center w-full h-full top-0 left-0 bg-zinc-700 bg-opacity-0 hover:bg-opacity-50 opacity-0 hover:opacity-100 transition-all duration-500'>
-					<ul className='flex items-center justify-center gap-3'>
+					<ul className='flex items-center justify-center gap-3 flex-wrap'>
 						{socialLinks.map((link, index) => (
 							<li key={link.link + index + link.title}>
 								<SocialLinkCreator

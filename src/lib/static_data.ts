@@ -48,7 +48,7 @@ export const NavigationLinks: NavigationLink[] = [
 		path: '/service-area',
 	},
 	{
-		name: 'Packages',
+		name: 'Our Packages',
 		path: '/packages',
 	},
 	{

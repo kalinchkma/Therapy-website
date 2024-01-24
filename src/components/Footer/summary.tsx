@@ -8,7 +8,7 @@ import { NavigationLinks, OpenningHours } from '@/lib/static_data';
 
 export default function Summary() {
 	return (
-		<div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5'>
+		<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5'>
 			<div className='col-span-1'>
 				<h5 className='font-bold text-zinc-400 text-xl mb-5'>About us</h5>
 				<p className='text-zinc-500'>
@@ -18,7 +18,7 @@ export default function Summary() {
 					care, rehabilitative therapy and companion assistance
 				</p>
 			</div>
-			<div className='col-span-1 md:ml-16'>
+			<div className='col-span-1 lg:ml-16'>
 				<h5 className='font-bold text-zinc-400 text-xl mb-5'>Navigation</h5>
 				<ul>
 					{NavigationLinks.map((link) => (
@@ -56,7 +56,7 @@ export default function Summary() {
 					{OpenningHours.map((data) => (
 						<li
 							key={data.day}
-							className='flex flex-row md:justify-between items-center gap-2 text-zinc-500'>
+							className='flex flex-row lg:justify-between items-center gap-2 text-zinc-500'>
 							<span>{data.day}</span>
 							<span>{data.openningHours}</span>
 						</li>

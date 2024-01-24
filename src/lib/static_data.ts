@@ -7,6 +7,8 @@ import {
 	BannserSliderItemType,
 	ServiceType,
 	MemberType,
+	Contact,
+	ContactType,
 } from './definitions';
 
 export const NavigationLinks: NavigationLink[] = [
@@ -255,5 +257,35 @@ export const Members: MemberType[] = [
 		profileUrl: '/musfik',
 		summary:
 			'We are proud to offer a wide range of comprehensive services to meet the needs of adults, seniors, and pediatric patients. Our team of professional caregivers specialize in providing personalized medical care, rehabilitative therapy and companion assistance',
+	},
+];
+
+// contact data
+export const ContactData: Contact[] = [
+	{
+		title: 'Location',
+		type: ContactType.Location,
+		icon: IconType.Location,
+		location: {
+			title: 'Visit our location',
+			details:
+				'Universal Physiotherapy & Rehab Center 02 , 2nd Floor, House: 09 , Road:, 2/B Mirpur 10 Roundabout, Dhaka 1216',
+		},
+	},
+	{
+		title: 'Contact',
+		type: ContactType.contact,
+		contact: {
+			title: 'Easy way to Contact',
+			emails: {
+				title: 'Mail Us',
+				data: ['maruf@gmail.com', 'musfque@gmail.com', 'uprc@gmail.com'],
+			},
+			phoneNumbers: {
+				title: 'Give us Call',
+				data: ['+880112345123423', '+8801652341236'],
+			},
+		},
+		icon: IconType.Contact,
 	},
 ];

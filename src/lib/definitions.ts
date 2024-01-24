@@ -39,6 +39,11 @@ export enum IconType {
 	'YouTube' = 'youtube',
 	'WhatsApp' = 'whatsapp',
 	'Instagram' = 'instagram',
+	'Location' = 'location',
+	'Message' = 'message',
+	'House' = 'house',
+	'Email' = 'email',
+	'Contact' = 'contact',
 }
 
 // social links
@@ -74,4 +79,36 @@ export type MemberType = {
 	summary: string;
 	profileUrl: string;
 	education?: string;
+};
+
+// opening types
+export type OpenningStatus = {
+	day: string;
+	openningHours: string;
+};
+
+export enum ContactType {
+	'Location' = 'location',
+	'contact' = 'contact',
+}
+
+export type Contact = {
+	title: string;
+	type: ContactType;
+	contact?: {
+		title: string;
+		emails?: {
+			title: string;
+			data: string[];
+		};
+		phoneNumbers?: {
+			title: string;
+			data: string[];
+		};
+	};
+	location?: {
+		title: string;
+		details: string;
+	};
+	icon?: IconType;
 };

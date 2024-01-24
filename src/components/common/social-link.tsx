@@ -15,6 +15,8 @@ import {
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
+import IconCreator from './icon-creator';
+
 interface SocialLinkProps extends SocialLink {
 	className?: string;
 }
@@ -29,43 +31,43 @@ export default function SocialLinkCreator({
 		case IconType.Facebook:
 			return (
 				<Link href={link} className={cn('text-blue-700', className)}>
-					<FaSquareFacebook />
+					<IconCreator icon={icon} />
 				</Link>
 			);
 		case IconType.LinkedIn:
 			return (
 				<Link href={link} className={cn('text-blue-900', className)}>
-					<FaLinkedin />
+					<IconCreator icon={icon} />
 				</Link>
 			);
 		case IconType.YouTube:
 			return (
 				<Link href={link} className={cn('text-red-500', className)}>
-					<FaSquareYoutube />
+					<IconCreator icon={icon} />
 				</Link>
 			);
 		case IconType.WhatsApp:
 			return (
 				<Link href={link} className={cn('text-green-500', className)}>
-					<FaSquareWhatsapp />
+					<IconCreator icon={icon} />
 				</Link>
 			);
 		case IconType.Twitter:
 			return (
 				<Link href={link} className={cn('text-sky-500', className)}>
-					<FaTwitter />
+					<IconCreator icon={icon} />
 				</Link>
 			);
 		case IconType.XTwitter:
 			return (
 				<Link href={link} className={cn('text-zinc-900', className)}>
-					<FaSquareXTwitter />
+					<IconCreator icon={icon} />
 				</Link>
 			);
 		case IconType.Instagram:
 			return (
 				<Link href={link} className={cn('text-pink-600', className)}>
-					<FaInstagram />
+					<IconCreator icon={icon} />
 				</Link>
 			);
 	}

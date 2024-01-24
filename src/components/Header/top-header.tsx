@@ -51,7 +51,7 @@ export default function TopHeader({ className }: { className?: string }) {
 									<SocialLinkCreator
 										icon={link.icon}
 										link={link.link}
-										className='font-bold text-xl'
+										className='font-bold text-xl text-zinc-600'
 									/>
 								</li>
 							))}

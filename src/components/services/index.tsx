@@ -2,22 +2,18 @@
 
 import React from 'react';
 import ContentWrapper from '../common/content-wrapper';
-import PageBanner from '../common/page-banner';
 import PageBreadcrumb from '../common/page-breadcrumb';
 import { ServiceCard } from '../common/service-card';
 import { Services } from '@/lib/static_data';
+import PageTitle from '../common/page-title';
 
 export default function ServicesPageComponent() {
 	return (
 		<div className='w-full'>
-			<PageBanner className='w-full py-14 bg-zinc-100'>
-				<ContentWrapper>
-					<h1 className='font-bold text-4xl text-zinc-600'>Services</h1>
-					<p className='text-zinc-400 text-lg'>
-						Comprehensive therapy services
-					</p>
-				</ContentWrapper>
-			</PageBanner>
+			<PageTitle
+				title='Services'
+				description='Comprehensive therapy services'
+			/>
 
 			<PageBreadcrumb
 				paths={[

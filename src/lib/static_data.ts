@@ -161,6 +161,13 @@ export const Services: ServiceType[] = [
 		thumbnailImage: '/images/service3.jpg',
 		serviceLink: '/service',
 	},
+	{
+		title: 'Message Therapy',
+		description:
+			'Your first appointment will be no different from the usual osteopathic consultation and evaluation (see osteopathy page). You will be asked specific questions related to your particular sport or even to demonstrate some movements. Your diagnosis and treatment plan will be discussed in the usual way.Treatment is likely to involve the use of osteopathic techniques within the treatment room combined with a more specific exercise based program in the studio gym. The aim is to return to full physical activity.',
+		thumbnailImage: '/images/service3.jpg',
+		serviceLink: '/service',
+	},
 ];
 
 // semple members

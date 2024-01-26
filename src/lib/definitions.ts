@@ -134,3 +134,30 @@ export type ServiceAreaType = {
 	area: string;
 	areaList: string[];
 };
+
+export enum PackageType {
+	'DAILY' = 'Day',
+	'MONTHLY' = 'Month',
+	'YEARLY' = 'Year',
+	'WEEKLY' = 'Week',
+}
+
+export enum MoneyType {
+	'DOLLER' = 'doller',
+	'TAKA' = 'taka',
+}
+
+// package types
+export type PackageDescriptionType = {
+	title: string;
+	description: string;
+	offers?: number;
+	price: number;
+	moneyType: MoneyType;
+	packageType: PackageType;
+	packageLink: string;
+	packageDetails: {
+		title: string;
+		description: string[];
+	};
+};

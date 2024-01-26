@@ -128,3 +128,9 @@ export type WebInfo = {
 	description: string;
 	links: NavigationLink[];
 };
+
+// service area
+export type ServiceAreaType = {
+	area: string;
+	areaList: string[];
+};

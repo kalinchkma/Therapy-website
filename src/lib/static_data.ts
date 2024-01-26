@@ -10,6 +10,7 @@ import {
 	Contact,
 	ContactType,
 	OpenningHourType,
+	ServiceAreaType,
 } from './definitions';
 
 export const NavigationLinks: NavigationLink[] = [
@@ -355,5 +356,34 @@ export const OpenningHours: OpenningHourType[] = [
 	{
 		day: 'Thursday',
 		openningHours: '9:00am - 10:00pm',
+	},
+];
+
+// service area
+export const ServiceAreas: ServiceAreaType[] = [
+	{
+		area: 'Gulshan Area',
+		areaList: ['Gulshan 1', 'Gulshan 2', 'Baridhara DOHS'],
+	},
+	{
+		area: 'Mirpur',
+		areaList: [
+			'Mirpur 10',
+			'Kazipara',
+			'Shorapara',
+			'Shorapara something like',
+		],
+	},
+	{
+		area: 'Bonani',
+		areaList: ['Mirpur 10', 'Kazipara', 'Shorapara'],
+	},
+	{
+		area: 'Kolabagan',
+		areaList: ['Mirpur 10', 'Kazipara', 'Shorapara'],
+	},
+	{
+		area: 'Firmgate',
+		areaList: ['Mirpur 10', 'Kazipara', 'Shorapara'],
 	},
 ];

@@ -14,7 +14,7 @@ import {
 	DrawerTrigger,
 } from '@/components/ui/drawer';
 import { Button } from '../ui/button';
-import AppLogo from '../common/app_logo';
+import AppLogo from '../common/app-logo';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import ActionButton from '../common/action-button';

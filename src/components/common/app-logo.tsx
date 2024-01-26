@@ -3,11 +3,13 @@
 import Image from 'next/image';
 import React from 'react';
 import Logo from '@/assets/logo-2.jpeg';
+// import Logo2 from '@/assets/logo.jpg';
 import Link from 'next/link';
 
 export default function AppLogo() {
 	return (
 		<Link href={'/'} className='flex gap-3 items-center justify-start'>
+			{/* <Image src={Logo2} alt='logo' width={400} height={400} /> */}
 			<Image src={Logo} alt='logo' width={50} height={50} />
 			<h1 className='text-left'>
 				<span className='font-bold text-lg text-stone-700'>

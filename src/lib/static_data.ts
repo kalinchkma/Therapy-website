@@ -14,6 +14,8 @@ import {
 	PackageType,
 	PackageDescriptionType,
 	MoneyType,
+	BlogPostType,
+	PostDataType,
 } from './definitions';
 
 export const NavigationLinks: NavigationLink[] = [
@@ -452,5 +454,33 @@ export const Packages: PackageDescriptionType[] = [
 			],
 		},
 		packageLink: '',
+	},
+];
+
+// blog post
+export const BlogPosts: BlogPostType[] = [
+	{
+		title: 'This is the title',
+		author: 'Musfique',
+		blogLink: '/',
+		comments: ['jhahsd', 'KAJHd', 'jkhaksjnd'],
+		comments_count: 3,
+		description:
+			'We are proud to offer a wide range of comprehensive services to meet the needs of adults, seniors, and pediatric patients. Our team of professional caregivers specialize in providing personalized medical care, rehabilitative therapy and companion assistance.',
+		thumbnilImage: '/images/slide2.jpg',
+		keywords: ['Physio therapy', 'Message'],
+		postData: [],
+	},
+	{
+		title: 'Proud to offer a wide range of comprehensive services',
+		author: 'Maruf',
+		blogLink: '/',
+		comments: ['jhahsd', 'KAJHd', 'jkhaksjnd'],
+		comments_count: 3,
+		description:
+			'We are proud to offer a wide range of comprehensive services to meet the needs of adults, seniors, and pediatric patients. Our team of professional caregivers specialize in providing personalized medical care, rehabilitative therapy and companion assistance.',
+		thumbnilImage: '/images/slide3.jpg',
+		keywords: ['Physio therapy', 'Message'],
+		postData: [],
 	},
 ];

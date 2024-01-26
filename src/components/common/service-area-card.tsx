@@ -21,7 +21,7 @@ export default function ServiceAreaCard({
 				className,
 			)}>
 			<h4 className='font-bold text-xl mb-4 text-zinc-600'>{title}</h4>
-			<ul className='flex flex-col'>
+			<ul className='flex flex-col items-center'>
 				{areas.map((area, index) => (
 					<li key={index}>
 						<p className='text-zinc-600'>{area}</p>

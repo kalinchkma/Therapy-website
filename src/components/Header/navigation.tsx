@@ -4,7 +4,7 @@ import React from 'react';
 
 import BigNavigationMenu from './big-navigation';
 import SmallNavigation from './small-navigation';
-import AppLogo from '../common/app_logo';
+import AppLogo from '../common/app-logo';
 import { cn } from '@/lib/utils';
 import ContentWrapper from '../common/content-wrapper';
 

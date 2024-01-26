@@ -161,3 +161,24 @@ export type PackageDescriptionType = {
 		description: string[];
 	};
 };
+
+// blog post
+
+export type PostDataType = {
+	text?: string;
+	image?: string;
+	list?: string;
+};
+
+// blog post type
+export type BlogPostType = {
+	title: string;
+	thumbnilImage: string;
+	blogLink: string;
+	keywords?: string[];
+	author: string;
+	description: string;
+	comments: string[];
+	comments_count: number;
+	postData?: PostDataType[];
+};

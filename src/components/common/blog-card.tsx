@@ -31,13 +31,17 @@ export default function BlogCard({
 	return (
 		<div className={cn('w-full border rounded-sm', className)}>
 			<div className='w-full relative'>
-				<Image
-					src={thumbnilImage}
-					width={600}
-					height={600}
-					alt='blog image'
-					className='min-w-[100%] min-h-[350px] md:min-h-[400px] lg:min-h-[450px] object-cover'
-				/>
+				<Link
+					href={blogLink}
+					className='flex items-center justify-center w-full'>
+					<Image
+						src={thumbnilImage}
+						width={600}
+						height={600}
+						alt='blog image'
+						className='min-w-[100%] min-h-[350px] md:min-h-[400px] lg:min-h-[450px] object-cover'
+					/>
+				</Link>
 				{/* button with uploaded data */}
 				<ActionButton
 					link={blogLink}
@@ -46,7 +50,7 @@ export default function BlogCard({
 				/>
 			</div>
 			<div className='p-12'>
-				<h4 className='flex flex-row gap-4 text-zinc-400 font-bold'>
+				<h4 className='w-full flex text-sm md:text-base flex-row gap-4 text-zinc-400 font-bold border-b pb-7'>
 					{/* author name */}
 					<span className='text-zinc-500'>{author}</span> / {/* Comments */}
 					<span className='text-zinc-500'>{comments} comment</span> /{' '}
@@ -59,7 +63,7 @@ export default function BlogCard({
 				</h4>
 				<Link
 					href={'/'}
-					className='font-bold text-zinc-600 text-3xl hover:text-blue-400 transition-all py-6 flex'>
+					className='font-bold text-zinc-600 text-xl md:text-3xl hover:text-blue-400 transition-all py-6 flex'>
 					{title}
 				</Link>
 				<p className='line-clamp-3 text-base text-zinc-500'>{description}</p>

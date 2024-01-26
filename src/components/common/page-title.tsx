@@ -10,7 +10,7 @@ interface PageTitleProps {
 	overlayStyles?: string;
 	className?: string;
 	title: string;
-	description: string;
+	description?: string;
 }
 
 export default function PageTitle({

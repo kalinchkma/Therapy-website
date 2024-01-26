@@ -168,6 +168,7 @@ export type PostDataType = {
 	text?: string;
 	image?: string;
 	list?: string;
+	video?: string;
 };
 
 // blog post type
@@ -181,4 +182,9 @@ export type BlogPostType = {
 	comments: string[];
 	comments_count: number;
 	postData?: PostDataType[];
+};
+
+// blog keywords
+export type BlogKeywords = {
+	name: string;
 };

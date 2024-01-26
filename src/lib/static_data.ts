@@ -16,6 +16,7 @@ import {
 	MoneyType,
 	BlogPostType,
 	PostDataType,
+	BlogKeywords,
 } from './definitions';
 
 export const NavigationLinks: NavigationLink[] = [
@@ -482,5 +483,21 @@ export const BlogPosts: BlogPostType[] = [
 		thumbnilImage: '/images/slide3.jpg',
 		keywords: ['Physio therapy', 'Message'],
 		postData: [],
+	},
+];
+
+// blog keyword
+export const Keywords: BlogKeywords[] = [
+	{
+		name: 'Physiotherapy',
+	},
+	{
+		name: 'Massage Therapy',
+	},
+	{
+		name: 'Stroke',
+	},
+	{
+		name: 'Chronotherapy',
 	},
 ];

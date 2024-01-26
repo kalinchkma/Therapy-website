@@ -26,7 +26,7 @@ export default function ServiceSummary() {
 							</p>
 							<div className='flex items-center justify-start'>
 								<ActionButton
-									link='/service'
+									link='/services'
 									title='See all Services'
 									className='inline-flex'
 								/>

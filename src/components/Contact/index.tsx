@@ -22,7 +22,7 @@ export default function ContactPageComponent() {
 				]}
 			/>
 			<ContentWrapper className='py-12'>
-				<div className='flex flex-col items-center justify-center lg:grid lg:grid-cols-4 gap-10 lg:gap-4 '>
+				<div className='flex flex-col items-center justify-center lg:items-start lg:justify-start lg:grid lg:grid-cols-4 gap-10 lg:gap-4 '>
 					<div className='col-span-1 flex flex-col w-full items-center justify-center'>
 						{/* 
                         ---------------------------------------------
@@ -159,7 +159,7 @@ export default function ContactPageComponent() {
 									</div>
 									<div className='flex w-full'>
 										<textarea
-											className='outline-none w-full border focus:border-zinc-400 py-3 px-4 h-48 resize-none'
+											className='outline-none w-full border focus:border-zinc-400 py-3 px-4 h-40 resize-none'
 											placeholder='Write a Message.....'></textarea>
 									</div>
 									<div className='flex w-full justify-end'>

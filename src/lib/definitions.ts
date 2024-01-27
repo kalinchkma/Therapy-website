@@ -51,6 +51,7 @@ export enum IconType {
 	'LeftArrow' = 'leftarrow',
 	'RightArrow' = 'rightarrow',
 	'Schedule' = 'schedule',
+	'Star' = 'star',
 }
 
 // social links

@@ -20,6 +20,7 @@ import { AiFillSchedule } from 'react-icons/ai';
 import { MdAttachEmail } from 'react-icons/md';
 import { IoMdChatboxes } from 'react-icons/io';
 import { MdContactPhone } from 'react-icons/md';
+import { FaStar } from 'react-icons/fa';
 import { cn } from '@/lib/utils';
 
 interface IconCreatorProps {
@@ -59,5 +60,7 @@ export default function IconCreator({ icon, className }: IconCreatorProps) {
 			return <FaAngleRight className={cn(className)} />;
 		case IconType.Schedule:
 			return <AiFillSchedule className={cn(className)} />;
+		case IconType.Star:
+			return <FaStar className={cn(className)} />;
 	}
 }

@@ -5,7 +5,7 @@ import HomePageBanner from './home-banner';
 import ServiceSummary from './service-summary';
 import ContactSummary from './contact-summary';
 import CustomerReview from './customer-review';
-import Team from './team';
+import Team from '../common/team';
 import OurLocation from './our-location';
 import LatestBlog from './latest-blog';
 
@@ -21,7 +21,7 @@ export default function HomePageComponent() {
 			{/* Customer review */}
 			<CustomerReview />
 			{/* Meet our Theam */}
-			<Team />
+			<Team title='Meet our team' />
 			{/* Location */}
 			<OurLocation />
 			{/* Latest blog */}

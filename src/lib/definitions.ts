@@ -53,6 +53,19 @@ export enum IconType {
 	'Schedule' = 'schedule',
 	'Star' = 'star',
 	'Search' = 'search',
+	'Bar' = 'bar',
+	'Overview' = 'overview',
+	'Users' = 'users',
+	'UserSettings' = 'usersettings',
+	'Appointments' = 'appointments',
+	'Logout' = 'logout',
+	'Services' = 'services',
+	'Reports' = 'Reports',
+	'Post' = 'post',
+	'Team' = 'team',
+	'Shop' = 'shop',
+	'Ordered' = 'ordered',
+	'Pages' = 'pages',
 }
 
 // social links
@@ -189,4 +202,11 @@ export type BlogPostType = {
 // blog keywords
 export type BlogKeywords = {
 	name: string;
+};
+
+// Dashboard navigation type
+export type DashboardNavigationType = {
+	title: string;
+	link: string;
+	icon: IconType;
 };

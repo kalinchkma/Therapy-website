@@ -9,6 +9,7 @@ import TopHeader from './top-header';
 export default function Header() {
 	const pathname = usePathname();
 	return (
+		!pathname.startsWith('/dashboard') &&
 		!IgnoreNavigation.includes(pathname.trim()) && (
 			<header className='flex flex-col'>
 				<TopHeader />

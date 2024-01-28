@@ -17,6 +17,7 @@ import {
 	BlogPostType,
 	PostDataType,
 	BlogKeywords,
+	DashboardNavigationType,
 } from './definitions';
 
 export const NavigationLinks: NavigationLink[] = [
@@ -77,6 +78,7 @@ export const NavigationLinks: NavigationLink[] = [
 ];
 
 export const IgnoreNavigation: string[] = ['/login', '/signup', '/dashboard'];
+export const IgnoreFooter: string[] = ['/login', '/signup', '/dashboard'];
 
 export const SocialLinks: SocialLink[] = [
 	{
@@ -499,5 +501,69 @@ export const Keywords: BlogKeywords[] = [
 	},
 	{
 		name: 'Chronotherapy',
+	},
+];
+
+// Dahsboard Navigation
+export const DashboardNavigation: DashboardNavigationType[] = [
+	{
+		title: 'Overview',
+		link: '/dashboard',
+		icon: IconType.Overview,
+	},
+	{
+		title: 'pages',
+		link: '/dashboard/pages',
+		icon: IconType.Pages,
+	},
+	{
+		title: 'users',
+		link: '/dashboard/users',
+		icon: IconType.Users,
+	},
+	{
+		title: 'manage users',
+		link: '/dashboard/manage-users',
+		icon: IconType.UserSettings,
+	},
+	{
+		title: 'services',
+		link: '/dashboard/services',
+		icon: IconType.Services,
+	},
+	{
+		title: 'manage shop',
+		link: '/dashboard/manage-shop',
+		icon: IconType.Shop,
+	},
+	{
+		title: 'ordered',
+		link: '/dashboard/ordered',
+		icon: IconType.Ordered,
+	},
+	{
+		title: 'Blog Post',
+		link: '/dashboard/blog-post',
+		icon: IconType.Post,
+	},
+	{
+		title: 'messages',
+		link: '/dashboard/messages',
+		icon: IconType.Message,
+	},
+	{
+		title: 'appointments',
+		link: '/dashboard/appointments',
+		icon: IconType.Appointments,
+	},
+	{
+		title: 'manage team',
+		link: '/dashboard/manage-team',
+		icon: IconType.Team,
+	},
+	{
+		title: 'logout',
+		link: '/logout',
+		icon: IconType.Logout,
 	},
 ];

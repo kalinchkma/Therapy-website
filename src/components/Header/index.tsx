@@ -13,7 +13,6 @@ export default function Header() {
 		!pathname.startsWith('/dashboard') &&
 		!IgnoreNavigation.includes(pathname.trim()) && (
 			<header className='flex flex-col'>
-				<AdminHeader />
 				<TopHeader />
 				<Navigation />
 			</header>

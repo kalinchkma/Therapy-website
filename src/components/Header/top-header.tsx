@@ -27,7 +27,21 @@ export default function TopHeader({ className }: { className?: string }) {
 					'flex container flex-col md:flex-row items-center justify-center gap-2 md:justify-between py-2 ',
 					className,
 				)}>
-				<div className='flex'>
+				<div className='flex gap-4 items-center justify-center flex-wrap '>
+					<Select>
+						<SelectTrigger className='inline-flex focus:ring-0 focus:ring-ring focus:ring-offset-0 px-2 py-1 w-[80px]'>
+							<SelectValue placeholder='Lang' defaultChecked={true} />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectGroup>
+								<SelectLabel>Select Language</SelectLabel>
+								<SelectItem value='English' defaultChecked={true}>
+									English
+								</SelectItem>
+								<SelectItem value='Bangla'>Bangla</SelectItem>
+							</SelectGroup>
+						</SelectContent>
+					</Select>
 					<ul className='flex flex-col sm:flex-row items-center justify-end gap-4'>
 						<li>
 							<Link href={''} className='flex items-center gap-2'>
@@ -57,20 +71,9 @@ export default function TopHeader({ className }: { className?: string }) {
 							))}
 						</ul>
 					</div>
-					<Select>
-						<SelectTrigger className='focus:ring-0 focus:ring-ring focus:ring-offset-0 px-2 py-1'>
-							<SelectValue placeholder='Lang' defaultChecked={true} />
-						</SelectTrigger>
-						<SelectContent>
-							<SelectGroup>
-								<SelectLabel>Select Language</SelectLabel>
-								<SelectItem value='English' defaultChecked={true}>
-									English
-								</SelectItem>
-								<SelectItem value='Bangla'>Bangla</SelectItem>
-							</SelectGroup>
-						</SelectContent>
-					</Select>
+					<Link href={'/login'} className='py-1 px-3 bg-zinc-50 hover:bg-white'>
+						Login
+					</Link>
 				</div>
 			</ContentWrapper>
 		</nav>

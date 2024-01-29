@@ -51,7 +51,7 @@ export default function Sidebar({ logout }: { logout: () => Promise<void> }) {
 			</div>
 			<div
 				className={cn(
-					'flex flex-col w-0 p-4 overflow-hidden',
+					'flex flex-col justify-between w-0 p-4 overflow-hidden',
 					sidebarOpen && 'w-[250px] transition-all overflow-auto',
 				)}>
 				<ul
@@ -64,7 +64,7 @@ export default function Sidebar({ logout }: { logout: () => Promise<void> }) {
 							<Link
 								href={navigation.link}
 								className={cn(
-									'font-bold text-lg capitalize text-zinc-600 hover:text-blue-500 transition-all flex items-center gap-2',
+									'font-light text-lg capitalize text-zinc-600 hover:text-blue-500 transition-all flex items-center gap-2',
 									pathname === navigation.link && 'text-blue-500',
 								)}>
 								<IconCreator icon={navigation.icon} />
@@ -77,7 +77,7 @@ export default function Sidebar({ logout }: { logout: () => Promise<void> }) {
 							<button
 								type='submit'
 								className={cn(
-									'cursor-pointer font-bold text-lg capitalize text-zinc-600 hover:text-blue-500 transition-all flex items-center gap-2',
+									'cursor-pointer text-lg capitalize text-zinc-600 hover:text-blue-500 transition-all flex items-center gap-2',
 								)}>
 								<IconCreator icon={IconType.Logout} />
 								Logout

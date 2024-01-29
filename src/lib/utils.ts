@@ -53,3 +53,12 @@ export async function verify_auth_token(token: string) {
 		return false;
 	}
 }
+
+export async function verify_auth_token2(token: string) {
+	try {
+		await jwt.verify(token, process.env.SECRET!);
+		return true;
+	} catch (error) {
+		return false;
+	}
+}

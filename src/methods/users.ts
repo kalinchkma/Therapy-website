@@ -4,8 +4,10 @@ import { db } from '@/db';
 import { users } from '@/db/schema/users';
 import { and, eq, ne, or } from 'drizzle-orm';
 import { User, UsersType } from '@/lib/definitions';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export async function getUserByEmail(email: string): Promise<User | undefined> {
+	noStore();
 	try {
 		const user = await (await db())
 			.select()
@@ -26,6 +28,8 @@ export async function getUserByEmail(email: string): Promise<User | undefined> {
 
 // get user except admin
 export async function getAllUsersExceptAdmin(): Promise<User[] | undefined> {
+	noStore();
+	await new Promise((resolve) => setTimeout(resolve, 2000));
 	try {
 		const allUsers = await (
 			await db()

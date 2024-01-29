@@ -28,8 +28,6 @@ export default async function RootLayout({
 }: {
 	children: React.ReactNode;
 }) {
-	noStore();
-
 	let userType: UsersType = UsersType.client;
 	let hasAuth = false;
 	const auth = await checkAndGetAuth();

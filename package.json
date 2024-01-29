@@ -3,9 +3,9 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
+		"dev": "node --max-old-space-size=4096 server.js",
 		"build": "next build",
-		"start": "next start",
+		"start": "NODE_ENV=production node server.js",
 		"lint": "next lint",
 		"generate": "npx drizzle-kit generate:mysql",
 		"migrate": "npx tsx ./src/db/migrate.ts"
@@ -27,7 +27,7 @@
 		"embla-carousel-react": "^8.0.0-rc19",
 		"jsonwebtoken": "^9.0.2",
 		"lucide-react": "^0.312.0",
-		"mysql2": "^3.7.1",
+		"mysql2": "^3.9.1",
 		"next": "14.1.0",
 		"next-auth": "^5.0.0-beta.5",
 		"react": "^18",

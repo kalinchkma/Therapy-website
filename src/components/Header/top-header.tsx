@@ -18,7 +18,7 @@ import {
 } from '../ui/select';
 
 import ContentWrapper from '../common/content-wrapper';
-import { logout } from '@/actions/auth_actions';
+import { logout } from '@/actions/auth-actions';
 import IconCreator from '../common/icon-creator';
 import { IconType } from '@/lib/definitions';
 

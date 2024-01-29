@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { useFormState, useFormStatus } from 'react-dom';
-import { login } from '@/actions/auth_actions';
+import { login } from '@/actions/auth-actions';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 

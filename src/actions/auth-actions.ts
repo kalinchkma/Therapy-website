@@ -89,16 +89,19 @@ export async function signup(prevState: SignupState, formData: FormData) {
 	// if everything is ok try insert new user to database
 	try {
 		// check user is already exsist
-		const check_user = await (await db())
+		const check_user = await (
+			await db()
+		)
 			.select()
 			.from(users)
 			.where(eq(users.email, email))
-			.execute();
+			.execute()
+			.finally(async () => {
+				(await connection()).end(); // close db connection
+			});
 
 		// if user already exist return error
 		if (check_user.length !== 0) {
-			// close db connection and return
-			await (await connection()).end();
 			return {
 				errors: {
 					email: ['Email Already exists'],
@@ -110,8 +113,6 @@ export async function signup(prevState: SignupState, formData: FormData) {
 		// hash password for database
 		const hash_pass = await hash_password(password);
 		if (!hash_pass) {
-			// close db connection and return
-			await (await connection()).end();
 			return {
 				errors: {},
 				message: '',
@@ -128,9 +129,11 @@ export async function signup(prevState: SignupState, formData: FormData) {
 				email: email,
 				password: hash_pass,
 			})
-			.execute();
-		// close db connection and return
-		await (await connection()).end();
+			.execute()
+			.finally(async () => {
+				(await connection()).end(); // close db connection
+			});
+
 		// if new user is created on database send success message
 		return {
 			errors: {},
@@ -173,13 +176,15 @@ export async function login(prevState: LoginState, formData: FormData) {
 
 	try {
 		// Query user from database
-		const user = await (await db())
+		const user = await (
+			await db()
+		)
 			.select()
 			.from(users)
-			.where(eq(users.email, email));
-
-		// close db connection
-		await (await connection()).end();
+			.where(eq(users.email, email))
+			.finally(async () => {
+				(await connection()).end(); // close db connection
+			});
 
 		// check user exist or not
 		if (user.length !== 0) {

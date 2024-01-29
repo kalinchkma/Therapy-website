@@ -42,41 +42,9 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 
-const data: User[] = [
-	{
-		id: '123fcqwe',
-		name: 'Mr Rust',
-		email: 'Mr@gmail.com',
-		user_type: 'Client',
-	},
-	{
-		id: '123f213cqwe',
-		name: 'Afk',
-		email: 'Rust@gmail.com',
-		user_type: 'Client',
-	},
-	{
-		id: '123fcwerqwe',
-		name: 'Mr Rust',
-		email: 'gayrn@gmail.com',
-		user_type: 'Client',
-	},
-	{
-		id: '123f15fcqwe',
-		name: 'Mr Rust',
-		email: 'Mr.Rust@gmai.com',
-		user_type: 'Client',
-	},
-];
+import { UserDataCol } from './columns';
 
-export type User = {
-	id: string;
-	name: string;
-	email: string;
-	user_type: string;
-};
-
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<UserDataCol>[] = [
 	{
 		id: 'select',
 		header: ({ table }) => (
@@ -145,13 +113,22 @@ export const columns: ColumnDef<User>[] = [
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align='end'>
 						<DropdownMenuLabel>Actions</DropdownMenuLabel>
-						<DropdownMenuItem
-							onClick={() => navigator.clipboard.writeText(user.id)}>
-							Copy payment ID
-						</DropdownMenuItem>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem>Delete User</DropdownMenuItem>
-						<DropdownMenuItem>Make Member</DropdownMenuItem>
+						<DropdownMenuItem>
+							<form>
+								<button type='submit'>Delete User</button>
+							</form>
+						</DropdownMenuItem>
+						<DropdownMenuItem>
+							<form>
+								<button type='submit'>Make Team Member</button>
+							</form>
+						</DropdownMenuItem>
+						<DropdownMenuItem>
+							<form>
+								<button type='submit'>Make Admin</button>
+							</form>
+						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			);
@@ -159,7 +136,7 @@ export const columns: ColumnDef<User>[] = [
 	},
 ];
 
-export default function UserDataTable() {
+export default function UserDataTable({ data }: { data: UserDataCol[] }) {
 	const [sorting, setSorting] = React.useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
 		[],

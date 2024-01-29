@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { useFormState, useFormStatus } from 'react-dom';
-import { signup, SignupState } from '@/actions/auth_actions';
+import { signup, SignupState } from '@/actions/auth-actions';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
@@ -47,7 +47,6 @@ export default function SignupForm() {
 
 		if (state.message !== '') {
 			setName('');
-
 			setEmail('');
 			setPassword('');
 			setConfirmPassword('');

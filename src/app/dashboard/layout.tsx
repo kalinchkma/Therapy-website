@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 
 import Sidebar from '@/components/Dashboard/sidebar';
 import DashboardHeader from '@/components/Dashboard/dashboard-header';
-import { logout } from '@/actions/auth_actions';
+import { logout } from '@/actions/auth-actions';
 import { cookies } from 'next/headers';
 import { AuthTokenName, User, UsersType } from '@/lib/definitions';
 import { verify_auth_token } from '@/lib/utils';

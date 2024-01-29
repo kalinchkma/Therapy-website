@@ -569,4 +569,9 @@ export const DashboardNavigation: DashboardNavigationType[] = [
 		link: '/dashboard/manage-team',
 		icon: IconType.Team,
 	},
+	{
+		title: 'Visite Website',
+		link: '/',
+		icon: IconType.House,
+	},
 ];

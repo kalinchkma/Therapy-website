@@ -10,11 +10,9 @@ import {
 
 import { UsersType } from '@/lib/definitions';
 
-
 export const users = mysqlTable('users', {
 	id: bigint('id', { mode: 'number' }).primaryKey().autoincrement(),
-	first_name: varchar('first_name', { length: 256 }).notNull(),
-	last_name: varchar('last_name', { length: 256 }).notNull(),
+	name: varchar('name', { length: 256 }).notNull(),
 	email: varchar('email', { length: 256 }).notNull().unique(),
 	password: text('password').notNull(),
 	user_type: varchar('user_type', { length: 256 })

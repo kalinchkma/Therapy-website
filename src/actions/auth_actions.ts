@@ -16,13 +16,7 @@ import { AuthTokenName } from '@/lib/definitions';
 
 // Signup Form Schema
 const FromSchema = z.object({
-	first_name: z
-		.string({
-			required_error: 'First name is required',
-			invalid_type_error: 'First name must be a string',
-		})
-		.min(4, { message: 'Must be 4 or more characters long' }),
-	last_name: z
+	name: z
 		.string({
 			invalid_type_error: 'Last name must be a string',
 		})
@@ -51,8 +45,7 @@ const FromSchema = z.object({
 // Signup Initial state
 export type SignupState = {
 	errors?: {
-		first_name?: string[];
-		last_name?: string[];
+		name?: string[];
 		email?: string[];
 		password?: string[];
 		confirmPassword?: string[];
@@ -65,8 +58,7 @@ export type SignupState = {
 export async function signup(prevState: SignupState, formData: FormData) {
 	// Validate user inputs using `zod`
 	const validatedFields = FromSchema.safeParse({
-		first_name: formData.get('fname'),
-		last_name: formData.get('lname'),
+		name: formData.get('name'),
 		email: formData.get('email'),
 		password: formData.get('password'),
 		confirmPassword: formData.get('confirm-password'),
@@ -81,8 +73,7 @@ export async function signup(prevState: SignupState, formData: FormData) {
 		};
 	}
 	// if success get data for new user
-	const { first_name, last_name, email, password, confirmPassword } =
-		validatedFields.data;
+	const { name, email, password, confirmPassword } = validatedFields.data;
 	// password and confirm password not match return error
 	if (password !== confirmPassword) {
 		return {
@@ -129,8 +120,7 @@ export async function signup(prevState: SignupState, formData: FormData) {
 		)
 			.insert(users)
 			.values({
-				first_name: first_name,
-				last_name: last_name,
+				name: name,
 				email: email,
 				password: hash_pass,
 			})
@@ -144,6 +134,7 @@ export async function signup(prevState: SignupState, formData: FormData) {
 		};
 	} catch (error) {
 		// if error creating new user on database return error
+		console.log(error);
 		return {
 			errors: {},
 			message: '',
@@ -154,8 +145,7 @@ export async function signup(prevState: SignupState, formData: FormData) {
 
 // login form schema
 const LoginFormSchema = FromSchema.omit({
-	first_name: true,
-	last_name: true,
+	name: true,
 	confirmPassword: true,
 });
 
@@ -190,7 +180,7 @@ export async function login(prevState: LoginState, formData: FormData) {
 			if (verify) {
 				// create auth token for app access
 				const authData: AuthTokenData = {
-					name: user[0].first_name + ' ' + user[0].last_name,
+					name: user[0].name,
 					email: user[0].email,
 				};
 				const token = await create_auth_token(authData);
@@ -211,4 +201,15 @@ export async function login(prevState: LoginState, formData: FormData) {
 	} catch (error) {
 		return 'Somethings went wrong, Try again';
 	}
+}
+
+// logout function
+export async function logout() {
+	console.log('Logout call');
+	const cookieStore = cookies();
+	const bearer = cookieStore.has(AuthTokenName);
+	if (bearer) {
+		cookieStore.delete(AuthTokenName);
+	}
+	redirect('/');
 }

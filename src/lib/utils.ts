@@ -5,6 +5,7 @@ import { twMerge } from 'tailwind-merge';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { AuthTokenData } from '@/lib/definitions';
+import { cookies } from 'next/headers';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -52,18 +53,3 @@ export async function verify_auth_token(token: string) {
 		return false;
 	}
 }
-// Test code
-// (async () => {
-// 	const token = await create_auth_token({
-// 		name: 'hunter',
-// 		email: 'Collins@gmail.com',
-// 	});
-
-// 	console.log('Generated Token', token);
-// 	const modToken = token + '10';
-// 	console.log('Mod Token', modToken);
-// 	if (token) {
-// 		const verify = await verify_auth_token(token);
-// 		console.log('Token verifiyed', verify);
-// 	}
-// })();

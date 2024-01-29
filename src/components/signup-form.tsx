@@ -15,8 +15,8 @@ export default function SignupForm() {
 	const [confirmPassword, setConfirmPassword] = useState<string | undefined>(
 		undefined,
 	);
-	const [first_name, setFirst_name] = useState<string | undefined>(undefined);
-	const [last_name, setLast_name] = useState<string | undefined>(undefined);
+	const [name, setName] = useState<string | undefined>(undefined);
+
 	const [email, setEmail] = useState<string | undefined>(undefined);
 
 	// check passowrd equal
@@ -46,8 +46,8 @@ export default function SignupForm() {
 		setLocalState(state);
 
 		if (state.message !== '') {
-			setFirst_name('');
-			setLast_name('');
+			setName('');
+
 			setEmail('');
 			setPassword('');
 			setConfirmPassword('');
@@ -73,44 +73,23 @@ export default function SignupForm() {
 				</h2>
 			)}
 			<div className='w-full flex flex-row gap-4 mb-4'>
-				<div className='flex flex-col w-[50%]'>
-					<Input
-						type='text'
-						name='fname'
-						placeholder='First name...'
-						className='w-full'
-						value={first_name}
-						onChange={(e) => {
-							setLocalState(initialState);
-							setFirst_name(e.target.value);
-						}}
-						required
-					/>
-					{localState.errors?.first_name?.map((error) => (
-						<p className='font-light  text-sm text-red-500 px-1' key={error}>
-							{error}
-						</p>
-					))}
-				</div>
-				<div className='flex flex-col w-[50%]'>
-					<Input
-						type='text'
-						name='lname'
-						placeholder='Last name...'
-						className='w-full'
-						value={last_name}
-						onChange={(e) => {
-							setLocalState(initialState);
-							setLast_name(e.target.value);
-						}}
-						required
-					/>
-					{localState.errors?.last_name?.map((error) => (
-						<p className='font-light  text-sm text-red-500 px-1' key={error}>
-							{error}
-						</p>
-					))}
-				</div>
+				<Input
+					type='text'
+					name='name'
+					placeholder='Enter your name...'
+					className='w-full'
+					value={name}
+					onChange={(e) => {
+						setLocalState(initialState);
+						setName(e.target.value);
+					}}
+					required
+				/>
+				{localState.errors?.name?.map((error) => (
+					<p className='font-light  text-sm text-red-500 px-1' key={error}>
+						{error}
+					</p>
+				))}
 			</div>
 			<div className='flex flex-col mb-4'>
 				<Input

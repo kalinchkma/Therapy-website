@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 
 import Sidebar from '@/components/Dashboard/sidebar';
 import DashboardHeader from '@/components/Dashboard/dashboard-header';
+import { logout } from '@/actions/auth_actions';
 
 export const metadata: Metadata = {
 	title: 'Dashboard of Universal Physiotherapy & Rehab Center',
@@ -18,7 +19,7 @@ export default function RootLayout({
 	return (
 		<div className='w-full flex flex-row'>
 			<div className='flex'>
-				<Sidebar />
+				<Sidebar logout={logout} />
 			</div>
 			<div className='flex-grow h-[100vh]'>
 				<DashboardHeader />

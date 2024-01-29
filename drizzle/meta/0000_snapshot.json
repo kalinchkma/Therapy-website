@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "6c0cb55b-5b8f-48e3-8679-21b13df78e1d",
+  "id": "e5de6e02-355b-4b24-ae53-a9a760b654c5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "users": {
@@ -14,15 +14,8 @@
           "notNull": true,
           "autoincrement": true
         },
-        "first_name": {
-          "name": "first_name",
-          "type": "varchar(256)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "last_name": {
-          "name": "last_name",
+        "name": {
+          "name": "name",
           "type": "varchar(256)",
           "primaryKey": false,
           "notNull": true,
@@ -35,9 +28,9 @@
           "notNull": true,
           "autoincrement": false
         },
-        "phone_number": {
-          "name": "phone_number",
-          "type": "varchar(256)",
+        "password": {
+          "name": "password",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -48,7 +41,7 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
-          "default": "'1287398721'"
+          "default": "'Client'"
         },
         "createdAt": {
           "name": "createdAt",
@@ -75,7 +68,14 @@
           ]
         }
       },
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "columns": [
+            "email"
+          ]
+        }
+      }
     }
   },
   "schemas": {},

@@ -5,17 +5,23 @@ export const AuthTokenName: string = 'Bearer';
 
 // App user type
 export enum UsersType {
-	'admin' = '872137232',
-	'super-admin' = '9817238972',
-	'client' = '1287398721',
+	'admin' = 'Admin',
+	'super-admin' = 'super admin',
+	'team-member' = 'Team member',
+	'client' = 'Client',
 }
 
 // Login user type
 export type User = {
-	name: string;
+	id?: string | number;
+	name?: string;
 	email: string;
-	password: string;
+	password?: string;
 	user_type: UsersType | null;
+	first_name?: string;
+	last_name?: string;
+	createdAt?: Date | null;
+	updatedAt?: Date | null;
 };
 
 // auth token data
@@ -32,6 +38,7 @@ export type NavigationLink = {
 		name: string;
 		path: string;
 	}[];
+	dashboardPath?: string;
 };
 
 // icon type

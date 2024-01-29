@@ -24,10 +24,12 @@ export const NavigationLinks: NavigationLink[] = [
 	{
 		name: 'Home',
 		path: '/',
+		dashboardPath: '/dashboard/pages/home',
 	},
 	{
 		name: 'Services',
 		path: '/services',
+		dashboardPath: '/dashboard/pages/services',
 		nestedLinks: [
 			{
 				name: 'Physio Therapy',
@@ -54,26 +56,32 @@ export const NavigationLinks: NavigationLink[] = [
 	{
 		name: 'Service Area',
 		path: '/service-area',
+		dashboardPath: '/dashboard/pages/service-area',
 	},
 	{
 		name: 'Our Packages',
 		path: '/packages',
+		dashboardPath: '/dashboard/pages/packages',
 	},
 	{
 		name: 'Blog',
 		path: '/blog',
+		dashboardPath: '/dashboard/pages/blog',
 	},
 	{
 		name: 'Contact',
 		path: '/contact',
+		dashboardPath: '/dashboard/pages/contact',
 	},
 	{
 		name: 'About',
 		path: '/about',
+		dashboardPath: '/dashboard/pages/about',
 	},
 	{
 		name: 'Shop',
 		path: '/shop',
+		dashboardPath: '/dashboard/pages/shop',
 	},
 ];
 
@@ -513,7 +521,7 @@ export const DashboardNavigation: DashboardNavigationType[] = [
 	},
 	{
 		title: 'pages',
-		link: '/dashboard/pages',
+		link: '/dashboard/pages/home',
 		icon: IconType.Pages,
 	},
 	{
@@ -560,10 +568,5 @@ export const DashboardNavigation: DashboardNavigationType[] = [
 		title: 'manage team',
 		link: '/dashboard/manage-team',
 		icon: IconType.Team,
-	},
-	{
-		title: 'logout',
-		link: '/logout',
-		icon: IconType.Logout,
 	},
 ];

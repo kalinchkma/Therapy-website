@@ -11,7 +11,7 @@ import IconCreator from '../common/icon-creator';
 import { DashboardNavigation } from '@/lib/static_data';
 import { usePathname } from 'next/navigation';
 
-export default function Sidebar() {
+export default function Sidebar({ logout }: { logout: () => Promise<void> }) {
 	const pathname = usePathname();
 	const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
 
@@ -72,6 +72,18 @@ export default function Sidebar() {
 							</Link>
 						</li>
 					))}
+					<li>
+						<form action={logout}>
+							<button
+								type='submit'
+								className={cn(
+									'cursor-pointer font-bold text-lg capitalize text-zinc-600 hover:text-blue-500 transition-all flex items-center gap-2',
+								)}>
+								<IconCreator icon={IconType.Logout} />
+								Logout
+							</button>
+						</form>
+					</li>
 				</ul>
 			</div>
 		</div>

@@ -7,8 +7,10 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AdminHeader from '@/components/Header/admin-header';
 import { cookies } from 'next/headers';
-import { AuthTokenName } from '@/lib/definitions';
-import { verify_auth_token2 } from '@/lib/utils';
+import { AuthTokenName, UsersType } from '@/lib/definitions';
+import { verify_auth_token, verify_auth_token2 } from '@/lib/utils';
+import { getUserByEmail } from '@/methods/users';
+import ClientHeader from '@/components/Header/client-header';
 
 const nunito = Nunito({
 	subsets: ['latin'],
@@ -27,16 +29,25 @@ export default async function RootLayout({
 }) {
 	const cookieStore = cookies();
 	const authToken = cookieStore.has(AuthTokenName);
-	let token: boolean = false;
+	let userType: UsersType = UsersType.client;
 	if (authToken) {
-		token = await verify_auth_token2(cookieStore.get(AuthTokenName)?.value!);
+		const token = await verify_auth_token(
+			cookieStore.get(AuthTokenName)?.value!,
+		);
+		const a_token = token as { name: string; email: string; iat: number };
+		const getLoggedInUser = await getUserByEmail(a_token.email);
+		if (getLoggedInUser?.user_type === UsersType.admin) {
+			userType = UsersType.admin;
+		} else if (getLoggedInUser?.user_type === UsersType['team-member']) {
+			userType = UsersType['team-member'];
+		}
 	}
 
 	return (
 		<html lang='en'>
 			<body className={nunito.className}>
-				{token && <AdminHeader />}
-				<Header />
+				{userType === UsersType.admin && <AdminHeader />}
+				<Header auth={true} />
 				{children}
 				<Footer />
 			</body>

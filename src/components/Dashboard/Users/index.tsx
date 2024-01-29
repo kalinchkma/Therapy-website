@@ -2,6 +2,7 @@
 
 import { User, UsersType } from '@/lib/definitions';
 import { getAllUsersExceptAdmin } from '@/methods/users';
+import UserDataTable from './user-table';
 
 async function getData(): Promise<User[]> {
 	const users = await getAllUsersExceptAdmin();
@@ -13,6 +14,10 @@ async function getData(): Promise<User[]> {
 
 export default async function UsersPageComponent() {
 	const data = await getData();
-	console.log(data);
-	return <div className='container mx-auto py-10'></div>;
+
+	return (
+		<div className='container mx-auto py-10'>
+			<UserDataTable />
+		</div>
+	);
 }

@@ -1,6 +1,6 @@
 /** @format */
 
-import { db } from '@/db';
+import { db, connection } from '@/db';
 import { users } from '@/db/schema/users';
 import { and, eq, ne, or } from 'drizzle-orm';
 import { User, UsersType } from '@/lib/definitions';
@@ -13,6 +13,7 @@ export async function getUserByEmail(email: string): Promise<User | undefined> {
 			.select()
 			.from(users)
 			.where(eq(users.email, email));
+		await (await connection()).end();
 		if (user.length !== 0) {
 			return {
 				name: user[0].name,
@@ -29,19 +30,15 @@ export async function getUserByEmail(email: string): Promise<User | undefined> {
 // get user except admin
 export async function getAllUsersExceptAdmin(): Promise<User[] | undefined> {
 	noStore();
-	await new Promise((resolve) => setTimeout(resolve, 2000));
 	try {
 		const allUsers = await (
 			await db()
 		)
 			.select()
 			.from(users)
-			.where(
-				and(
-					ne(users.user_type, UsersType.admin),
-					ne(users.user_type, UsersType['super-admin']),
-				),
-			);
+			.where(and(ne(users.user_type, UsersType.admin)));
+
+		await (await connection()).end();
 		if (allUsers.length !== 0) {
 			return allUsers;
 		}

@@ -5,7 +5,6 @@ import { twMerge } from 'tailwind-merge';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { AuthTokenData } from '@/lib/definitions';
-import { cookies } from 'next/headers';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -56,7 +55,7 @@ export async function verify_auth_token(token: string) {
 
 export async function verify_auth_token2(token: string) {
 	try {
-		await jwt.verify(token, process.env.SECRET!);
+		await jwt.verify(token!, process.env.SECRET!);
 		return true;
 	} catch (error) {
 		return false;

@@ -7,13 +7,13 @@ import Navigation from './navigation';
 import TopHeader from './top-header';
 import AdminHeader from './admin-header';
 
-export default function Header() {
+export default function Header({ auth }: { auth?: boolean }) {
 	const pathname = usePathname();
 	return (
 		!pathname.startsWith('/dashboard') &&
 		!IgnoreNavigation.includes(pathname.trim()) && (
 			<header className='flex flex-col'>
-				<TopHeader />
+				<TopHeader auth={auth} />
 				<Navigation />
 			</header>
 		)

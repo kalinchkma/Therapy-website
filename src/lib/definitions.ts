@@ -6,7 +6,6 @@ export const AuthTokenName: string = 'Bearer';
 // App user type
 export enum UsersType {
 	'admin' = 'Admin',
-	'super-admin' = 'super admin',
 	'team-member' = 'Team member',
 	'client' = 'Client',
 }
@@ -18,8 +17,6 @@ export type User = {
 	email: string;
 	password?: string;
 	user_type: UsersType | null;
-	first_name?: string;
-	last_name?: string;
 	createdAt?: Date | null;
 	updatedAt?: Date | null;
 };
@@ -73,6 +70,7 @@ export enum IconType {
 	'Shop' = 'shop',
 	'Ordered' = 'ordered',
 	'Pages' = 'pages',
+	'Sad' = 'sad',
 }
 
 // social links

@@ -2,14 +2,14 @@
 
 'use server';
 
-import { db } from '@/db';
+import { db, connection } from '@/db';
 import { users } from '@/db/schema/users';
 import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 import { hash_password, verify_password } from '@/lib/utils';
 import { cookies } from 'next/headers';
 import { create_auth_token, verify_auth_token } from '@/lib/utils';
-import { AuthTokenData } from '@/lib/definitions';
+import { AuthTokenData, UsersType } from '@/lib/definitions';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { AuthTokenName } from '@/lib/definitions';
@@ -97,6 +97,8 @@ export async function signup(prevState: SignupState, formData: FormData) {
 
 		// if user already exist return error
 		if (check_user.length !== 0) {
+			// close db connection and return
+			await (await connection()).end();
 			return {
 				errors: {
 					email: ['Email Already exists'],
@@ -108,6 +110,8 @@ export async function signup(prevState: SignupState, formData: FormData) {
 		// hash password for database
 		const hash_pass = await hash_password(password);
 		if (!hash_pass) {
+			// close db connection and return
+			await (await connection()).end();
 			return {
 				errors: {},
 				message: '',
@@ -125,7 +129,8 @@ export async function signup(prevState: SignupState, formData: FormData) {
 				password: hash_pass,
 			})
 			.execute();
-
+		// close db connection and return
+		await (await connection()).end();
 		// if new user is created on database send success message
 		return {
 			errors: {},
@@ -134,7 +139,6 @@ export async function signup(prevState: SignupState, formData: FormData) {
 		};
 	} catch (error) {
 		// if error creating new user on database return error
-		console.log(error);
 		return {
 			errors: {},
 			message: '',
@@ -173,6 +177,10 @@ export async function login(prevState: LoginState, formData: FormData) {
 			.select()
 			.from(users)
 			.where(eq(users.email, email));
+
+		// close db connection
+		await (await connection()).end();
+
 		// check user exist or not
 		if (user.length !== 0) {
 			// if user exist verify user password
@@ -192,7 +200,11 @@ export async function login(prevState: LoginState, formData: FormData) {
 						secure: true,
 						path: '/',
 					});
-					redirect('/dashboard');
+					if (user[0].user_type === UsersType.admin) {
+						redirect('/dashboard');
+					} else {
+						redirect('/profile');
+					}
 				}
 				return 'Somethings went wrong, Try again';
 			}

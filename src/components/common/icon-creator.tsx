@@ -36,6 +36,7 @@ import { RiTeamFill } from 'react-icons/ri';
 import { FaBasketShopping } from 'react-icons/fa6';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { MdWeb } from 'react-icons/md';
+import { FaSadTear } from 'react-icons/fa';
 
 interface IconCreatorProps {
 	icon: IconType;
@@ -104,5 +105,7 @@ export default function IconCreator({ icon, className }: IconCreatorProps) {
 			return <MdAddShoppingCart className={cn(className)} />;
 		case IconType.Pages:
 			return <MdWeb className={cn(className)} />;
+		case IconType.Sad:
+			return <FaSadTear className={cn(className)} />;
 	}
 }

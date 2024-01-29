@@ -19,7 +19,13 @@ import {
 
 import ContentWrapper from '../common/content-wrapper';
 
-export default function TopHeader({ className }: { className?: string }) {
+export default function TopHeader({
+	className,
+	auth,
+}: {
+	className?: string;
+	auth?: boolean;
+}) {
 	return (
 		<nav className='bg-zinc-100 w-full'>
 			<ContentWrapper
@@ -71,9 +77,26 @@ export default function TopHeader({ className }: { className?: string }) {
 							))}
 						</ul>
 					</div>
-					<Link href={'/login'} className='py-1 px-3 bg-zinc-50 hover:bg-white'>
-						Login
-					</Link>
+					{auth ? (
+						<Link
+							href={'/profile'}
+							className='py-1 px-3 bg-zinc-50 hover:bg-white'>
+							Profile
+						</Link>
+					) : (
+						<React.Fragment>
+							<Link
+								href={'/login'}
+								className='py-1 px-3 bg-zinc-50 hover:bg-white'>
+								Login
+							</Link>
+							<Link
+								href={'/signup'}
+								className='py-1 px-3 bg-zinc-50 hover:bg-white'>
+								Signup
+							</Link>
+						</React.Fragment>
+					)}
 				</div>
 			</ContentWrapper>
 		</nav>

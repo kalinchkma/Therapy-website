@@ -12,7 +12,7 @@ export default async function ProfilePage() {
 	}
 	return (
 		<div className='w-full'>
-			<ProfilePageCompnent name={`Welcome back ${auth.name}`} />
+			<ProfilePageCompnent name={auth.name} />
 		</div>
 	);
 }

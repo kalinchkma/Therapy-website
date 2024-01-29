@@ -71,6 +71,7 @@ export enum IconType {
 	'Ordered' = 'ordered',
 	'Pages' = 'pages',
 	'Sad' = 'sad',
+	'Profile' = 'profile',
 }
 
 // social links

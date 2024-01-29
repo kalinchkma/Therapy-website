@@ -18,6 +18,9 @@ import {
 } from '../ui/select';
 
 import ContentWrapper from '../common/content-wrapper';
+import { logout } from '@/actions/auth_actions';
+import IconCreator from '../common/icon-creator';
+import { IconType } from '@/lib/definitions';
 
 export default function TopHeader({
 	className,
@@ -78,11 +81,16 @@ export default function TopHeader({
 						</ul>
 					</div>
 					{auth ? (
-						<Link
-							href={'/profile'}
-							className='py-1 px-3 bg-zinc-50 hover:bg-white'>
-							Profile
-						</Link>
+						<React.Fragment>
+							<Link href={'/profile'} className='p-3 bg-zinc-50 hover:bg-white'>
+								<IconCreator icon={IconType.Profile} />
+							</Link>
+							<form action={logout}>
+								<button type='submit' className='p-3 bg-zinc-50 hover:bg-white'>
+									<IconCreator icon={IconType.Logout} />
+								</button>
+							</form>
+						</React.Fragment>
 					) : (
 						<React.Fragment>
 							<Link

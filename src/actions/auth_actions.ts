@@ -217,11 +217,11 @@ export async function login(prevState: LoginState, formData: FormData) {
 
 // logout function
 export async function logout() {
-	console.log('Logout call');
 	const cookieStore = cookies();
 	const bearer = cookieStore.has(AuthTokenName);
 	if (bearer) {
-		cookieStore.delete(AuthTokenName);
+		await cookieStore.delete(AuthTokenName);
 	}
+	revalidatePath('/', 'page');
 	redirect('/');
 }

@@ -37,6 +37,7 @@ import { FaBasketShopping } from 'react-icons/fa6';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { MdWeb } from 'react-icons/md';
 import { FaSadTear } from 'react-icons/fa';
+import { CgProfile } from 'react-icons/cg';
 
 interface IconCreatorProps {
 	icon: IconType;
@@ -107,5 +108,7 @@ export default function IconCreator({ icon, className }: IconCreatorProps) {
 			return <MdWeb className={cn(className)} />;
 		case IconType.Sad:
 			return <FaSadTear className={cn(className)} />;
+		case IconType.Profile:
+			return <CgProfile className={cn(className)} />;
 	}
 }

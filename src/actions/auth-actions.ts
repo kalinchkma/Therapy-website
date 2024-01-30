@@ -189,11 +189,12 @@ export async function login(prevState: LoginState, formData: FormData) {
 						secure: true,
 						path: '/',
 					});
-					if (user[0].user_type === UsersType.admin) {
-						redirect('/dashboard');
-					} else {
-						redirect('/profile');
-					}
+					// if (user[0].user_type === UsersType.admin) {
+					// 	redirect('/dashboard');
+					// } else {
+					// 	redirect('/profile');
+					// }
+					return 'login success';
 				}
 				return 'Somethings went wrong, Try again';
 			}

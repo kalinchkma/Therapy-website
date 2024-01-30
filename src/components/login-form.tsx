@@ -11,7 +11,7 @@ import Link from 'next/link';
 export default function LoginForm() {
 	// form state
 	const [errorMessage, dispatch] = useFormState(login, undefined);
-	const { pending } = useFormStatus();
+	const { pending, action, data, method } = useFormStatus();
 
 	return (
 		<form action={dispatch} className='w-full p-10 md:p-0 md:w-[450px] mx-auto'>

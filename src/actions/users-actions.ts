@@ -1,7 +1,7 @@
 /** @format */
 'use server';
 
-import { connection, db } from '@/db';
+import { db } from '@/db';
 import { users } from '@/db/schema/users';
 import { UsersType } from '@/lib/definitions';
 import { eq } from 'drizzle-orm';

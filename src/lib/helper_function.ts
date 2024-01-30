@@ -3,7 +3,7 @@
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { verify_auth_token } from '@/lib/utils';
-import { AuthTokenName, User } from './definitions';
+import { AuthTokenName, User, UsersType } from './definitions';
 import { getUserByEmail } from '@/methods/users';
 
 export async function checkAuth() {
@@ -12,7 +12,12 @@ export async function checkAuth() {
 	if (auth) {
 		const verify = await verify_auth_token(auth.value);
 		if (verify) {
-			redirect('/dashboard');
+			const authUser = verify as User;
+			if (authUser.user_type === UsersType.admin) {
+				redirect('/dashboard');
+			} else {
+				redirect('/profile');
+			}
 		}
 	}
 }

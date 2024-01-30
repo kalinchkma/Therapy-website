@@ -44,6 +44,7 @@ import {
 
 import { UserDataCol } from './columns';
 import { makeAdmin, makeClient, makeMember } from '@/actions/users-actions';
+import AddNewUser from './add-new-user';
 
 export const columns: ColumnDef<UserDataCol>[] = [
 	{
@@ -183,6 +184,10 @@ export default function UserDataTable({ data }: { data: UserDataCol[] }) {
 					}
 					className='max-w-sm'
 				/>
+				{/* <button className='capitalize px-4 py-2 bg-blue-600 text-white ml-2 rounded-md'>
+					add new user
+				</button> */}
+				<AddNewUser label='add new user' />
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button variant='outline' className='ml-auto'>

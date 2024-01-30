@@ -14,7 +14,7 @@ export async function makeMember(id: number) {
 			.update(users)
 			.set({ user_type: UsersType['team-member'] })
 			.where(eq(users.id, id));
-		// .finally(async () => await connection.end());
+
 		revalidatePath('/dashboard/users', 'page');
 	} catch (error) {
 		throw new Error('Internal server Error');
@@ -27,7 +27,7 @@ export async function makeClient(id: number) {
 			.update(users)
 			.set({ user_type: UsersType.client })
 			.where(eq(users.id, id));
-		// .finally(async () => await connection.end());
+
 		revalidatePath('/dashboard/users', 'page');
 	} catch (error) {
 		throw new Error('Internal server Error');
@@ -40,7 +40,7 @@ export async function makeAdmin(id: number) {
 			.update(users)
 			.set({ user_type: UsersType.admin })
 			.where(eq(users.id, id));
-		// .finally(async () => await connection.end());
+
 		revalidatePath('/dashboard/users', 'page');
 	} catch (error) {
 		throw new Error('Internal server Error');

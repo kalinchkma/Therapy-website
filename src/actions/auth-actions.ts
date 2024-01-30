@@ -95,9 +95,6 @@ export async function signup(prevState: SignupState, formData: FormData) {
 			.from(users)
 			.where(eq(users.email, email))
 			.execute();
-		// .finally(() => {
-		// 	connection.end(); // close db connection
-		// });
 
 		// if user already exist return error
 		if (check_user.length !== 0) {
@@ -128,9 +125,6 @@ export async function signup(prevState: SignupState, formData: FormData) {
 				password: hash_pass,
 			})
 			.execute();
-		// .finally(() => {
-		// 	connection.end(); // close db connection
-		// });
 
 		// if new user is created on database send success message
 		return {
@@ -175,9 +169,6 @@ export async function login(prevState: LoginState, formData: FormData) {
 	try {
 		// Query user from database
 		const user = await db.select().from(users).where(eq(users.email, email));
-		// .finally(() => {
-		// 	connection.end(); // close db connection
-		// });
 
 		// check user exist or not
 		if (user.length !== 0) {

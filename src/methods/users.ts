@@ -10,9 +10,7 @@ export async function getUserByEmail(email: string): Promise<User | undefined> {
 	noStore();
 	try {
 		const user = await db.select().from(users).where(eq(users.email, email));
-		// .finally(() => {
-		// 	connection.end();
-		// }); // close the connection
+
 		if (user.length !== 0) {
 			return {
 				name: user[0].name,
@@ -34,9 +32,6 @@ export async function getAllUsersExceptAdmin(): Promise<User[] | undefined> {
 			.select()
 			.from(users)
 			.where(and(ne(users.user_type, UsersType.admin)));
-		// .finally(() => {
-		// 	connection.end();
-		// }); // close the connection
 
 		if (allUsers.length !== 0) {
 			return allUsers;

@@ -2,14 +2,15 @@
 
 'use server';
 
-import { db, connection } from '@/db';
+import { config, createDBConnection } from '@/db';
+import mysql from 'mysql2/promise';
 import { users } from '@/db/schema/users';
 import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 import { hash_password, verify_password } from '@/lib/utils';
 import { cookies } from 'next/headers';
 import { create_auth_token, verify_auth_token } from '@/lib/utils';
-import { AuthTokenData, UsersType } from '@/lib/definitions';
+import { AuthTokenData, User, UsersType } from '@/lib/definitions';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { AuthTokenName } from '@/lib/definitions';
@@ -88,6 +89,9 @@ export async function signup(prevState: SignupState, formData: FormData) {
 
 	// if everything is ok try insert new user to database
 	try {
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
 		// check user is already exsist
 		const check_user = await db
 
@@ -98,6 +102,8 @@ export async function signup(prevState: SignupState, formData: FormData) {
 
 		// if user already exist return error
 		if (check_user.length !== 0) {
+			// close connection
+			conn.end();
 			return {
 				errors: {
 					email: ['Email Already exists'],
@@ -109,6 +115,8 @@ export async function signup(prevState: SignupState, formData: FormData) {
 		// hash password for database
 		const hash_pass = await hash_password(password);
 		if (!hash_pass) {
+			// close db connection
+			conn.end();
 			return {
 				errors: {},
 				message: '',
@@ -117,7 +125,6 @@ export async function signup(prevState: SignupState, formData: FormData) {
 		}
 		// inserting new user to database
 		await db
-
 			.insert(users)
 			.values({
 				name: name,
@@ -125,7 +132,8 @@ export async function signup(prevState: SignupState, formData: FormData) {
 				password: hash_pass,
 			})
 			.execute();
-
+		// close conncetion
+		conn.end();
 		// if new user is created on database send success message
 		return {
 			errors: {},
@@ -160,13 +168,18 @@ export async function login(prevState: LoginState, formData: FormData) {
 	});
 	// check user inpue valid or not
 	if (!validateInputs.success) {
-		return 'Invalid users credentials';
+		return 'Invalid Email and password';
 	}
 
 	// parse user input
 	const { email, password } = validateInputs.data;
 
 	try {
+		// create connection
+		const conn = mysql.createPool(config);
+
+		const db = createDBConnection(conn);
+
 		// Query user from database
 		const user = await db.select().from(users).where(eq(users.email, email));
 
@@ -182,6 +195,8 @@ export async function login(prevState: LoginState, formData: FormData) {
 				};
 				const token = await create_auth_token(authData);
 				if (token) {
+					// close connection
+					conn.end();
 					cookies().set({
 						name: AuthTokenName,
 						value: token,
@@ -189,17 +204,19 @@ export async function login(prevState: LoginState, formData: FormData) {
 						secure: true,
 						path: '/',
 					});
-					// if (user[0].user_type === UsersType.admin) {
-					// 	redirect('/dashboard');
-					// } else {
-					// 	redirect('/profile');
-					// }
-					return 'login success';
+					revalidatePath('/login', 'page');
+					return '';
+				} else {
+					// close connection
+					conn.end();
+					return 'Somethings went wrong, Try again';
 				}
-				return 'Somethings went wrong, Try again';
 			}
+		} else {
+			// close connection
+			conn.end();
+			return 'Invalid Email and password';
 		}
-		return 'Invalid Email and password';
 	} catch (error) {
 		return 'Somethings went wrong, Try again';
 	}

@@ -11,14 +11,14 @@ import Link from 'next/link';
 export default function LoginForm() {
 	// form state
 	const [errorMessage, dispatch] = useFormState(login, undefined);
-	const { pending, action, data, method } = useFormStatus();
+	const { pending } = useFormStatus();
 
 	return (
 		<form action={dispatch} className='w-full p-10 md:p-0 md:w-[450px] mx-auto'>
 			<h1 className='text-3xl font-bold text-center mb-8'>Login</h1>
 			{errorMessage && (
 				<h2 className='mb-3 text-center p-2 bg-red-100 text-red-500 rounded-xl'>
-					Invalid users credentials
+					{errorMessage}
 				</h2>
 			)}
 			<div className='flex flex-col mb-4'>

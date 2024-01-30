@@ -17,6 +17,7 @@ export async function getUserByEmail(email: string): Promise<User | undefined> {
 			.select()
 			.from(users)
 			.where(eq(users.email, email));
+		// close connection
 		conn.end();
 		if (user.length !== 0) {
 			return {
@@ -29,7 +30,6 @@ export async function getUserByEmail(email: string): Promise<User | undefined> {
 
 		return undefined;
 	} catch (error) {
-		console.log(error);
 		throw new Error('Failed to Fectch user');
 	}
 }
@@ -46,6 +46,7 @@ export async function getAllUsersExceptAdmin(): Promise<User[] | undefined> {
 			.select()
 			.from(users)
 			.where(and(ne(users.user_type, UsersType.admin)));
+		// close connection
 		conn.end();
 		if (allUsers.length !== 0) {
 			return allUsers;

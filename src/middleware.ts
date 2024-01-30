@@ -7,7 +7,6 @@ import { checkAndGetAuth } from './lib/helper_function';
 import { verify_auth_token } from './lib/utils';
 import { User } from './lib/definitions';
 
-console.log('Middler calls..');
 export async function middleware(request: NextRequest) {
 	if (
 		request.nextUrl.pathname.startsWith('/login') ||

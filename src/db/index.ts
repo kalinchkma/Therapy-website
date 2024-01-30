@@ -7,26 +7,15 @@ import * as schema from './schema/users';
 
 dotenv.config({ path: '.env.local' });
 
-export const connection = async () => {
-	const conn = await mysql.createConnection({
-		host: process.env.DB_HOST,
-		user: process.env.DB_USER,
-		password: process.env.DB_PASS,
-		database: process.env.DB_NAME,
-		multipleStatements: true,
-	});
-	return conn;
-};
+export const connection = mysql.createPool({
+	host: process.env.DB_HOST,
+	user: process.env.DB_USER,
+	password: process.env.DB_PASS,
+	database: process.env.DB_NAME,
+	multipleStatements: true,
+});
 
-export const db = async () => {
-	try {
-		const database = drizzle(await connection(), {
-			mode: 'default',
-			schema: schema,
-		});
-
-		return database;
-	} catch (error) {
-		throw Error('Database connection error');
-	}
-};
+export const db = drizzle(connection, {
+	mode: 'default',
+	schema: schema,
+});

@@ -43,6 +43,7 @@ import {
 } from '@/components/ui/table';
 
 import { UserDataCol } from './columns';
+import { makeAdmin, makeClient, makeMember } from '@/actions/users-actions';
 
 export const columns: ColumnDef<UserDataCol>[] = [
 	{
@@ -102,7 +103,9 @@ export const columns: ColumnDef<UserDataCol>[] = [
 		enableHiding: false,
 		cell: ({ row }) => {
 			const user = row.original;
-
+			const make_member = makeMember.bind(null, Number(user.id));
+			const make_client = makeClient.bind(null, Number(user.id));
+			const make_admin = makeAdmin.bind(null, Number(user.id));
 			return (
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
@@ -120,13 +123,18 @@ export const columns: ColumnDef<UserDataCol>[] = [
 							</form>
 						</DropdownMenuItem>
 						<DropdownMenuItem>
-							<form>
+							<form action={make_member}>
 								<button type='submit'>Make Team Member</button>
 							</form>
 						</DropdownMenuItem>
 						<DropdownMenuItem>
-							<form>
+							<form action={make_admin}>
 								<button type='submit'>Make Admin</button>
+							</form>
+						</DropdownMenuItem>
+						<DropdownMenuItem>
+							<form action={make_client}>
+								<button type='submit'>Make Client</button>
 							</form>
 						</DropdownMenuItem>
 					</DropdownMenuContent>

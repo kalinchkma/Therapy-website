@@ -9,15 +9,10 @@ import { unstable_noStore as noStore } from 'next/cache';
 export async function getUserByEmail(email: string): Promise<User | undefined> {
 	noStore();
 	try {
-		const user = await (
-			await db()
-		)
-			.select()
-			.from(users)
-			.where(eq(users.email, email))
-			.finally(async () => {
-				(await connection()).end();
-			}); // close the connection
+		const user = await db.select().from(users).where(eq(users.email, email));
+		// .finally(() => {
+		// 	connection.end();
+		// }); // close the connection
 		if (user.length !== 0) {
 			return {
 				name: user[0].name,
@@ -35,15 +30,13 @@ export async function getUserByEmail(email: string): Promise<User | undefined> {
 export async function getAllUsersExceptAdmin(): Promise<User[] | undefined> {
 	noStore();
 	try {
-		const allUsers = await (
-			await db()
-		)
+		const allUsers = await db
 			.select()
 			.from(users)
-			.where(and(ne(users.user_type, UsersType.admin)))
-			.finally(async () => {
-				(await connection()).end();
-			}); // close the connection
+			.where(and(ne(users.user_type, UsersType.admin)));
+		// .finally(() => {
+		// 	connection.end();
+		// }); // close the connection
 
 		if (allUsers.length !== 0) {
 			return allUsers;

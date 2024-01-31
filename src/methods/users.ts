@@ -21,6 +21,7 @@ export async function getUserByEmail(email: string): Promise<User | undefined> {
 		conn.end();
 		if (user.length !== 0) {
 			return {
+				id: user[0].id,
 				name: user[0].name,
 				email: user[0].email,
 				password: user[0].password,

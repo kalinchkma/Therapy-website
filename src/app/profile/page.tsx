@@ -16,7 +16,7 @@ export default async function ProfilePage() {
 
 	return (
 		<div className='w-full'>
-			<ProfilePageCompnent auth={auth} />
+			<ProfilePageCompnent />
 		</div>
 	);
 }

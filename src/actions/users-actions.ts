@@ -11,6 +11,7 @@ import { z } from 'zod';
 import { hash_password } from '@/lib/utils';
 import { v4 as uuidv4 } from 'uuid';
 import { uploadFile } from '@/lib/helper_function';
+import { notFound, redirect } from 'next/navigation';
 
 // make user as Team Member @Only for admin user access
 export async function makeMember(id: number) {
@@ -27,7 +28,7 @@ export async function makeMember(id: number) {
 		conn.end();
 		revalidatePath('/dashboard/users', 'page');
 	} catch (error) {
-		throw new Error('Internal server Error');
+		redirect('/errors');
 	}
 }
 
@@ -46,7 +47,7 @@ export async function makeClient(id: number) {
 		conn.end();
 		revalidatePath('/dashboard/users', 'page');
 	} catch (error) {
-		throw new Error('Internal server Error');
+		redirect('/errors');
 	}
 }
 
@@ -65,7 +66,7 @@ export async function makeAdmin(id: number) {
 		conn.end();
 		revalidatePath('/dashboard/users', 'page');
 	} catch (error) {
-		throw new Error('Internal server Error');
+		redirect('/errors');
 	}
 }
 
@@ -81,7 +82,7 @@ export async function deleteUser(id: number) {
 		conn.end();
 		revalidatePath('/dashboard/users', 'page');
 	} catch (error) {
-		throw new Error('Internal server Error');
+		redirect('/errors');
 	}
 }
 
@@ -179,6 +180,11 @@ export async function createNewUser(
 		const uploadImage = await uploadFile(avatar, imagePath);
 		if (uploadImage) {
 			new_user['avatar'] = imagePath;
+		} else {
+			return {
+				error: true,
+				message: 'File upload error',
+			};
 		}
 	}
 
@@ -233,5 +239,44 @@ export async function createNewUser(
 			error: true,
 			message: 'Internal server error',
 		};
+	}
+}
+
+// update avatar
+export async function updateAvatar(
+	id: number,
+	prevState: string | undefined,
+	formData: FormData,
+) {
+	try {
+		// save file
+		const avatar = formData.get('avatar') as File;
+		console.log(avatar);
+		console.log(id);
+		if (avatar.size > 0) {
+			const imagePath = `/images/${uuidv4()}${avatar.name}`;
+			const uploadImage = await uploadFile(avatar, imagePath);
+			if (uploadImage) {
+				const imageUrl = imagePath;
+				// create connection
+				const conn = mysql.createPool(config);
+				const db = createDBConnection(conn);
+
+				const res = await db
+					.update(users)
+					.set({ avatar: imageUrl })
+					.where(eq(users.id, Number(id)));
+				// close connection
+				conn.end();
+
+				revalidatePath('/profile', 'page');
+				return 'success';
+			} else {
+				redirect('/errors');
+			}
+		}
+	} catch (error) {
+		console.log(error);
+		redirect('/errors');
 	}
 }

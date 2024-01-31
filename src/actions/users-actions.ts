@@ -69,8 +69,23 @@ export async function makeAdmin(id: number) {
 	}
 }
 
-// create new user form schema
+// delete user
+export async function deleteUser(id: number) {
+	try {
+		// create connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
 
+		await db.delete(users).where(eq(users.id, id));
+		// close connection
+		conn.end();
+		revalidatePath('/dashboard/users', 'page');
+	} catch (error) {
+		throw new Error('Internal server Error');
+	}
+}
+
+// create new user form schema
 const FromSchema = z.object({
 	name: z
 		.string({
@@ -218,21 +233,5 @@ export async function createNewUser(
 			error: true,
 			message: 'Internal server error',
 		};
-	}
-}
-
-// delete user
-export async function deleteUser(id: number) {
-	try {
-		// create connection
-		const conn = mysql.createPool(config);
-		const db = createDBConnection(conn);
-
-		await db.delete(users).where(eq(users.id, id));
-		// close connection
-		conn.end();
-		revalidatePath('/dashboard/users', 'page');
-	} catch (error) {
-		throw new Error('Internal server Error');
 	}
 }

@@ -25,6 +25,10 @@ export async function getUserByEmail(email: string): Promise<User | undefined> {
 				email: user[0].email,
 				password: user[0].password,
 				user_type: user[0].user_type,
+				description: user[0].description!,
+				designation: user[0].designation!,
+				education: user[0].education!,
+				avatar: user[0].avatar!,
 			};
 		}
 

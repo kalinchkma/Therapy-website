@@ -30,22 +30,20 @@ export async function getUserByEmail(email: string): Promise<User | undefined> {
 
 		return undefined;
 	} catch (error) {
-		throw new Error('Failed to Fectch user');
+		return undefined;
 	}
 }
 
 // get user except admin
-export async function getAllUsersExceptAdmin(): Promise<User[] | undefined> {
+export async function getAllUsers(): Promise<User[] | undefined> {
 	noStore();
 	try {
 		const conn = mysql.createPool(config);
 
 		const dbConn = createDBConnection(conn);
 
-		const allUsers = await dbConn
-			.select()
-			.from(users)
-			.where(and(ne(users.user_type, UsersType.admin)));
+		const allUsers = await dbConn.select().from(users);
+
 		// close connection
 		conn.end();
 		if (allUsers.length !== 0) {
@@ -53,6 +51,6 @@ export async function getAllUsersExceptAdmin(): Promise<User[] | undefined> {
 		}
 		return [];
 	} catch (error) {
-		throw new Error('Failed to Fect user');
+		return undefined;
 	}
 }

@@ -5,6 +5,7 @@ import { Nunito } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { Toaster } from '@/components/ui/sonner';
 
 import { cookies } from 'next/headers';
 import { AuthTokenName, UsersType } from '@/lib/definitions';
@@ -12,6 +13,7 @@ import { verify_auth_token, verify_auth_token2 } from '@/lib/utils';
 import { getUserByEmail } from '@/methods/users';
 import { unstable_noStore as noStore } from 'next/cache';
 import { checkAndGetAuth } from '@/lib/helper_function';
+import { NextURL } from 'next/dist/server/web/next-url';
 
 const nunito = Nunito({
 	subsets: ['latin'],
@@ -31,13 +33,9 @@ export default async function RootLayout({
 	let userType: UsersType = UsersType.client;
 	let hasAuth = false;
 	const auth = await checkAndGetAuth();
-	if (auth) {
+	if (auth !== '/login' && auth !== '/404') {
 		hasAuth = true;
-		if (auth?.user_type === UsersType.admin) {
-			userType = UsersType.admin;
-		} else if (auth?.user_type === UsersType['team-member']) {
-			userType = UsersType['team-member'];
-		}
+		userType = auth.user_type as UsersType;
 	}
 
 	return (
@@ -46,6 +44,7 @@ export default async function RootLayout({
 				<Header auth={hasAuth} authType={userType} />
 				{children}
 				<Footer />
+				<Toaster />
 			</body>
 		</html>
 	);

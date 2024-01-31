@@ -43,7 +43,12 @@ import {
 } from '@/components/ui/table';
 
 import { UserDataCol } from './columns';
-import { makeAdmin, makeClient, makeMember } from '@/actions/users-actions';
+import {
+	makeAdmin,
+	makeClient,
+	makeMember,
+	deleteUser,
+} from '@/actions/users-actions';
 import AddNewUser from './add-new-user';
 
 export const columns: ColumnDef<UserDataCol>[] = [
@@ -107,6 +112,7 @@ export const columns: ColumnDef<UserDataCol>[] = [
 			const make_member = makeMember.bind(null, Number(user.id));
 			const make_client = makeClient.bind(null, Number(user.id));
 			const make_admin = makeAdmin.bind(null, Number(user.id));
+			const delete_user = deleteUser.bind(null, Number(user.id));
 			return (
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
@@ -119,7 +125,7 @@ export const columns: ColumnDef<UserDataCol>[] = [
 						<DropdownMenuLabel>Actions</DropdownMenuLabel>
 						<DropdownMenuSeparator />
 						<DropdownMenuItem>
-							<form>
+							<form action={delete_user}>
 								<button type='submit'>Delete User</button>
 							</form>
 						</DropdownMenuItem>
@@ -184,9 +190,7 @@ export default function UserDataTable({ data }: { data: UserDataCol[] }) {
 					}
 					className='max-w-sm'
 				/>
-				{/* <button className='capitalize px-4 py-2 bg-blue-600 text-white ml-2 rounded-md'>
-					add new user
-				</button> */}
+				{/* Add new user */}
 				<AddNewUser label='add new user' />
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>

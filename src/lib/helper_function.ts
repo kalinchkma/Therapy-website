@@ -29,11 +29,17 @@ export async function checkAndGetAuth() {
 		const authCookie = cookieStore.get(AuthTokenName);
 		const token = await verify_auth_token(authCookie?.value!);
 		if (!token) {
-			return false;
+			return '/404';
 		} else {
 			const a_token = token as { name: string; email: string; iat: number };
 			const getLoggedInUser = await getUserByEmail(a_token.email);
-			return getLoggedInUser as User;
+			if (getLoggedInUser) {
+				return getLoggedInUser as User;
+			} else {
+				return '/404';
+			}
 		}
+	} else {
+		return '/login';
 	}
 }

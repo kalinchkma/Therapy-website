@@ -19,8 +19,10 @@ export default async function RootLayout({
 	children: React.ReactNode;
 }) {
 	const auth = await checkAndGetAuth();
-	if (!auth) {
-		redirect('/login');
+	if (auth === '/404') {
+		redirect(auth);
+	} else if (auth === '/login') {
+		redirect(auth);
 	} else {
 		if (!(auth.user_type === UsersType.admin)) {
 			redirect('/profile');

@@ -9,8 +9,8 @@ import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 import { hash_password, verify_password } from '@/lib/utils';
 import { cookies } from 'next/headers';
-import { create_auth_token, verify_auth_token } from '@/lib/utils';
-import { AuthTokenData, User, UsersType } from '@/lib/definitions';
+import { create_auth_token } from '@/lib/utils';
+import { AuthTokenData } from '@/lib/definitions';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { AuthTokenName } from '@/lib/definitions';
@@ -19,7 +19,7 @@ import { AuthTokenName } from '@/lib/definitions';
 const FromSchema = z.object({
 	name: z
 		.string({
-			invalid_type_error: 'Last name must be a string',
+			invalid_type_error: 'name must be a string',
 		})
 		.min(2, { message: 'Must be 2 or more characters long' }),
 	email: z
@@ -94,7 +94,6 @@ export async function signup(prevState: SignupState, formData: FormData) {
 
 		// check user is already exsist
 		const check_user = await db
-
 			.select()
 			.from(users)
 			.where(eq(users.email, email))
@@ -229,6 +228,14 @@ export async function logout() {
 	if (bearer) {
 		await cookieStore.delete(AuthTokenName);
 	}
+	revalidatePath('/', 'page');
+	redirect('/');
+}
+
+// fixed login function
+export async function clearCookie() {
+	const cookieStore = cookies();
+	cookieStore.delete(AuthTokenName);
 	revalidatePath('/', 'page');
 	redirect('/');
 }

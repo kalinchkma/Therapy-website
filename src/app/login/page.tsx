@@ -1,10 +1,17 @@
 /** @format */
 
 import LoginFrom from '@/components/login-form';
-import { checkAuth } from '@/lib/helper_function';
+import { checkAndGetAuth } from '@/lib/helper_function';
+import { redirect } from 'next/navigation';
 
 export default async function LoginPage() {
-	await checkAuth();
+	const auth = await checkAndGetAuth();
+	if (auth === '/404') {
+		redirect(auth);
+	} else if (auth !== '/login') {
+		redirect('/');
+	}
+
 	return (
 		<div className='flex flex-row w-full md:container justify-center items-center h-[100vh]'>
 			{/* TODO: Make a bueautifull style */}

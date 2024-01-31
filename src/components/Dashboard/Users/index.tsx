@@ -1,13 +1,13 @@
 /** @format */
 
 import { User, UsersType } from '@/lib/definitions';
-import { getAllUsersExceptAdmin } from '@/methods/users';
+import { getAllUsers } from '@/methods/users';
 import UserDataTable from './user-table';
 import { UserDataCol } from './columns';
 import { notFound } from 'next/navigation';
 
 async function getData(): Promise<UserDataCol[]> {
-	const users = await getAllUsersExceptAdmin();
+	const users = await getAllUsers();
 	if (users) {
 		const userList: UserDataCol[] = [];
 		users.map((user) => {

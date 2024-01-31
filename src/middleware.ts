@@ -2,10 +2,7 @@
 
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
-import { AuthTokenName, UsersType } from './lib/definitions';
-import { checkAndGetAuth } from './lib/helper_function';
-import { verify_auth_token } from './lib/utils';
-import { User } from './lib/definitions';
+import { AuthTokenName } from './lib/definitions';
 
 export async function middleware(request: NextRequest) {
 	if (
@@ -14,18 +11,7 @@ export async function middleware(request: NextRequest) {
 	) {
 		const auth = request.cookies.has(AuthTokenName);
 		if (auth) {
-			const authUser = await verify_auth_token(
-				request.cookies.get(AuthTokenName)?.value!,
-			);
-			if (authUser) {
-				const authUserDetails = authUser as User;
-				if (authUserDetails.user_type === UsersType.admin) {
-					return NextResponse.redirect(new URL('/dashboard', request.url));
-				} else {
-					return NextResponse.redirect(new URL('/profile', request.url));
-				}
-			}
-			return NextResponse.redirect(new URL('/dashboard', request.url));
+			return NextResponse.redirect(new URL('/', request.url));
 		}
 	}
 

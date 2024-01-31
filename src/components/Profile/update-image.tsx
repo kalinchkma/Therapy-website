@@ -18,11 +18,6 @@ export default function UpdateImage({
 	className?: string;
 	authId: string;
 }) {
-	useEffect(() => {
-		console.log(authId);
-		console.log('Test');
-	}, []);
-
 	const [file, setFile] = useState<File>();
 	const [fileDataURL, setFileDataURL] = useState<string | ArrayBuffer>();
 	const imageMimeType = /image\/(png|jpg|jpeg)/i;

@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "e5de6e02-355b-4b24-ae53-a9a760b654c5",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "87730876-5ef1-4e27-bfdf-de83759b6346",
+  "prevId": "53eb2c3b-4263-4c3e-a870-ba02d8673b69",
   "tables": {
     "users": {
       "name": "users",
@@ -42,6 +42,38 @@
           "notNull": false,
           "autoincrement": false,
           "default": "'Client'"
+        },
+        "designation": {
+          "name": "designation",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'None'"
+        },
+        "education": {
+          "name": "education",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "('None')"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "('None')"
+        },
+        "avatar": {
+          "name": "avatar",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'None'"
         },
         "createdAt": {
           "name": "createdAt",

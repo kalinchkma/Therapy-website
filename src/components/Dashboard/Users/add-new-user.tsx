@@ -47,9 +47,10 @@ export default function AddNewUser({ label }: { label: string }) {
 	useEffect(() => {
 		setModalOpen(false);
 		setFormStateMessage(state?.message!);
-		// setTimeout(() => {
-		// 	setFormStateMessage(undefined);
-		// }, 90000);
+		setMemberType(UsersType.client);
+		setTimeout(() => {
+			setFormStateMessage(undefined);
+		}, 90000);
 	}, [state]);
 
 	return (
@@ -71,12 +72,15 @@ export default function AddNewUser({ label }: { label: string }) {
 						{formStateMessage}
 					</span>
 				))}
-			<DialogContent className='max-w-full md:max-w-[500px]'>
+			<DialogContent className='max-w-full md:max-w-[500px] max-h-[100vh] overflow-y-auto'>
 				<DialogHeader>
 					<DialogTitle className='text-center'>Add new user</DialogTitle>
 				</DialogHeader>
 				<form action={dispatch} className='grid gap-4 py-4'>
 					<div className='grid grid-cols-4 items-center gap-4'>
+						<Label htmlFor='name' className='col-span-4'>
+							Name
+						</Label>
 						<Input
 							id='name'
 							type='text'
@@ -87,6 +91,9 @@ export default function AddNewUser({ label }: { label: string }) {
 						/>
 					</div>
 					<div className='grid grid-cols-4 items-center gap-4'>
+						<Label htmlFor='email' className='col-span-4'>
+							Email
+						</Label>
 						<Input
 							id='email'
 							type='email'
@@ -97,6 +104,9 @@ export default function AddNewUser({ label }: { label: string }) {
 						/>
 					</div>
 					<div className='grid grid-cols-4 items-center gap-4'>
+						<Label htmlFor='password' className='col-span-4'>
+							Password
+						</Label>
 						<Input
 							id='password'
 							type='password'
@@ -139,31 +149,12 @@ export default function AddNewUser({ label }: { label: string }) {
 							'hidden grid-cols-4 items-center gap-4',
 							memberType === UsersType['team-member'] && 'grid',
 						)}>
+						<Label htmlFor='designation' className='col-span-4'>
+							Member Position
+						</Label>
 						{memberType === UsersType['team-member'] ? (
 							<Input
-								type='text'
-								name='member-type'
-								className='col-span-4'
-								placeholder='Team member type....'
-							/>
-						) : (
-							<Input
-								type='text'
-								name='member-type'
-								value={'None'}
-								className='col-span-4'
-								placeholder='Team member type....'
-							/>
-						)}
-					</div>
-
-					<div
-						className={cn(
-							'hidden grid-cols-4 items-center gap-4',
-							memberType === UsersType['team-member'] && 'grid',
-						)}>
-						{memberType === UsersType['team-member'] ? (
-							<Input
+								id='designation'
 								type='text'
 								name='designation'
 								className='col-span-4'
@@ -171,6 +162,7 @@ export default function AddNewUser({ label }: { label: string }) {
 							/>
 						) : (
 							<Input
+								id='designation'
 								type='text'
 								name='designation'
 								value='None'
@@ -184,8 +176,12 @@ export default function AddNewUser({ label }: { label: string }) {
 							'hidden grid-cols-4 items-center gap-4',
 							memberType === UsersType['team-member'] && 'grid',
 						)}>
+						<Label htmlFor='education' className='col-span-4'>
+							Educational qualification
+						</Label>
 						{memberType === UsersType['team-member'] ? (
 							<Input
+								id='education'
 								type='text'
 								name='education'
 								className='col-span-4'
@@ -193,6 +189,7 @@ export default function AddNewUser({ label }: { label: string }) {
 							/>
 						) : (
 							<Input
+								id='education'
 								type='text'
 								name='education'
 								value='None'
@@ -206,9 +203,32 @@ export default function AddNewUser({ label }: { label: string }) {
 							'hidden grid-cols-4 items-center gap-4',
 							memberType === UsersType['team-member'] && 'grid',
 						)}>
+						<Label htmlFor='description' className='col-span-4'>
+							Member Summary
+						</Label>
 						<Textarea
+							id='description'
 							name='description'
 							placeholder='Provide User summary'
+							className='col-span-4'
+						/>
+					</div>
+					<div
+						className={cn(
+							'hidden grid-cols-4 items-center gap-4',
+							memberType === UsersType['team-member'] && 'grid',
+						)}>
+						<Label htmlFor='avatar' className='col-span-4'>
+							Member Image
+						</Label>
+						<Label htmlFor='avatar' className='col-span-4'>
+							Upload Profile image
+						</Label>
+						<Input
+							id='avatar'
+							type='file'
+							name='avatar'
+							placeholder='Upload user avatar'
 							className='col-span-4'
 						/>
 					</div>

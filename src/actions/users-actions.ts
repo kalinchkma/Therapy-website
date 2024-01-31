@@ -9,6 +9,8 @@ import { revalidatePath } from 'next/cache';
 import mysql from 'mysql2/promise';
 import { z } from 'zod';
 import { hash_password } from '@/lib/utils';
+import { v4 as uuidv4 } from 'uuid';
+import { uploadFile } from '@/lib/helper_function';
 
 // make user as Team Member @Only for admin user access
 export async function makeMember(id: number) {
@@ -92,6 +94,18 @@ const FromSchema = z.object({
 		required_error: 'User type is required',
 		invalid_type_error: 'User type must be a string format',
 	}),
+	designation: z.string({
+		required_error: 'Designation is required',
+		invalid_type_error: 'Designation must be a string',
+	}),
+	education: z.string({
+		required_error: 'Education is required',
+		invalid_type_error: 'Education must be a string',
+	}),
+	description: z.string({
+		required_error: 'Description is required',
+		invalid_type_error: 'Description must be a string',
+	}),
 });
 
 export type UserCreateState = {
@@ -104,13 +118,15 @@ export async function createNewUser(
 	prevState: UserCreateState | undefined,
 	formData: FormData,
 ) {
-	console.log(formData);
 	// validate user input
 	const validatedFields = FromSchema.safeParse({
 		name: formData.get('name'),
 		email: formData.get('email'),
 		password: formData.get('password'),
 		user_type: formData.get('user-type'),
+		designation: formData.get('designation'),
+		education: formData.get('education'),
+		description: formData.get('description'),
 	});
 
 	// check data validation result
@@ -121,7 +137,35 @@ export async function createNewUser(
 		};
 	}
 	// if validation success extract data
-	const { email, name, password, user_type } = validatedFields.data;
+	const {
+		email,
+		name,
+		password,
+		user_type,
+		description,
+		designation,
+		education,
+	} = validatedFields.data;
+
+	const new_user = {
+		name: name,
+		email: email,
+		password: password,
+		user_type: user_type as UsersType,
+		description: description,
+		designation: designation,
+		education: education,
+		avatar: '',
+	};
+	// save file
+	const avatar = formData.get('avatar') as File;
+	if (avatar.size > 0) {
+		const imagePath = `/images/${uuidv4()}${avatar.name}`;
+		const uploadImage = await uploadFile(avatar, imagePath);
+		if (uploadImage) {
+			new_user['avatar'] = imagePath;
+		}
+	}
 
 	// If everything is ok try creating new user
 	try {
@@ -155,16 +199,10 @@ export async function createNewUser(
 			};
 		}
 
+		new_user['password'] = hashPassword;
+
 		// Create new user to database
-		await db
-			.insert(users)
-			.values({
-				name: name,
-				email: email,
-				password: hashPassword,
-				user_type: user_type as UsersType,
-			})
-			.execute();
+		await db.insert(users).values(new_user).execute();
 
 		// end database connection
 		conn.end();
@@ -176,7 +214,10 @@ export async function createNewUser(
 			message: 'User created successfully',
 		};
 	} catch (error) {
-		throw new Error('Internal Server Error');
+		return {
+			error: true,
+			message: 'Internal server error',
+		};
 	}
 }
 

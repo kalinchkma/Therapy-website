@@ -15,6 +15,13 @@
       "when": 1706677292268,
       "tag": "0001_youthful_drax",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1706721120157,
+      "tag": "0002_tranquil_captain_marvel",
+      "breakpoints": true
     }
   ]
 }

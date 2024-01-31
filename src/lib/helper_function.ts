@@ -5,6 +5,7 @@ import { cookies } from 'next/headers';
 import { verify_auth_token } from '@/lib/utils';
 import { AuthTokenName, User, UsersType } from './definitions';
 import { getUserByEmail } from '@/methods/users';
+import fs from 'fs/promises';
 
 export async function checkAuth() {
 	const cookie = cookies();
@@ -22,6 +23,7 @@ export async function checkAuth() {
 	}
 }
 
+// check authentication
 export async function checkAndGetAuth() {
 	const cookieStore = cookies();
 
@@ -41,5 +43,17 @@ export async function checkAndGetAuth() {
 		}
 	} else {
 		return '/login';
+	}
+}
+
+// upload images
+export async function uploadFile(file: File, path: string) {
+	const bytes = await file.arrayBuffer();
+	const buffer = Buffer.from(bytes);
+	try {
+		await fs.writeFile(`./public${path}`, buffer, 'binary');
+		return true;
+	} catch (err) {
+		return false;
 	}
 }

@@ -17,6 +17,11 @@ export type User = {
 	email: string;
 	password?: string;
 	user_type: UsersType | null;
+	member_type?: string;
+	designation?: string;
+	description?: string;
+	avatar?: string;
+	education?: string;
 	createdAt?: Date | null;
 	updatedAt?: Date | null;
 };

@@ -104,6 +104,7 @@ export async function createNewUser(
 	prevState: UserCreateState | undefined,
 	formData: FormData,
 ) {
+	console.log(formData);
 	// validate user input
 	const validatedFields = FromSchema.safeParse({
 		name: formData.get('name'),

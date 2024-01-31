@@ -28,6 +28,8 @@ import { useFormState, useFormStatus } from 'react-dom';
 
 import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
+import { Textarea } from '@/components/ui/textarea';
 
 export default function AddNewUser({ label }: { label: string }) {
 	const initialState: UserCreateState | undefined = undefined;
@@ -39,6 +41,8 @@ export default function AddNewUser({ label }: { label: string }) {
 	const [formStateMessage, setFormStateMessage] = useState<
 		string | undefined
 	>();
+
+	const [memberType, setMemberType] = useState<UsersType>(UsersType.client);
 
 	useEffect(() => {
 		setModalOpen(false);
@@ -67,7 +71,7 @@ export default function AddNewUser({ label }: { label: string }) {
 						{formStateMessage}
 					</span>
 				))}
-			<DialogContent className='sm:max-w-[425px]'>
+			<DialogContent className='max-w-full md:max-w-[500px]'>
 				<DialogHeader>
 					<DialogTitle className='text-center'>Add new user</DialogTitle>
 				</DialogHeader>
@@ -79,6 +83,7 @@ export default function AddNewUser({ label }: { label: string }) {
 							name='name'
 							className='col-span-4'
 							placeholder='Enter a name...'
+							required
 						/>
 					</div>
 					<div className='grid grid-cols-4 items-center gap-4'>
@@ -88,6 +93,7 @@ export default function AddNewUser({ label }: { label: string }) {
 							name='email'
 							className='col-span-4'
 							placeholder='Enter a email....'
+							required
 						/>
 					</div>
 					<div className='grid grid-cols-4 items-center gap-4'>
@@ -97,10 +103,16 @@ export default function AddNewUser({ label }: { label: string }) {
 							name='password'
 							className='col-span-4'
 							placeholder='Create password....'
+							required
 						/>
 					</div>
 					<div className='flex w-full items-center justify-end'>
-						<Select name='user-type'>
+						<Select
+							name='user-type'
+							onValueChange={(e) => {
+								setMemberType(e as UsersType);
+							}}
+							required>
 							<SelectTrigger className='w-full ml-auto'>
 								<SelectValue placeholder='Select a User Type' />
 							</SelectTrigger>
@@ -120,6 +132,85 @@ export default function AddNewUser({ label }: { label: string }) {
 								</SelectGroup>
 							</SelectContent>
 						</Select>
+					</div>
+
+					<div
+						className={cn(
+							'hidden grid-cols-4 items-center gap-4',
+							memberType === UsersType['team-member'] && 'grid',
+						)}>
+						{memberType === UsersType['team-member'] ? (
+							<Input
+								type='text'
+								name='member-type'
+								className='col-span-4'
+								placeholder='Team member type....'
+							/>
+						) : (
+							<Input
+								type='text'
+								name='member-type'
+								value={'None'}
+								className='col-span-4'
+								placeholder='Team member type....'
+							/>
+						)}
+					</div>
+
+					<div
+						className={cn(
+							'hidden grid-cols-4 items-center gap-4',
+							memberType === UsersType['team-member'] && 'grid',
+						)}>
+						{memberType === UsersType['team-member'] ? (
+							<Input
+								type='text'
+								name='designation'
+								className='col-span-4'
+								placeholder='Designation....'
+							/>
+						) : (
+							<Input
+								type='text'
+								name='designation'
+								value='None'
+								className='col-span-4'
+								placeholder='Designation....'
+							/>
+						)}
+					</div>
+					<div
+						className={cn(
+							'hidden grid-cols-4 items-center gap-4',
+							memberType === UsersType['team-member'] && 'grid',
+						)}>
+						{memberType === UsersType['team-member'] ? (
+							<Input
+								type='text'
+								name='education'
+								className='col-span-4'
+								placeholder='Education....'
+							/>
+						) : (
+							<Input
+								type='text'
+								name='education'
+								value='None'
+								className='col-span-4'
+								placeholder='Education....'
+							/>
+						)}
+					</div>
+					<div
+						className={cn(
+							'hidden grid-cols-4 items-center gap-4',
+							memberType === UsersType['team-member'] && 'grid',
+						)}>
+						<Textarea
+							name='description'
+							placeholder='Provide User summary'
+							className='col-span-4'
+						/>
 					</div>
 					<div className='flex items-center gap-4 md:gap-5 justify-center'>
 						<Button type='submit'>Create</Button>

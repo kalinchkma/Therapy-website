@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import { DialogClose } from '@/components/ui/dialog';
+
 import Image from 'next/image';
 import { updateAvatar } from '@/actions/users-actions';
 import { useFormState } from 'react-dom';

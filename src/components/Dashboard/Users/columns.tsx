@@ -5,4 +5,6 @@ export type UserDataCol = {
 	name: string;
 	email: string;
 	user_type: string;
+	designation: string;
+	description: string;
 };

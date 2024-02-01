@@ -50,6 +50,16 @@ import {
 	deleteUser,
 } from '@/actions/users-actions';
 import AddNewUser from './add-new-user';
+import { UsersType } from '@/lib/definitions';
+import UpdateUserSummary from './update-user-summary';
+import {
+	Dialog,
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from '@/components/ui/dialog';
+import { Textarea } from '@/components/ui/textarea';
 
 export const columns: ColumnDef<UserDataCol>[] = [
 	{
@@ -100,6 +110,42 @@ export const columns: ColumnDef<UserDataCol>[] = [
 			return (
 				<div className='text-right font-medium'>
 					{row.getValue('user_type')}
+				</div>
+			);
+		},
+	},
+	{
+		accessorKey: 'designation',
+		header: () => <div className='text-center'>Member Position</div>,
+		cell: ({ row }) => {
+			return (
+				<form className='text-right font-medium flex items-center justify-center'>
+					<Input
+						className='max-w-[150px]'
+						defaultValue={row.getValue('designation')}
+					/>
+					<Button variant='ghost'>Change</Button>
+				</form>
+			);
+		},
+	},
+	{
+		accessorKey: 'description',
+		header: () => <div className='text-right'>Member summary</div>,
+		cell: ({ row }) => {
+			const user = row.original;
+			return (
+				<div className='text-right font-medium'>
+					{user.user_type === UsersType['team-member'] ||
+					user.user_type === UsersType.admin ? (
+						<UpdateUserSummary
+							default_sum={user.description}
+							id={Number(user.id)}
+						/>
+					) : (
+						// <span>Test</span>
+						<span>{row.getValue('designation')}</span>
+					)}
 				</div>
 			);
 		},

@@ -18,7 +18,7 @@ export const users = mysqlTable('users', {
 	user_type: varchar('user_type', { length: 256 })
 		.$type<UsersType>()
 		.default(UsersType.client),
-	designation: varchar('designation', { length: 256 }).default('None'),
+	designation: varchar('designation', { length: 256 }).default('Client'),
 	education: text('education').default('None'),
 	description: text('description').default('None'),
 	avatar: varchar('avatar', { length: 256 }).default('None'),

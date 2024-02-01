@@ -1,0 +1,1 @@
+ALTER TABLE `users` MODIFY COLUMN `designation` varchar(256) DEFAULT 'Client';

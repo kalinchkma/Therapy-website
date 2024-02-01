@@ -10,7 +10,7 @@ import mysql from 'mysql2/promise';
 import { z } from 'zod';
 import { hash_password } from '@/lib/utils';
 import { v4 as uuidv4 } from 'uuid';
-import { uploadFile } from '@/lib/helper_function';
+import { uploadFile, deleteFile } from '@/lib/helper_function';
 import { notFound, redirect } from 'next/navigation';
 
 // make user as Team Member @Only for admin user access
@@ -77,10 +77,23 @@ export async function deleteUser(id: number) {
 		const conn = mysql.createPool(config);
 		const db = createDBConnection(conn);
 
-		await db.delete(users).where(eq(users.id, id));
-		// close connection
-		conn.end();
-		revalidatePath('/dashboard/users', 'page');
+		const user = await db.select().from(users).where(eq(users.id, id));
+
+		// if user find delete user related file
+		if (user.length > 0) {
+			if (user[0].avatar !== 'None' || user[0].avatar !== null) {
+				const res = await deleteFile(user[0].avatar!);
+				if (!res) {
+					notFound();
+				}
+			}
+			await db.delete(users).where(eq(users.id, id));
+			// close connection
+			conn.end();
+			revalidatePath('/dashboard/users', 'page');
+		} else {
+			notFound();
+		}
 	} catch (error) {
 		redirect('/errors');
 	}
@@ -251,8 +264,7 @@ export async function updateAvatar(
 	try {
 		// save file
 		const avatar = formData.get('avatar') as File;
-		console.log(avatar);
-		console.log(id);
+
 		if (avatar.size > 0) {
 			const imagePath = `/images/${uuidv4()}${avatar.name}`;
 			const uploadImage = await uploadFile(avatar, imagePath);
@@ -278,5 +290,65 @@ export async function updateAvatar(
 	} catch (error) {
 		console.log(error);
 		redirect('/errors');
+	}
+}
+
+// summary form schema
+const SummaryFormSchema = z.object({
+	summary: z.string({
+		invalid_type_error: 'Summary must be a string',
+	}),
+});
+
+// change user summary
+export async function updateUserSummary(
+	id: number,
+	prevState:
+		| {
+				error?: { summary?: string; message?: string };
+				success?: { message: string };
+		  }
+		| undefined,
+	formData: FormData,
+) {
+	// validate input
+	const validatedFields = SummaryFormSchema.safeParse({
+		summary: formData.get('summary'),
+	});
+
+	if (!validatedFields.success) {
+		return {
+			error: {
+				summary: 'Summary must be a string',
+			},
+		};
+	}
+
+	// extrac data
+	const { summary } = validatedFields.data;
+
+	try {
+		// create connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		// insert updated summary
+		await db
+			.update(users)
+			.set({ description: summary })
+			.where(eq(users.id, id));
+
+		revalidatePath('/dashboard/users', 'page');
+		return {
+			success: {
+				message: 'Summary updated successfully',
+			},
+		};
+	} catch (err) {
+		return {
+			error: {
+				message: 'Internal server error',
+			},
+		};
 	}
 }

@@ -57,3 +57,13 @@ export async function uploadFile(file: File, path: string) {
 		return false;
 	}
 }
+
+// delete file
+export async function deleteFile(path: string) {
+	try {
+		await fs.unlink(`./public${path}`);
+		return true;
+	} catch (err) {
+		return false;
+	}
+}

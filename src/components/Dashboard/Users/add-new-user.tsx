@@ -236,6 +236,7 @@ export default function AddNewUser({ label }: { label: string }) {
 						<Button type='submit'>Create</Button>
 						<Button
 							variant='secondary'
+							type='button'
 							onClick={() => setModalOpen(!modalOpen)}>
 							Cancel
 						</Button>

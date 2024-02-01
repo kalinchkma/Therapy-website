@@ -16,6 +16,8 @@ async function getData(): Promise<UserDataCol[]> {
 				email: user.email,
 				name: user.name!,
 				user_type: user.user_type!,
+				designation: user.designation!,
+				description: user.description!,
 			});
 		});
 		return userList;

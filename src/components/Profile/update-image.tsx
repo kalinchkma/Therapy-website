@@ -69,6 +69,7 @@ export default function UpdateImage({
 	useEffect(() => {
 		if (state?.error === false) {
 			setOpen(false);
+			setFileDataURL('');
 		}
 	}, [state]);
 
@@ -116,7 +117,7 @@ export default function UpdateImage({
 								name='avatar'
 								className='col-span-3 hidden'
 								onChange={changeHandler}
-								// accept='.png, .jpg, jpeg, .svg'
+								accept='.png, .jpg, .jpeg, .svg'
 							/>
 						</div>
 					</div>

@@ -47,8 +47,8 @@ export async function checkAndGetAuth() {
 }
 
 // upload images
-export async function uploadFile(file: File, path: string) {
-	const file_size_limit = 10 * 1024 * 1024;
+export async function uploadFile(file: File, path: string, limit = 10) {
+	const file_size_limit = limit * 1024 * 1024;
 	if (file.size > file_size_limit) {
 		return 'Big';
 	}

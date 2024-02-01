@@ -14,9 +14,11 @@ import { useFormState } from 'react-dom';
 export default function UpdateImage({
 	className,
 	authId,
+	path,
 }: {
 	className?: string;
 	authId: string;
+	path: string;
 }) {
 	const [file, setFile] = useState<File>();
 	const [fileDataURL, setFileDataURL] = useState<string | ArrayBuffer>();
@@ -58,7 +60,7 @@ export default function UpdateImage({
 		};
 	}, [file]);
 
-	const update_avatar = updateAvatar.bind(null, Number(authId));
+	const update_avatar = updateAvatar.bind(null, Number(authId), path);
 
 	const [open, setOpen] = useState<boolean>(false);
 

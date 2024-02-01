@@ -13,11 +13,13 @@ async function getData(): Promise<UserDataCol[]> {
 		users.map((user) => {
 			userList.push({
 				id: `${user.id}`,
+				avatar: user.avatar!,
 				email: user.email,
 				name: user.name!,
 				user_type: user.user_type!,
 				designation: user.designation!,
 				description: user.description!,
+				education: user.education!,
 			});
 		});
 		return userList;

@@ -1,7 +1,10 @@
 /** @format */
 
 'use client';
-import { updateUserSummary } from '@/actions/users-actions';
+import {
+	updateUserEducation,
+	updateUserSummary,
+} from '@/actions/users-actions';
 import { Button } from '@/components/ui/button';
 import {
 	Dialog,
@@ -15,27 +18,31 @@ import { DialogClose, DialogDescription } from '@radix-ui/react-dialog';
 import React from 'react';
 import { useFormState } from 'react-dom';
 
-export default function UpdateUserSummary({
+export default function UpdateUserEducation({
 	id,
-	default_sum,
+	default_edu,
 }: {
 	id: number;
-	default_sum: string;
+	default_edu: string;
 }) {
-	const update_summary = updateUserSummary.bind(null, Number(id));
+	const update_education = updateUserEducation.bind(
+		null,
+		Number(id),
+		'/dashboard/users',
+	);
 
-	const [state, dispatch] = useFormState(update_summary, undefined);
+	const [state, dispatch] = useFormState(update_education, undefined);
 
 	return (
 		<Dialog>
-			<DialogTrigger className='py-2 px-4 bg-green-700 text-zinc-100 rounded-sm'>
+			<DialogTrigger className='py-2 px-4 bg-zinc-200 text-zinc-700 rounded-sm'>
 				View
 			</DialogTrigger>
 
 			<DialogContent className='flex items-center justify-center flex-col w-auto md:w-[500px]'>
 				<DialogHeader>
 					<DialogTitle className='text-center'>
-						Change member summary
+						Change User Education status
 					</DialogTitle>
 					{state?.success?.message && (
 						<DialogDescription className='text-center text-green-500 bg-green-50'>
@@ -52,12 +59,12 @@ export default function UpdateUserSummary({
 				<form className='w-full flex flex-col gap-3' action={dispatch}>
 					<div className='w-full flex flex-col'>
 						<Textarea
-							defaultValue={default_sum}
+							defaultValue={default_edu}
 							className='h-52'
-							name='summary'
+							name='education'
 						/>
-						{state?.error?.summary && (
-							<p className='text-red-500 mt-3'>{state.error.summary}</p>
+						{state?.error?.education && (
+							<p className='text-red-500 mt-3'>{state.error.education}</p>
 						)}
 					</div>
 					<div className='flex w-full items-end justify-end'>

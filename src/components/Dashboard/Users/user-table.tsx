@@ -49,18 +49,14 @@ import {
 	makeMember,
 	deleteUser,
 	changeTeamMemberPosition,
+	makeTeamOnBoard,
 } from '@/actions/users-actions';
 import AddNewUser from './add-new-user';
 import { UsersType } from '@/lib/definitions';
 import UpdateUserSummary from './update-user-summary';
-import {
-	Dialog,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from '@/components/ui/dialog';
-import { Textarea } from '@/components/ui/textarea';
+import Image from 'next/image';
+import UpdateImage from '@/components/Profile/update-image';
+import UpdateUserEducation from './update-user-education';
 
 export const columns: ColumnDef<UserDataCol>[] = [
 	{
@@ -84,6 +80,27 @@ export const columns: ColumnDef<UserDataCol>[] = [
 		),
 		enableSorting: false,
 		enableHiding: false,
+	},
+	{
+		accessorKey: 'avatar',
+		header: 'image',
+		cell: ({ row }) => {
+			const user = row.original;
+
+			return (
+				<div className='flex relative'>
+					<Image
+						src={user.avatar !== 'None' ? user.avatar : '/images/default.jpg'}
+						width={'80'}
+						height={'80'}
+						alt='user image'
+					/>
+					<div className='absolute flex items-end justify-center left-0 top-0 w-full h-full'>
+						<UpdateImage authId={user.id} path='/dashboard/users' />
+					</div>
+				</div>
+			);
+		},
 	},
 	{
 		accessorKey: 'name',
@@ -148,6 +165,7 @@ export const columns: ColumnDef<UserDataCol>[] = [
 			return (
 				<div className='text-right font-medium'>
 					{user.user_type === UsersType['team-member'] ||
+					user.user_type === UsersType['team-onboard'] ||
 					user.user_type === UsersType.admin ? (
 						<UpdateUserSummary
 							default_sum={user.description}
@@ -162,6 +180,27 @@ export const columns: ColumnDef<UserDataCol>[] = [
 		},
 	},
 	{
+		accessorKey: 'education',
+		header: () => <div className='text-right'>Education</div>,
+		cell: ({ row }) => {
+			const user = row.original;
+			return (
+				<div className='text-right font-medium'>
+					{user.user_type === UsersType['team-member'] ||
+					user.user_type === UsersType['team-onboard'] ||
+					user.user_type === UsersType.admin ? (
+						<UpdateUserEducation
+							default_edu={user.education}
+							id={Number(user.id)}
+						/>
+					) : (
+						<span>{row.getValue('education')}</span>
+					)}
+				</div>
+			);
+		},
+	},
+	{
 		id: 'actions',
 		enableHiding: false,
 		cell: ({ row }) => {
@@ -170,6 +209,7 @@ export const columns: ColumnDef<UserDataCol>[] = [
 			const make_client = makeClient.bind(null, Number(user.id));
 			const make_admin = makeAdmin.bind(null, Number(user.id));
 			const delete_user = deleteUser.bind(null, Number(user.id));
+			const make_member_onboard = makeTeamOnBoard.bind(null, Number(user.id));
 			return (
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
@@ -199,6 +239,11 @@ export const columns: ColumnDef<UserDataCol>[] = [
 						<DropdownMenuItem>
 							<form action={make_client}>
 								<button type='submit'>Make Client</button>
+							</form>
+						</DropdownMenuItem>
+						<DropdownMenuItem>
+							<form action={make_member_onboard}>
+								<button type='submit'>Make Team onboard</button>
 							</form>
 						</DropdownMenuItem>
 					</DropdownMenuContent>

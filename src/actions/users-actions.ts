@@ -32,6 +32,25 @@ export async function makeMember(id: number) {
 	}
 }
 
+// make user as Team onboard @Only for admin
+export async function makeTeamOnBoard(id: number) {
+	try {
+		// create connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		await db
+			.update(users)
+			.set({ user_type: UsersType['team-onboard'] })
+			.where(eq(users.id, id));
+		// close connection
+		conn.end();
+		revalidatePath('/dashboard/users', 'page');
+	} catch (error) {
+		redirect('/errors');
+	}
+}
+
 // make user as client @Only for admin user access
 export async function makeClient(id: number) {
 	try {
@@ -264,6 +283,7 @@ export async function createNewUser(
 // update avatar
 export async function updateAvatar(
 	id: number,
+	path: string,
 	prevState: string | undefined,
 	formData: FormData,
 ) {
@@ -272,29 +292,46 @@ export async function updateAvatar(
 		const avatar = formData.get('avatar') as File;
 
 		if (avatar.size > 0) {
-			const imagePath = `/images/${uuidv4()}${avatar.name}`;
-			const uploadImage = await uploadFile(avatar, imagePath);
-			if (uploadImage) {
-				const imageUrl = imagePath;
-				// create connection
-				const conn = mysql.createPool(config);
-				const db = createDBConnection(conn);
+			// create connection
+			const conn = mysql.createPool(config);
+			const db = createDBConnection(conn);
 
-				const res = await db
-					.update(users)
-					.set({ avatar: imageUrl })
-					.where(eq(users.id, Number(id)));
-				// close connection
-				conn.end();
+			const user = await db.select().from(users).where(eq(users.id, id));
 
-				revalidatePath('/profile', 'page');
-				return 'success';
+			// if user find delete user related file
+			if (user.length > 0) {
+				if (user[0].avatar !== 'None') {
+					const res = await deleteFile(user[0].avatar!);
+					if (!res) {
+						// end database connection
+						conn.end();
+						notFound();
+					}
+				}
+
+				const imagePath = `/images/${uuidv4()}${avatar.name}`;
+				const uploadImage = await uploadFile(avatar, imagePath);
+				if (uploadImage) {
+					const imageUrl = imagePath;
+					await db
+						.update(users)
+						.set({ avatar: imageUrl })
+						.where(eq(users.id, Number(id)));
+					// close connection
+					conn.end();
+
+					revalidatePath(path, 'page');
+					return 'success';
+				} else {
+					redirect('/errors');
+				}
 			} else {
-				redirect('/errors');
+				// end database connection
+				conn.end();
+				notFound();
 			}
 		}
 	} catch (error) {
-		console.log(error);
 		redirect('/errors');
 	}
 }
@@ -350,6 +387,69 @@ export async function updateUserSummary(
 		return {
 			success: {
 				message: 'Summary updated successfully',
+			},
+		};
+	} catch (err) {
+		return {
+			error: {
+				message: 'Internal server error',
+			},
+		};
+	}
+}
+
+// summary form schema
+const EducationFormSchema = z.object({
+	education: z.string({
+		invalid_type_error: 'Education must be a string',
+	}),
+});
+
+// change user education
+export async function updateUserEducation(
+	id: number,
+	path: string,
+	prevState:
+		| {
+				error?: { education?: string; message?: string };
+				success?: { message: string };
+		  }
+		| undefined,
+	formData: FormData,
+) {
+	// validate input
+	const validatedFields = EducationFormSchema.safeParse({
+		education: formData.get('education'),
+	});
+
+	if (!validatedFields.success) {
+		return {
+			error: {
+				education: 'Education must be a string',
+			},
+		};
+	}
+
+	// extrac data
+	const { education } = validatedFields.data;
+
+	try {
+		// create connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		// insert updated summary
+		await db
+			.update(users)
+			.set({ education: education })
+			.where(eq(users.id, id));
+
+		// end the database connection
+		conn.end();
+		revalidatePath(path, 'page');
+		return {
+			success: {
+				message: 'education updated successfully',
 			},
 		};
 	} catch (err) {

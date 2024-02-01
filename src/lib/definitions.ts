@@ -8,6 +8,7 @@ export enum UsersType {
 	'admin' = 'Admin',
 	'team-member' = 'Team member',
 	'client' = 'Client',
+	'team-onboard' = 'Team onboard',
 }
 
 // Login user type

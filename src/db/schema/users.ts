@@ -21,7 +21,7 @@ export const users = mysqlTable('users', {
 	designation: varchar('designation', { length: 256 }).default('Client'),
 	education: text('education').default('None'),
 	description: text('description').default('None'),
-	avatar: varchar('avatar', { length: 256 }).default('None'),
+	avatar: varchar('avatar', { length: 256 }).default('/images/default.jpg'),
 	createdAt: timestamp('createdAt'),
 	updatedAt: timestamp('updatedAt'),
 });

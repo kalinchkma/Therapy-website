@@ -24,7 +24,8 @@ export default async function ProfilePageCompnent() {
 				<div className='w-full grid grid-cols-4 my-10'>Only client</div>
 				{/* Only for admin or team member user */}
 				{(auth?.user_type === UsersType.admin ||
-					auth?.user_type === UsersType['team-member']) && (
+					auth?.user_type === UsersType['team-member'] ||
+					auth.user_type === UsersType['team-onboard']) && (
 					<div className='w-full grid grid-cols-4 my-10'>
 						<div className='col-span-1 relative'>
 							<Image
@@ -35,7 +36,7 @@ export default async function ProfilePageCompnent() {
 								className='min-w-[100%] object-cover'
 							/>
 							<div className='absolute top-0 left-0 h-full w-full bg-zinc-200 bg-opacity-20 flex items-end justify-center'>
-								<UpdateImage authId={auth.id as string} />
+								<UpdateImage authId={auth.id as string} path='/profile' />
 							</div>
 						</div>
 						<div className='col-span-3'></div>

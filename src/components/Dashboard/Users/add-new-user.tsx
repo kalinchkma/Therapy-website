@@ -139,6 +139,9 @@ export default function AddNewUser({ label }: { label: string }) {
 									<SelectItem value={UsersType['team-member']}>
 										{UsersType['team-member']}
 									</SelectItem>
+									<SelectItem value={UsersType['team-onboard']}>
+										{UsersType['team-onboard']}
+									</SelectItem>
 								</SelectGroup>
 							</SelectContent>
 						</Select>

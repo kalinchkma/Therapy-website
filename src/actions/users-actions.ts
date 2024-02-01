@@ -84,6 +84,8 @@ export async function deleteUser(id: number) {
 			if (user[0].avatar !== 'None' || user[0].avatar !== null) {
 				const res = await deleteFile(user[0].avatar!);
 				if (!res) {
+					// end database connection
+					conn.end();
 					notFound();
 				}
 			}
@@ -92,6 +94,8 @@ export async function deleteUser(id: number) {
 			conn.end();
 			revalidatePath('/dashboard/users', 'page');
 		} else {
+			// end database connection
+			conn.end();
 			notFound();
 		}
 	} catch (error) {
@@ -227,6 +231,8 @@ export async function createNewUser(
 		const hashPassword = await hash_password(password);
 
 		if (!hashPassword) {
+			// end database connection
+			conn.end();
 			return {
 				error: true,
 				message: 'Internal Server error',
@@ -338,6 +344,8 @@ export async function updateUserSummary(
 			.set({ description: summary })
 			.where(eq(users.id, id));
 
+		// end the database connection
+		conn.end();
 		revalidatePath('/dashboard/users', 'page');
 		return {
 			success: {
@@ -350,5 +358,43 @@ export async function updateUserSummary(
 				message: 'Internal server error',
 			},
 		};
+	}
+}
+
+// change user position schema
+const ChangeUserPositionSchema = z.object({
+	position: z.string({
+		invalid_type_error: 'Invalid User position, must be a text format',
+	}),
+});
+
+// change user position
+export async function changeTeamMemberPosition(id: number, formData: FormData) {
+	// validate user input
+	const validatedFields = ChangeUserPositionSchema.safeParse({
+		position: formData.get('position'),
+	});
+
+	// if input error return error
+	if (!validatedFields.success) {
+		redirect('/errors');
+	}
+
+	const { position } = validatedFields.data;
+
+	try {
+		// create database connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		await db
+			.update(users)
+			.set({ designation: position })
+			.where(eq(users.id, id));
+		// end connection
+		conn.end();
+		revalidatePath('/dashboard/users', 'page');
+	} catch (err) {
+		redirect('/errors');
 	}
 }

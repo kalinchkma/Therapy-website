@@ -48,6 +48,7 @@ import {
 	makeClient,
 	makeMember,
 	deleteUser,
+	changeTeamMemberPosition,
 } from '@/actions/users-actions';
 import AddNewUser from './add-new-user';
 import { UsersType } from '@/lib/definitions';
@@ -118,13 +119,23 @@ export const columns: ColumnDef<UserDataCol>[] = [
 		accessorKey: 'designation',
 		header: () => <div className='text-center'>Member Position</div>,
 		cell: ({ row }) => {
+			const user = row.original;
+			const change_team_member_position = changeTeamMemberPosition.bind(
+				null,
+				Number(user.id),
+			);
 			return (
-				<form className='text-right font-medium flex items-center justify-center'>
+				<form
+					className='text-right font-medium flex gap-2 items-center justify-center'
+					action={change_team_member_position}>
 					<Input
 						className='max-w-[150px]'
 						defaultValue={row.getValue('designation')}
+						name='position'
 					/>
-					<Button variant='ghost'>Change</Button>
+					<Button variant='ghost' type='submit'>
+						Change
+					</Button>
 				</form>
 			);
 		},

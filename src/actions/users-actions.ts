@@ -100,13 +100,8 @@ export async function deleteUser(id: number) {
 
 		// if user find delete user related file
 		if (user.length > 0) {
-			if (user[0].avatar !== 'None' || user[0].avatar !== null) {
-				const res = await deleteFile(user[0].avatar!);
-				if (!res) {
-					// end database connection
-					conn.end();
-					notFound();
-				}
+			if (user[0].avatar !== 'None') {
+				await deleteFile(user[0].avatar!);
 			}
 			await db.delete(users).where(eq(users.id, id));
 			// close connection
@@ -207,15 +202,20 @@ export async function createNewUser(
 		description: description,
 		designation: designation,
 		education: education,
-		avatar: '',
+		avatar: 'None',
 	};
 	// save file
 	const avatar = formData.get('avatar') as File;
 	if (avatar.size > 0) {
 		const imagePath = `/images/${uuidv4()}${avatar.name}`;
 		const uploadImage = await uploadFile(avatar, imagePath);
-		if (uploadImage) {
+		if (uploadImage === 'success') {
 			new_user['avatar'] = imagePath;
+		} else if (uploadImage === 'Big') {
+			return {
+				error: true,
+				message: 'Image size is too big',
+			};
 		} else {
 			return {
 				error: true,
@@ -284,7 +284,7 @@ export async function createNewUser(
 export async function updateAvatar(
 	id: number,
 	path: string,
-	prevState: string | undefined,
+	prevState: { error: boolean; message: string } | undefined,
 	formData: FormData,
 ) {
 	try {
@@ -300,18 +300,24 @@ export async function updateAvatar(
 
 			// if user find delete user related file
 			if (user.length > 0) {
-				if (user[0].avatar !== 'None') {
-					const res = await deleteFile(user[0].avatar!);
-					if (!res) {
-						// end database connection
-						conn.end();
-						notFound();
-					}
-				}
-
 				const imagePath = `/images/${uuidv4()}${avatar.name}`;
 				const uploadImage = await uploadFile(avatar, imagePath);
-				if (uploadImage) {
+				if (uploadImage === 'success') {
+					// delete old image
+					if (user[0].avatar !== 'None') {
+						const res = await deleteFile(user[0].avatar!);
+						if (!res) {
+							// end database connection
+							conn.end();
+							await deleteFile(imagePath);
+
+							return {
+								error: true,
+								message: 'Internal server error',
+							};
+						}
+					}
+
 					const imageUrl = imagePath;
 					await db
 						.update(users)
@@ -321,18 +327,39 @@ export async function updateAvatar(
 					conn.end();
 
 					revalidatePath(path, 'page');
-					return 'success';
+					return {
+						error: false,
+						message: 'Iamage change successfully',
+					};
+				} else if (uploadImage === 'Big') {
+					// close database connection
+					conn.end();
+					return {
+						error: true,
+						message: 'Image size is too big',
+					};
 				} else {
-					redirect('/errors');
+					// close database connection
+					conn.end();
+					return {
+						error: true,
+						message: 'File upload error',
+					};
 				}
 			} else {
 				// end database connection
 				conn.end();
-				notFound();
+				return {
+					error: true,
+					message: 'User error',
+				};
 			}
 		}
 	} catch (error) {
-		redirect('/errors');
+		return {
+			error: true,
+			message: 'Internal server error',
+		};
 	}
 }
 

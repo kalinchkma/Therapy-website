@@ -48,13 +48,17 @@ export async function checkAndGetAuth() {
 
 // upload images
 export async function uploadFile(file: File, path: string) {
+	const file_size_limit = 10 * 1024 * 1024;
+	if (file.size > file_size_limit) {
+		return 'Big';
+	}
 	const bytes = await file.arrayBuffer();
 	const buffer = Buffer.from(bytes);
 	try {
 		await fs.writeFile(`./public${path}`, buffer, 'binary');
-		return true;
+		return 'success';
 	} catch (err) {
-		return false;
+		return 'faild';
 	}
 }
 

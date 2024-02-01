@@ -67,7 +67,7 @@ export default function UpdateImage({
 	const [state, dispatch] = useFormState(update_avatar, undefined);
 
 	useEffect(() => {
-		if (state === 'success') {
+		if (state?.error === false) {
 			setOpen(false);
 		}
 	}, [state]);
@@ -83,6 +83,11 @@ export default function UpdateImage({
 
 			<DialogContent className='sm:max-w-[425px]'>
 				<form className='w-full' action={dispatch}>
+					<div className='flex items-center justify-center'>
+						{state?.error && (
+							<span className='text-red-500'>{state.message}</span>
+						)}
+					</div>
 					<div className='grid gap-4 py-4'>
 						<div className='grid grid-cols-4 items-center gap-4'>
 							<div className='flex flex-col col-span-4 items-center justify-center'>
@@ -111,7 +116,7 @@ export default function UpdateImage({
 								name='avatar'
 								className='col-span-3 hidden'
 								onChange={changeHandler}
-								accept='.png, .jpg, jpeg'
+								// accept='.png, .jpg, jpeg, .svg'
 							/>
 						</div>
 					</div>

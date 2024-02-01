@@ -46,11 +46,12 @@ export default function AddNewUser({ label }: { label: string }) {
 
 	useEffect(() => {
 		setModalOpen(false);
+
 		setFormStateMessage(state?.message!);
 		setMemberType(UsersType.client);
 		setTimeout(() => {
 			setFormStateMessage(undefined);
-		}, 90000);
+		}, 30000);
 	}, [state]);
 
 	return (
@@ -168,7 +169,7 @@ export default function AddNewUser({ label }: { label: string }) {
 								id='designation'
 								type='text'
 								name='designation'
-								value='None'
+								defaultValue='None'
 								className='col-span-4'
 								placeholder='Designation....'
 							/>
@@ -195,7 +196,7 @@ export default function AddNewUser({ label }: { label: string }) {
 								id='education'
 								type='text'
 								name='education'
-								value='None'
+								defaultValue='None'
 								className='col-span-4'
 								placeholder='Education....'
 							/>
@@ -212,6 +213,7 @@ export default function AddNewUser({ label }: { label: string }) {
 						<Textarea
 							id='description'
 							name='description'
+							defaultValue='None'
 							placeholder='Provide User summary'
 							className='col-span-4'
 						/>

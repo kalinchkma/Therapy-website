@@ -1,6 +1,6 @@
 /** @format */
 
-import { db, connection, config, createDBConnection } from '@/db';
+import { config, createDBConnection } from '@/db';
 import mysql from 'mysql2/promise';
 import { users } from '@/db/schema/users';
 import { and, eq, ne, or } from 'drizzle-orm';

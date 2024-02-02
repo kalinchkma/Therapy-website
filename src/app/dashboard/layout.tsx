@@ -34,9 +34,11 @@ export default async function RootLayout({
 			<div className='flex'>
 				<Sidebar logout={logout} />
 			</div>
-			<div className='flex-grow h-[100vh]'>
-				<DashboardHeader />
-				{children}
+			<div className='flex-grow relative'>
+				<DashboardHeader className='absolute top-0 left-0 z-50' />
+				<div className='w-full h-[100vh] overflow-y-auto pt-[50px]'>
+					{children}
+				</div>
 			</div>
 		</div>
 	);

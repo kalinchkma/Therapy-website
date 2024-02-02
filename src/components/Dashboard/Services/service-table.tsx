@@ -42,6 +42,7 @@ import {
 
 import { Service } from './columns';
 import AddNewService from './add-new-service';
+import Image from 'next/image';
 
 export const columns: ColumnDef<Service>[] = [
 	{
@@ -71,7 +72,12 @@ export const columns: ColumnDef<Service>[] = [
 		header: 'Thumbnail image',
 		cell: ({ row }) => (
 			<div className='capitalize line-clamp-2'>
-				{row.getValue('thumbnailImage')}
+				<Image
+					src={row.getValue('thumbnailImage')}
+					width={'100'}
+					height={'100'}
+					alt='service image'
+				/>
 			</div>
 		),
 	},
@@ -94,7 +100,7 @@ export const columns: ColumnDef<Service>[] = [
 		accessorKey: 'description',
 		header: 'Description',
 		cell: ({ row }) => (
-			<div className='capitalize line-clamp-2'>
+			<div className='capitalize line-clamp-2 max-w-[200px]'>
 				{row.getValue('description')}
 			</div>
 		),
@@ -103,10 +109,36 @@ export const columns: ColumnDef<Service>[] = [
 		accessorKey: 'price',
 		header: () => <div className='text-center'>Price In Taka</div>,
 		cell: ({ row }) => {
-			const amount = parseFloat(row.getValue('price'));
-			return <div className='text-center font-medium'>{amount}</div>;
+			return (
+				<div className='text-center font-medium'>
+					{Number(row.getValue('price'))}
+				</div>
+			);
 		},
 	},
+
+	{
+		accessorKey: 'published',
+		header: 'Published',
+		cell: ({ row }) => (
+			<div className='capitalize line-clamp-2 max-w-[200px]'>
+				{row.getValue('published') ? 'Published' : 'No Published'}
+			</div>
+		),
+	},
+
+	{
+		accessorKey: 'content',
+		header: () => <div className='text-center'>Content</div>,
+		cell: ({ row }) => {
+			return (
+				<div className='text-center font-medium'>
+					<Button>View</Button>
+				</div>
+			);
+		},
+	},
+
 	{
 		id: 'actions',
 		header: () => <div className='text-left'>Actions</div>,

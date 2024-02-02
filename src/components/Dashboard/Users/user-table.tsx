@@ -282,7 +282,7 @@ export default function UserDataTable({ data }: { data: UserDataCol[] }) {
 	});
 
 	return (
-		<div className='w-full'>
+		<div className='w-full overflow-y-auto'>
 			<div className='flex items-center py-4'>
 				<Input
 					placeholder='Filter emails...'

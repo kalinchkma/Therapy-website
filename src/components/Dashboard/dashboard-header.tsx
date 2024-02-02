@@ -5,11 +5,16 @@
 import React from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
-export default function DashboardHeader() {
+export default function DashboardHeader({ className }: { className?: string }) {
 	const pathname = usePathname();
 	return (
-		<div className='w-full flex justify-between items-center h-[60px] px-4 bg-zinc-50'>
+		<div
+			className={cn(
+				'w-full flex justify-between items-center h-[60px] px-4 bg-zinc-50',
+				className,
+			)}>
 			<h2 className='font-bold text-blue-900 text-lg flex items-center justify-start gap-2 '>
 				{pathname
 					.trim()

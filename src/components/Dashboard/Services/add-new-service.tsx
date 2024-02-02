@@ -2,7 +2,7 @@
 
 'use client';
 
-import { createNewService } from '@/actions/services-actions';
+import { createNewService, FromState } from '@/actions/services-actions';
 import { Button } from '@/components/ui/button';
 import {
 	Dialog,
@@ -14,13 +14,35 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
 
 export default function AddNewService() {
-	const [openModel, setOpenModel] = useState<boolean>(false);
+	const initialState: FromState = {
+		status: 100,
+	};
 
-	const [state, dispatch] = useFormState(createNewService, undefined);
+	const [openModel, setOpenModel] = useState<boolean>(false);
+	const [state, dispatch] = useFormState(createNewService, initialState);
+
+	const [formStateMessage, setFormStateMessage] = useState<string>('');
+
+	useEffect(() => {
+		if (state?.status === 200) {
+			(document.getElementById('name') as HTMLInputElement).value = '';
+			(document.getElementById('description') as HTMLTextAreaElement).value =
+				'';
+			(document.getElementById('price') as HTMLInputElement).value = '';
+			(document.getElementById('thumbnail') as HTMLInputElement).value = '';
+		}
+		if (state.message) {
+			setFormStateMessage(state.message);
+		}
+	}, [state]);
+
+	useEffect(() => {
+		setFormStateMessage('');
+	}, [openModel]);
 
 	return (
 		<Dialog open={openModel}>
@@ -30,7 +52,18 @@ export default function AddNewService() {
 			<DialogContent className='md:w-[600px] max-h-[100vh] overflow-y-auto'>
 				<DialogHeader>
 					<DialogTitle>Add New Service</DialogTitle>
-					{state && <DialogDescription>{state}</DialogDescription>}
+					{state?.status === 200 &&
+						state.message &&
+						formStateMessage !== '' && (
+							<DialogDescription className='text-green-400'>
+								{formStateMessage}
+							</DialogDescription>
+						)}
+					{state.status === 400 && state.message && formStateMessage !== '' && (
+						<DialogDescription className='text-red-400'>
+							{formStateMessage}
+						</DialogDescription>
+					)}
 				</DialogHeader>
 				<form className='w-full flex flex-col gap-4' action={dispatch}>
 					{/* Service name */}
@@ -43,6 +76,9 @@ export default function AddNewService() {
 							required
 							placeholder='Enter a name of service....'
 						/>
+						{state?.status === 400 && state.error?.name && (
+							<p className='text-red-400'>{state.error.name[0]}</p>
+						)}
 					</div>
 					{/* Service description */}
 					<div className='flex flex-col gap-3 w-full'>
@@ -53,6 +89,9 @@ export default function AddNewService() {
 							required
 							placeholder='Enter a name of service description....'
 						/>
+						{state?.status === 400 && state.error?.description && (
+							<p className='text-red-400'>{state.error.description[0]}</p>
+						)}
 					</div>
 
 					{/* Service price */}
@@ -64,14 +103,25 @@ export default function AddNewService() {
 							type='number'
 							placeholder='Enter a price of a server....'
 						/>
+						{state?.status === 400 && state.error?.price && (
+							<p className='text-red-400'>{state.error.price[0]}</p>
+						)}
 					</div>
 					{/* Thumbnail image */}
-					<div className='flex flex-col gap-3 w-full'>
+					<div className='flex flex-col w-full'>
 						<Label htmlFor='thumbnail'>Thumbnail Image</Label>
-						<Input id='thumbnail' name='thumbnail' type='file' />
+						<Input
+							id='thumbnail'
+							name='thumbnail'
+							type='file'
+							className='mt-3'
+						/>
+						{state?.status === 400 && state.error?.thumbnailImage && (
+							<p className='text-red-400'>{state.error.thumbnailImage[0]}</p>
+						)}
 					</div>
 
-					<div className='flex w-full items-center justify-end'>
+					<div className='flex w-full items-center justify-end gap-3'>
 						<Button type='submit'>Create</Button>
 						<Button
 							type='button'

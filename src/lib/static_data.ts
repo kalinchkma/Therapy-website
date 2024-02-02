@@ -525,15 +525,11 @@ export const DashboardNavigation: DashboardNavigationType[] = [
 		icon: IconType.Pages,
 	},
 	{
-		title: 'users',
-		link: '/dashboard/users',
-		icon: IconType.Users,
-	},
-	{
 		title: 'manage users',
-		link: '/dashboard/manage-users',
+		link: '/dashboard/users',
 		icon: IconType.UserSettings,
 	},
+
 	{
 		title: 'services',
 		link: '/dashboard/services',

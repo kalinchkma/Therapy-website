@@ -29,6 +29,27 @@
       "when": 1706789549126,
       "tag": "0003_striped_scream",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1706814434388,
+      "tag": "0004_married_shooting_star",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1706814513458,
+      "tag": "0005_spooky_marten_broadcloak",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1706814600214,
+      "tag": "0006_goofy_wraith",
+      "breakpoints": true
     }
   ]
 }

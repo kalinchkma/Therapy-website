@@ -50,6 +50,20 @@
       "when": 1706814600214,
       "tag": "0006_goofy_wraith",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1706893971422,
+      "tag": "0007_tan_photon",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1706894028621,
+      "tag": "0008_absent_starjammers",
+      "breakpoints": true
     }
   ]
 }

@@ -2,6 +2,7 @@
 
 'use client';
 
+import { createNewService } from '@/actions/services-actions';
 import { Button } from '@/components/ui/button';
 import {
 	Dialog,
@@ -9,31 +10,17 @@ import {
 	DialogDescription,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import React, { useEffect, useState } from 'react';
-
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import React, { useState } from 'react';
+import { useFormState } from 'react-dom';
 
 export default function AddNewService() {
 	const [openModel, setOpenModel] = useState<boolean>(false);
-	const [serviceContent, setServiceContent] = useState<string | undefined>(
-		undefined,
-	);
 
-	const handlerContentChanange = (
-		e: React.ChangeEvent<HTMLTextAreaElement>,
-	) => {
-		setServiceContent(e.target.value);
-	};
-
-	useEffect(() => {
-		console.log(serviceContent);
-	}, [serviceContent]);
+	const [state, dispatch] = useFormState(createNewService, undefined);
 
 	return (
 		<Dialog open={openModel}>
@@ -43,12 +30,9 @@ export default function AddNewService() {
 			<DialogContent className='md:w-[600px] max-h-[100vh] overflow-y-auto'>
 				<DialogHeader>
 					<DialogTitle>Add New Service</DialogTitle>
-					<DialogDescription>
-						This action cannot be undone. This will permanently delete your
-						account and remove your data from our servers.
-					</DialogDescription>
+					{state && <DialogDescription>{state}</DialogDescription>}
 				</DialogHeader>
-				<form className='w-full flex flex-col gap-4 '>
+				<form className='w-full flex flex-col gap-4' action={dispatch}>
 					{/* Service name */}
 					<div className='flex flex-col gap-3 w-full'>
 						<Label htmlFor='name'>Name</Label>
@@ -56,6 +40,7 @@ export default function AddNewService() {
 							id='name'
 							name='name'
 							type='text'
+							required
 							placeholder='Enter a name of service....'
 						/>
 					</div>
@@ -65,6 +50,7 @@ export default function AddNewService() {
 						<Textarea
 							id='description'
 							name='description'
+							required
 							placeholder='Enter a name of service description....'
 						/>
 					</div>
@@ -83,23 +69,6 @@ export default function AddNewService() {
 					<div className='flex flex-col gap-3 w-full'>
 						<Label htmlFor='thumbnail'>Thumbnail Image</Label>
 						<Input id='thumbnail' name='thumbnail' type='file' />
-					</div>
-
-					{/* service content */}
-					<div className='flex flex-col gap-3 w-full'>
-						<Label htmlFor='content'>Add Content (optional)</Label>
-						<div className='block w-full markdown'>
-							<ReactMarkdown remarkPlugins={[remarkGfm]}>
-								{serviceContent}
-							</ReactMarkdown>
-						</div>
-						<div className='flex items-end justify-center gap-3'>
-							<Textarea
-								placeholder='Write a Service content...'
-								onChange={handlerContentChanange}
-								className='resize-y'
-							/>
-						</div>
 					</div>
 
 					<div className='flex w-full items-center justify-end'>

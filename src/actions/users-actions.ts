@@ -222,6 +222,11 @@ export async function createNewUser(
 				message: 'File upload error',
 			};
 		}
+	} else {
+		return {
+			error: true,
+			message: 'Please provide a user image',
+		};
 	}
 
 	// If everything is ok try creating new user
@@ -354,6 +359,11 @@ export async function updateAvatar(
 					message: 'User error',
 				};
 			}
+		} else {
+			return {
+				error: true,
+				message: 'Please provide a image',
+			};
 		}
 	} catch (error) {
 		return {

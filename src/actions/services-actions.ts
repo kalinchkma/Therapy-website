@@ -22,15 +22,17 @@ const CreateServiceSchema = z.object({
 			invalid_type_error: 'Price must be a string',
 		})
 		.optional(),
-	content: z
-		.string({
-			invalid_type_error: 'Content must be a string',
-		})
-		.optional(),
 });
 
 // create new service
 export async function createNewService(
 	prevState: string | undefined,
 	formData: FormData,
-) {}
+) {
+	console.log('Action occured');
+	const thumbnailImage = formData.get('thumbnail') as File;
+	if (thumbnailImage.size <= 0) {
+		console.log('Image not provided');
+		return 'Image not provided';
+	}
+}

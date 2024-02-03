@@ -488,5 +488,68 @@ export async function deleteService(id: number) {
 }
 
 /**
- * TODO: Service content
+ * ----------------------------------------------------
+ * Service content action function
+ * ----------------------------------------------------
  */
+const UpdateServiceContentSchema = z.object({
+	content: z.string({
+		invalid_type_error: 'Invalid content format',
+	}),
+});
+
+export type UpdateServiceContentState = {
+	errors?: {
+		content?: string[];
+	};
+	status: number;
+	message?: string;
+};
+
+export async function updateServiceContent(
+	id: number,
+	prevState: UpdateServiceContentState | undefined,
+	formData: FormData,
+) {
+	// validate input
+	const validatedFields = UpdateServiceContentSchema.safeParse({
+		content: formData.get('content'),
+	});
+
+	// check validate error
+	if (!validatedFields.success) {
+		return {
+			status: 400,
+			errors: validatedFields.error.flatten().fieldErrors,
+		};
+	}
+
+	// if no error parse input data
+	const { content } = validatedFields.data;
+
+	try {
+		// connect database
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		// perform query
+		await db
+			.update(services)
+			.set({ content: content })
+			.where(eq(services.id, id));
+
+		// close connection
+		conn.end();
+
+		revalidatePath('/dashboard/services', 'page');
+		return {
+			status: 200,
+			message: 'Content update successfully',
+		};
+	} catch (error) {
+		return {
+			status: 500,
+			message: 'Internal server error',
+		};
+	}
+}

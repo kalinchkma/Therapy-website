@@ -51,6 +51,7 @@ import {
 	updateServicePublishState,
 } from '@/actions/services-actions';
 import UpdateServiceImage from './update-service-image';
+import UpdateServiceContent from './update-service-content';
 
 export const columns: ColumnDef<Service>[] = [
 	{
@@ -166,9 +167,10 @@ export const columns: ColumnDef<Service>[] = [
 		accessorKey: 'content',
 		header: () => <div className='text-center'>Content</div>,
 		cell: ({ row }) => {
+			const service = row.original;
 			return (
 				<div className='text-center font-medium'>
-					<Button>View</Button>
+					<UpdateServiceContent id={service.id} currContent={service.content} />
 				</div>
 			);
 		},

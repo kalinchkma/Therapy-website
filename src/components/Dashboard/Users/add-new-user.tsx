@@ -227,7 +227,7 @@ export default function AddNewUser({ label }: { label: string }) {
 							Member Image
 						</Label>
 						<Label htmlFor='avatar' className='col-span-4'>
-							Upload Profile image
+							Upload Profile image (Image must be less than 10 MB)
 						</Label>
 						<Input
 							id='avatar'

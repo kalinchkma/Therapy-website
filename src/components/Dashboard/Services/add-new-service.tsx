@@ -109,7 +109,9 @@ export default function AddNewService() {
 					</div>
 					{/* Thumbnail image */}
 					<div className='flex flex-col w-full'>
-						<Label htmlFor='thumbnail'>Thumbnail Image</Label>
+						<Label htmlFor='thumbnail'>
+							Thumbnail Image (Image must be less than 50 MB)
+						</Label>
 						<Input
 							id='thumbnail'
 							name='thumbnail'

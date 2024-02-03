@@ -5,7 +5,7 @@ import { z } from 'zod';
 import mysql from 'mysql2/promise';
 import { config, createDBConnection } from '@/db/index';
 import { services } from '@/db/schema/services';
-import { uploadFile } from '@/lib/helper_function';
+import { deleteFile, uploadFile } from '@/lib/helper_function';
 import { v4 as uuidv4 } from 'uuid';
 import { revalidatePath } from 'next/cache';
 import { eq } from 'drizzle-orm';
@@ -120,7 +120,7 @@ export async function createNewService(
 			thumbnailImage: thumbnailImage,
 			description: description,
 			price: price,
-			published: false,
+			published: 0,
 		});
 
 		// close the connection of database
@@ -348,7 +348,7 @@ export async function updateServicePrice(
 }
 
 /**
- * --------------------------------------------------------------------
+ * -------------------------------------------------------------------
  * Publish and unpublish service action function
  * -------------------------------------------------------------------
  */
@@ -368,14 +368,14 @@ export async function updateServicePublishState(id: number) {
 			await db
 				.update(services)
 				.set({
-					published: false,
+					published: 0,
 				})
 				.where(eq(services.id, id));
 		} else {
 			await db
 				.update(services)
 				.set({
-					published: true,
+					published: 1,
 				})
 				.where(eq(services.id, id));
 		}
@@ -387,3 +387,106 @@ export async function updateServicePublishState(id: number) {
 		redirect('/errors');
 	}
 }
+
+/**
+ * ---------------------------------------------------------------
+ * Update service image action function
+ * ---------------------------------------------------------------
+ */
+
+export async function updateServiceImage(id: number, formData: FormData) {
+	// check image available on the formdata
+	const newImage = formData.get('image') as File;
+
+	if (newImage.size <= 0) {
+		redirect('/errors');
+	} else {
+		try {
+			// create database connection
+			const conn = mysql.createPool(config);
+			const db = createDBConnection(conn);
+
+			// find the service and delete old image
+			const service = await db
+				.select()
+				.from(services)
+				.where(eq(services.id, id));
+
+			if (service.length <= 0) {
+				// end database connection
+				conn.end();
+				redirect('/errors');
+			} else {
+				// delete the old image
+				const delete_res = await deleteFile(service[0].thumbnailImage);
+				if (!delete_res) {
+					// end database connection
+					conn.end();
+					redirect('/errors');
+				} else {
+					// upload and update new image
+					const newImagePath = `/images/${uuidv4()}${newImage.name}`;
+					const upload_res = await uploadFile(newImage, newImagePath, 50);
+					if (upload_res === 'Big' || upload_res === 'faild') {
+						// close database connection
+						conn.end();
+						redirect('/errors');
+					} else {
+						await db
+							.update(services)
+							.set({ thumbnailImage: newImagePath })
+							.where(eq(services.id, id));
+						// close database connection
+						conn.end();
+						revalidatePath('/dashboard/services', 'page');
+					}
+				}
+			}
+		} catch (error) {
+			redirect('/errors');
+		}
+	}
+}
+
+/**
+ * ----------------------------------------------------------------
+ * Delete service action function
+ * ----------------------------------------------------------------
+ */
+
+export async function deleteService(id: number) {
+	try {
+		// create database connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		// find the service and delete product associate image
+		const service = await db.select().from(services).where(eq(services.id, id));
+
+		if (service.length <= 0) {
+			// close database connection
+			conn.end();
+			redirect('/errors');
+		} else {
+			const delete_res = await deleteFile(service[0].thumbnailImage);
+
+			if (!delete_res) {
+				// close database connection
+				conn.end();
+				redirect('/errors');
+			} else {
+				await db.delete(services).where(eq(services.id, id));
+				// close database connection
+				conn.end();
+
+				revalidatePath('/dashboard/services', 'page');
+			}
+		}
+	} catch (error) {
+		redirect('/errors');
+	}
+}
+
+/**
+ * TODO: Service content
+ */

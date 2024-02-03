@@ -110,6 +110,7 @@ export default function UpdateImage({
 									onClick={handleChooseFile}>
 									Chose Image
 								</Button>
+								<p className='text-sm'> Image must be less than 10 MB</p>
 							</div>
 							<Input
 								id='file-upload'

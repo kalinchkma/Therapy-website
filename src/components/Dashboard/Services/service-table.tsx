@@ -46,7 +46,11 @@ import Image from 'next/image';
 import UpdateServiceName from './update-service-name';
 import UpdateServiceDescription from './update-service-description';
 import UpdateServicePrice from './update-service-price';
-import { updateServicePublishState } from '@/actions/services-actions';
+import {
+	deleteService,
+	updateServicePublishState,
+} from '@/actions/services-actions';
+import UpdateServiceImage from './update-service-image';
 
 export const columns: ColumnDef<Service>[] = [
 	{
@@ -74,16 +78,22 @@ export const columns: ColumnDef<Service>[] = [
 	{
 		accessorKey: 'thumbnailImage',
 		header: 'Thumbnail image',
-		cell: ({ row }) => (
-			<div className='capitalize line-clamp-2'>
-				<Image
-					src={row.getValue('thumbnailImage')}
-					width={'100'}
-					height={'100'}
-					alt='service image'
-				/>
-			</div>
-		),
+		cell: ({ row }) => {
+			const service = row.original;
+			return (
+				<div className='capitalize line-clamp-2 relative'>
+					<Image
+						src={row.getValue('thumbnailImage')}
+						width={'100'}
+						height={'100'}
+						alt='service image'
+					/>
+					<div className='w-full h-full absolute top-0 left-0 flex items-end justify-center'>
+						<UpdateServiceImage id={service.id} />
+					</div>
+				</div>
+			);
+		},
 	},
 
 	{
@@ -173,6 +183,7 @@ export const columns: ColumnDef<Service>[] = [
 				null,
 				service.id,
 			);
+			const delete_service = deleteService.bind(null, service.id);
 			return (
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
@@ -188,16 +199,16 @@ export const columns: ColumnDef<Service>[] = [
 						<DropdownMenuItem>
 							{service.published ? (
 								<form action={update_service_status}>
-									<button type='submit'>Publish Service</button>
+									<button type='submit'>Unpublish Service</button>
 								</form>
 							) : (
-								<form>
-									<button type='submit'>Unpublish Service</button>
+								<form action={update_service_status}>
+									<button type='submit'>Publish Service</button>
 								</form>
 							)}
 						</DropdownMenuItem>
 						<DropdownMenuItem>
-							<form>
+							<form action={delete_service}>
 								<button type='submit'>Delete Service</button>
 							</form>
 						</DropdownMenuItem>
@@ -316,7 +327,7 @@ export default function ServiceDataTable({ data }: { data: Service[] }) {
 								<TableCell
 									colSpan={columns.length}
 									className='h-24 text-center'>
-									No results.
+									No services found
 								</TableCell>
 							</TableRow>
 						)}

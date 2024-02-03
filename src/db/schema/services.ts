@@ -6,6 +6,7 @@ import {
 	varchar,
 	text,
 	boolean,
+	int,
 } from 'drizzle-orm/mysql-core';
 
 export const services = mysqlTable('services', {
@@ -15,5 +16,5 @@ export const services = mysqlTable('services', {
 	thumbnailImage: varchar('thumbnailImage', { length: 256 }).notNull(),
 	description: text('description').default('None'),
 	content: text('content').default('None'),
-	published: boolean('published').default(false),
+	published: int('published').default(0),
 });

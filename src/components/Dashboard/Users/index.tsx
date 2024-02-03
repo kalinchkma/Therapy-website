@@ -33,7 +33,7 @@ export default async function UsersPageComponent() {
 		notFound();
 	}
 	return (
-		<div className='container mx-auto py-10 h-full overflow-y-auto'>
+		<div className='container mx-auto py-10 h-full'>
 			<UserDataTable data={data} />
 		</div>
 	);

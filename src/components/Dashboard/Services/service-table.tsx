@@ -43,6 +43,10 @@ import {
 import { Service } from './columns';
 import AddNewService from './add-new-service';
 import Image from 'next/image';
+import UpdateServiceName from './update-service-name';
+import UpdateServiceDescription from './update-service-description';
+import UpdateServicePrice from './update-service-price';
+import { updateServicePublishState } from '@/actions/services-actions';
 
 export const columns: ColumnDef<Service>[] = [
 	{
@@ -94,24 +98,45 @@ export const columns: ColumnDef<Service>[] = [
 				</Button>
 			);
 		},
-		cell: ({ row }) => <div className='lowercase'>{row.getValue('name')}</div>,
+		cell: ({ row }) => {
+			const service = row.original;
+			return (
+				<div className='capitalize max-w-[200px] flex flex-col gap-3'>
+					<p className='line-clamp-2'>{row.getValue('name')}</p>
+					<UpdateServiceName
+						id={Number(service.id)}
+						value={row.getValue('name')}
+					/>
+				</div>
+			);
+		},
 	},
 	{
 		accessorKey: 'description',
 		header: 'Description',
-		cell: ({ row }) => (
-			<div className='capitalize line-clamp-2 max-w-[200px]'>
-				{row.getValue('description')}
-			</div>
-		),
+		cell: ({ row }) => {
+			const service = row.original;
+			return (
+				<div className='capitalize max-w-[200px] flex flex-col gap-3'>
+					<p className='line-clamp-2'>{row.getValue('description')}</p>
+					<UpdateServiceDescription
+						id={Number(service.id)}
+						value={row.getValue('description')}
+					/>
+				</div>
+			);
+		},
 	},
 	{
 		accessorKey: 'price',
 		header: () => <div className='text-center'>Price In Taka</div>,
 		cell: ({ row }) => {
+			const service = row.original;
+			const format = `${Number(service.price)} Tk`;
 			return (
-				<div className='text-center font-medium'>
-					{Number(row.getValue('price'))}
+				<div className='text-center font-medium flex flex-col'>
+					{format}
+					<UpdateServicePrice id={service.id} value={service.price} />
 				</div>
 			);
 		},
@@ -144,7 +169,10 @@ export const columns: ColumnDef<Service>[] = [
 		header: () => <div className='text-left'>Actions</div>,
 		cell: ({ row }) => {
 			const service = row.original;
-
+			const update_service_status = updateServicePublishState.bind(
+				null,
+				service.id,
+			);
 			return (
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
@@ -157,8 +185,22 @@ export const columns: ColumnDef<Service>[] = [
 						<DropdownMenuLabel>Actions</DropdownMenuLabel>
 
 						<DropdownMenuSeparator />
-						<DropdownMenuItem>View customer</DropdownMenuItem>
-						<DropdownMenuItem>View payment details</DropdownMenuItem>
+						<DropdownMenuItem>
+							{service.published ? (
+								<form action={update_service_status}>
+									<button type='submit'>Publish Service</button>
+								</form>
+							) : (
+								<form>
+									<button type='submit'>Unpublish Service</button>
+								</form>
+							)}
+						</DropdownMenuItem>
+						<DropdownMenuItem>
+							<form>
+								<button type='submit'>Delete Service</button>
+							</form>
+						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			);

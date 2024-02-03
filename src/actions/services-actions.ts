@@ -8,6 +8,14 @@ import { services } from '@/db/schema/services';
 import { uploadFile } from '@/lib/helper_function';
 import { v4 as uuidv4 } from 'uuid';
 import { revalidatePath } from 'next/cache';
+import { eq } from 'drizzle-orm';
+import { redirect } from 'next/navigation';
+
+/**
+ * ------------------------------------------------------------
+ * Create new service action function
+ * ------------------------------------------------------------
+ */
 
 const CreateServiceSchema = z.object({
 	name: z
@@ -25,7 +33,7 @@ const CreateServiceSchema = z.object({
 		.min(100, { message: 'Minimum character is 100 or more' }),
 	price: z
 		.string({
-			invalid_type_error: 'Price must be a string',
+			invalid_type_error: 'Price must be a Number',
 		})
 		.optional(),
 	thumbnailImage: z.string({
@@ -133,4 +141,249 @@ export async function createNewService(
 	}
 }
 
-// update service thumbnail image
+/**
+ * ---------------------------------------------------------------
+ * Update service schema action function
+ * ---------------------------------------------------------------
+ */
+
+// name update form schema
+const NmFormSchema = z.object({
+	name: z
+		.string({
+			invalid_type_error: 'Invalid name new must be a text',
+		})
+		.min(4, {
+			message:
+				'Service name is too short! service name must be 4 or more character',
+		}),
+});
+
+export type UpdateServiceNameFormState = {
+	error?: { name?: string[] };
+	message?: string;
+	status: number;
+};
+
+// update service name
+export async function updateServiceName(
+	id: number,
+	prevState: UpdateServiceNameFormState | undefined,
+	formData: FormData,
+) {
+	// validate input
+	const validatedFields = NmFormSchema.safeParse({
+		name: formData.get('name'),
+	});
+
+	if (!validatedFields.success) {
+		return {
+			status: 400,
+			error: validatedFields.error.flatten().fieldErrors,
+		};
+	}
+
+	// parse user input
+	const { name } = validatedFields.data;
+
+	try {
+		// create database connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		// perform update operation
+		await db
+			.update(services)
+			.set({
+				name: name,
+			})
+			.where(eq(services.id, id));
+
+		// close database connection
+		conn.end();
+		revalidatePath('/dashboard/services', 'page');
+		return {
+			status: 200,
+			message: 'Name updated successfully',
+		};
+	} catch (error) {
+		return {
+			status: 500,
+			message: 'Internal server error',
+		};
+	}
+}
+
+/**
+ * ----------------------------------------------------------------
+ * Update service description action function
+ * ----------------------------------------------------------------
+ */
+
+const DesFormSchema = z.object({
+	description: z
+		.string({
+			invalid_type_error: 'Invalid description, description must be a text',
+		})
+		.min(100, { message: 'Minimum character is 100 or more' }),
+});
+
+export type UpdateServiceDescriptionFormState = {
+	error?: { description?: string[] };
+	message?: string;
+	status: number;
+};
+
+export async function updateServiceDescription(
+	id: number,
+	prevState: UpdateServiceDescriptionFormState | undefined,
+	formData: FormData,
+) {
+	// validate form data
+	const validatedFields = DesFormSchema.safeParse({
+		description: formData.get('description'),
+	});
+
+	// check input validation
+	if (!validatedFields.success) {
+		return {
+			status: 400,
+			error: validatedFields.error.flatten().fieldErrors,
+		};
+	}
+	// parse description
+	const { description } = validatedFields.data;
+
+	try {
+		// connect database
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		await db
+			.update(services)
+			.set({
+				description: description,
+			})
+			.where(eq(services.id, id));
+
+		// End database connection
+		conn.end();
+		revalidatePath('/dashboard/services', 'page');
+
+		return {
+			status: 200,
+			message: 'Description updated successfully',
+		};
+	} catch (error) {
+		return {
+			status: 500,
+			message: 'Internal server error',
+		};
+	}
+}
+
+/**
+ * --------------------------------------------------------------
+ * Update service price action function
+ * --------------------------------------------------------------
+ */
+const PriceFormSchema = z.object({
+	price: z.string({
+		invalid_type_error: 'Price must be a Number',
+	}),
+});
+
+export type UpdateServicePriceFormState = {
+	error?: { price?: string[] };
+	message?: string;
+	status: number;
+};
+
+export async function updateServicePrice(
+	id: number,
+	prevState: UpdateServicePriceFormState | undefined,
+	formData: FormData,
+) {
+	// validate form data
+	const validatedFields = PriceFormSchema.safeParse({
+		price: formData.get('price'),
+	});
+
+	// check validation
+	if (!validatedFields.success) {
+		return {
+			status: 400,
+			error: validatedFields.error.flatten().fieldErrors,
+		};
+	}
+	// parse input data
+	const { price } = validatedFields.data;
+
+	try {
+		// connect database
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		// perform update operation
+		await db
+			.update(services)
+			.set({
+				price: price,
+			})
+			.where(eq(services.id, id));
+
+		// end database connection
+		conn.end();
+		revalidatePath('/dashboard/services', 'page');
+		return {
+			status: 200,
+			message: 'Price updated successfully',
+		};
+	} catch (error) {
+		return {
+			status: 500,
+			message: 'Internal server error',
+		};
+	}
+}
+
+/**
+ * --------------------------------------------------------------------
+ * Publish and unpublish service action function
+ * -------------------------------------------------------------------
+ */
+
+export async function updateServicePublishState(id: number) {
+	try {
+		// create database connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		// perform update query
+		const service = await db.select().from(services).where(eq(services.id, id));
+		if (service.length < 0) {
+			redirect('/errors');
+		}
+		if (service[0].published) {
+			await db
+				.update(services)
+				.set({
+					published: false,
+				})
+				.where(eq(services.id, id));
+		} else {
+			await db
+				.update(services)
+				.set({
+					published: true,
+				})
+				.where(eq(services.id, id));
+		}
+
+		// close database connection
+		conn.end();
+		revalidatePath('/dashboard/services', 'page');
+	} catch (error) {
+		redirect('/errors');
+	}
+}

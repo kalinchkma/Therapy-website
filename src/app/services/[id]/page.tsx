@@ -5,13 +5,15 @@ import IndividualService from '@/components/services/individual-service';
 import { getServiceById } from '@/methods/services';
 import { notFound } from 'next/navigation';
 import React from 'react';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export default async function IdividualServicePage({
 	params,
 }: {
 	params: { id: string };
 }) {
-	const service_id = Number(params.id[String(params).length - 1]);
+	noStore();
+	const service_id = Number(params.id.slice(-1));
 	const res_service = await getServiceById(service_id);
 	if (!res_service) {
 		notFound();

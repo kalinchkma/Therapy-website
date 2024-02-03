@@ -147,7 +147,7 @@ export const columns: ColumnDef<Service>[] = [
 			return (
 				<div className='text-center font-medium flex flex-col'>
 					{format}
-					<UpdateServicePrice id={service.id} value={service.price} />
+					<UpdateServicePrice id={service.id} value={service.price!} />
 				</div>
 			);
 		},
@@ -170,7 +170,10 @@ export const columns: ColumnDef<Service>[] = [
 			const service = row.original;
 			return (
 				<div className='text-center font-medium'>
-					<UpdateServiceContent id={service.id} currContent={service.content} />
+					<UpdateServiceContent
+						id={service.id}
+						currContent={service.content!}
+					/>
 				</div>
 			);
 		},

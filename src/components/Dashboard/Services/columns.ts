@@ -1,11 +1,11 @@
 /** @format */
 
 export type Service = {
-	id: number;
 	name: string;
+	description: string | null;
+	price: string | null;
 	thumbnailImage: string;
-	description: string;
-	content: string;
-	published: number;
-	price: string;
+	id: number;
+	content: string | null;
+	published: number | null;
 };

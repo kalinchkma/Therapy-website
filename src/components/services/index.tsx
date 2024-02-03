@@ -4,10 +4,16 @@ import React from 'react';
 import ContentWrapper from '../common/content-wrapper';
 import PageBreadcrumb from '../common/page-breadcrumb';
 import { ServiceCard } from '../common/service-card';
-import { Services } from '@/lib/static_data';
 import PageTitle from '../common/page-title';
+import { getAllServices } from '@/methods/services';
+import { notFound } from 'next/navigation';
+import { v4 as uuidv4 } from 'uuid';
 
-export default function ServicesPageComponent() {
+export default async function ServicesPageComponent() {
+	const allServices = await getAllServices();
+	if (!allServices) {
+		notFound();
+	}
 	return (
 		<div className='w-full'>
 			<PageTitle
@@ -23,11 +29,11 @@ export default function ServicesPageComponent() {
 			/>
 			<ContentWrapper className='py-12'>
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-					{Services.map((service, index) => (
+					{allServices.map((service, index) => (
 						<ServiceCard
-							title={service.title}
-							serviceLink={service.serviceLink}
-							description={service.description}
+							title={service.name}
+							serviceLink={`/services/${uuidv4()}${service.id}`}
+							description={service.description!}
 							thumbnailImage={service.thumbnailImage}
 							key={index}
 						/>

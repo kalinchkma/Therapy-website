@@ -6,6 +6,6 @@ export type Service = {
 	thumbnailImage: string;
 	description: string;
 	content: string;
-	published: boolean;
+	published: number;
 	price: string;
 };

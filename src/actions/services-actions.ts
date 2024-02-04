@@ -383,6 +383,7 @@ export async function updateServicePublishState(id: number) {
 		// close database connection
 		conn.end();
 		revalidatePath('/dashboard/services', 'page');
+		revalidatePath('/services', 'page');
 	} catch (error) {
 		redirect('/errors');
 	}

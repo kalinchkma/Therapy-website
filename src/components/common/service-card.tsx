@@ -34,7 +34,7 @@ export function ServiceCard({
 					alt='service image'
 					width={400}
 					height={400}
-					className='max-w-full rounded-sm md:h-[300px] md:w-[300px] lg:h-[400px] lg:w-[400px] object-cover'
+					className='max-w-full rounded-sm md:h-[300px] md:w-[300px] lg:h-[350px] lg:w-[400px] object-cover'
 				/>
 				<div className='absolute top-0 left-0 flex items-center justify-center md:w-[300px] md:h-[300px] lg:w-full lg:h-full bg-zinc-800 bg-opacity-60 hover:opacity-100 opacity-0 transition-opacity'>
 					<Link

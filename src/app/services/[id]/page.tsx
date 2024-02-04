@@ -19,6 +19,10 @@ export default async function IdividualServicePage({
 		notFound();
 	}
 
+	if (res_service[0].published === 0) {
+		notFound();
+	}
+
 	return (
 		<div className='w-full'>
 			<IndividualService service={res_service[0]} />

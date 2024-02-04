@@ -34,6 +34,9 @@ export default function UpdateServiceContent({
 		if (state.message) {
 			setMessage(state.message);
 		}
+		setTimeout(() => {
+			setMessage(state.message);
+		}, 2000);
 	}, [state]);
 
 	useEffect(() => {

@@ -14,6 +14,8 @@ export default async function ServicesPageComponent() {
 	if (!allServices) {
 		notFound();
 	}
+	// filter published services
+	const services = allServices.filter((service) => service.published === 1);
 	return (
 		<div className='w-full'>
 			<PageTitle
@@ -29,15 +31,21 @@ export default async function ServicesPageComponent() {
 			/>
 			<ContentWrapper className='py-12'>
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-					{allServices.map((service, index) => (
-						<ServiceCard
-							title={service.name}
-							serviceLink={`/services/${uuidv4()}${service.id}`}
-							description={service.description!}
-							thumbnailImage={service.thumbnailImage}
-							key={index}
-						/>
-					))}
+					{services.length > 0 ? (
+						services.map((service, index) => (
+							<ServiceCard
+								title={service.name}
+								serviceLink={`/services/${uuidv4()}${service.id}`}
+								description={service.description!}
+								thumbnailImage={service.thumbnailImage}
+								key={index}
+							/>
+						))
+					) : (
+						<div className='w-full col-span-3 flex items-center justify-center p-10'>
+							<p>No services found</p>
+						</div>
+					)}
 				</div>
 			</ContentWrapper>
 		</div>

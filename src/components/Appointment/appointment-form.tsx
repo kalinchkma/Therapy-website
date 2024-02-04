@@ -40,12 +40,12 @@ export default function AppointmentForm() {
 				<Label htmlFor='name' className='text-base mb-2 text-zinc-500'>
 					Enter your name
 				</Label>
-				<Input
+				<input
 					id='name'
 					name='name'
 					type='text'
 					placeholder='Enter your name....'
-					className='w-full'
+					className='border py-3 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50'
 					required
 				/>
 			</div>
@@ -54,12 +54,12 @@ export default function AppointmentForm() {
 				<Label htmlFor='email' className='text-base mb-2 text-zinc-500'>
 					Enter your content number
 				</Label>
-				<Input
+				<input
 					id='email'
 					name='email'
 					type='email'
 					placeholder='Enter contact number.....'
-					className='w-full'
+					className='border py-3 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50'
 					required
 				/>
 			</div>
@@ -68,12 +68,12 @@ export default function AppointmentForm() {
 				<Label htmlFor='email' className='text-base mb-2 text-zinc-500'>
 					Enter your email (optional)
 				</Label>
-				<Input
+				<input
 					id='email'
 					name='email'
 					type='email'
 					placeholder='Enter your email....'
-					className='w-full'
+					className='border py-3 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50'
 				/>
 			</div>
 
@@ -83,7 +83,7 @@ export default function AppointmentForm() {
 					Select Appointment
 				</Label>
 				<Select>
-					<SelectTrigger className='flex-grow'>
+					<SelectTrigger className='border py-2 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50 ring-transparent focus:ring-transparent'>
 						<SelectValue placeholder='Select Service' />
 					</SelectTrigger>
 					<SelectContent>
@@ -127,7 +127,7 @@ export default function AppointmentForm() {
 					</Popover>
 					{/* select time */}
 					<Select>
-						<SelectTrigger className='w-[200px]'>
+						<SelectTrigger className='border py-2 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50 ring-transparent focus:ring-transparent'>
 							<SelectValue placeholder='Select Time' />
 						</SelectTrigger>
 						<SelectContent>
@@ -150,7 +150,7 @@ export default function AppointmentForm() {
 					id='message'
 					name='message'
 					placeholder='Leave us message....'
-					className='w-full h-[200px] max-h-[400px]'
+					className=' focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0 border py-3 px-4 outline-none focus:border-zinc-400 bg-zinc-50 w-full h-[200px] max-h-[400px]'
 				/>
 			</div>
 			{/* action box */}
@@ -158,7 +158,7 @@ export default function AppointmentForm() {
 				<button
 					className='rounded-full py-4 px-6 bg-purple-800 hover:bg-purple-900 transition-all font-bold text-zinc-50'
 					type='submit'>
-					Send Message
+					Submit
 				</button>
 			</div>
 		</form>

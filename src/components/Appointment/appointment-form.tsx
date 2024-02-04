@@ -2,7 +2,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import { Label } from '../ui/label';
-import { Input } from '../ui/input';
+
 import {
 	Select,
 	SelectContent,
@@ -19,16 +19,15 @@ import { cn } from '@/lib/utils';
 import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { Calendar } from '../ui/calendar';
+import { makeAppointment } from '@/actions/appointment-actions';
 
 export default function AppointmentForm() {
 	const [date, setDate] = React.useState<Date>();
 
-	useEffect(() => {
-		console.log(date);
-	}, [date]);
-
 	return (
-		<form className='w-full flex flex-col bg-zinc-100 p-6 lg:p-10 rounded-md gap-5'>
+		<form
+			className='w-full flex flex-col bg-zinc-100 p-6 lg:p-10 rounded-md gap-5'
+			action={makeAppointment}>
 			{/* Form header */}
 			<div className='flex items-center justify-center mb-0'>
 				<h2 className='text-2xl uppercase text-blue-950 font-bold'>
@@ -51,13 +50,15 @@ export default function AppointmentForm() {
 			</div>
 			{/* contect number input */}
 			<div className='flex flex-col'>
-				<Label htmlFor='email' className='text-base mb-2 text-zinc-500'>
+				<Label
+					htmlFor='contact-number'
+					className='text-base mb-2 text-zinc-500'>
 					Enter your content number
 				</Label>
 				<input
-					id='email'
-					name='email'
-					type='email'
+					id='contact-number'
+					name='contact-number'
+					type='text'
 					placeholder='Enter contact number.....'
 					className='border py-3 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50'
 					required
@@ -82,7 +83,7 @@ export default function AppointmentForm() {
 				<Label htmlFor='email' className='text-base mb-2 text-zinc-500'>
 					Select Appointment
 				</Label>
-				<Select>
+				<Select name='service'>
 					<SelectTrigger className='border py-2 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50 ring-transparent focus:ring-transparent'>
 						<SelectValue placeholder='Select Service' />
 					</SelectTrigger>
@@ -113,7 +114,13 @@ export default function AppointmentForm() {
 									!date && 'text-muted-foreground',
 								)}>
 								<CalendarIcon className='mr-2 h-4 w-4' />
-								{date ? format(date, 'PPP') : <span>Pick a date</span>}
+								<input
+									type='string'
+									name='appointment-date'
+									value={date ? String(format(date, 'PPP')) : 'Pick a date'}
+									className='hover:cursor-pointer'
+								/>
+								{/* {date ? format(date, 'PPP') : <span>Pick a date</span>} */}
 							</Button>
 						</PopoverTrigger>
 						<PopoverContent className='w-auto p-0' align='start'>
@@ -126,8 +133,8 @@ export default function AppointmentForm() {
 						</PopoverContent>
 					</Popover>
 					{/* select time */}
-					<Select>
-						<SelectTrigger className='border py-2 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50 ring-transparent focus:ring-transparent'>
+					<Select name='appointment-time'>
+						<SelectTrigger className='w-[200px] border py-2 px-4  outline-none focus:border-zinc-400 bg-zinc-50 ring-transparent focus:ring-transparent'>
 							<SelectValue placeholder='Select Time' />
 						</SelectTrigger>
 						<SelectContent>

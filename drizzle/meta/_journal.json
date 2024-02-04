@@ -71,6 +71,13 @@
       "when": 1706933833996,
       "tag": "0009_fixed_shriek",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1707064209263,
+      "tag": "0010_lush_impossible_man",
+      "breakpoints": true
     }
   ]
 }

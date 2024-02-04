@@ -29,7 +29,7 @@ export default function IndividualService({ service }: { service: Service }) {
 					</div>
 					<div className='col-span-1 flex flex-col items-start md:items-center md:justify-start'>
 						<ActionButton
-							link='/appointment'
+							link={`/appointment?service=${service.id}`}
 							title='Book Appointment'
 							className='text-center'
 						/>

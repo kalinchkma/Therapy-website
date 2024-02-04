@@ -1,13 +1,6 @@
 /** @format */
 
-import {
-	mysqlTable,
-	bigint,
-	varchar,
-	text,
-	boolean,
-	int,
-} from 'drizzle-orm/mysql-core';
+import { mysqlTable, bigint, varchar, text, int } from 'drizzle-orm/mysql-core';
 
 export const services = mysqlTable('services', {
 	id: bigint('id', { mode: 'number' }).primaryKey().autoincrement(),

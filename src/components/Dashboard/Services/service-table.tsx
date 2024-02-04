@@ -158,7 +158,7 @@ export const columns: ColumnDef<Service>[] = [
 		header: 'Published',
 		cell: ({ row }) => (
 			<div className='capitalize line-clamp-2 max-w-[200px]'>
-				{row.getValue('published') ? 'Published' : 'No Published'}
+				{row.getValue('published') ? 'Published' : 'Not Published'}
 			</div>
 		),
 	},

@@ -20,8 +20,9 @@ import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { Calendar } from '../ui/calendar';
 import { makeAppointment } from '@/actions/appointment-actions';
+import { Service } from '../Dashboard/Services/columns';
 
-export default function AppointmentForm() {
+export default function AppointmentForm({ services }: { services: Service[] }) {
 	const [date, setDate] = React.useState<Date>();
 
 	return (
@@ -90,9 +91,11 @@ export default function AppointmentForm() {
 					<SelectContent>
 						<SelectGroup>
 							<SelectLabel>Select Service</SelectLabel>
-							<SelectItem value='terapy'>Therapy</SelectItem>
-							<SelectItem value='injury'>Injury</SelectItem>
-							<SelectItem value='massage'>Massage</SelectItem>
+							{services.map((service) => (
+								<SelectItem key={service.id} value={String(service.id)}>
+									{service.name}
+								</SelectItem>
+							))}
 						</SelectGroup>
 					</SelectContent>
 				</Select>
@@ -115,7 +118,8 @@ export default function AppointmentForm() {
 								)}>
 								<CalendarIcon className='mr-2 h-4 w-4' />
 								<input
-									type='string'
+									type='text'
+									readOnly={true}
 									name='appointment-date'
 									value={date ? String(format(date, 'PPP')) : 'Pick a date'}
 									className='hover:cursor-pointer'

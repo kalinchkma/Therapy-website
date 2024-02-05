@@ -5,7 +5,7 @@
 import { appointments } from '@/db/schema/appointments';
 import { config, createDBConnection } from '@/db';
 
+import { sendMail } from '@/mail';
+
 // make appointment
-export async function makeAppointment(formData: FormData) {
-	console.log(formData);
-}
+export async function makeAppointment(formData: FormData) {}

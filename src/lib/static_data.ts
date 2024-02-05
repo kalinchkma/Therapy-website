@@ -561,9 +561,9 @@ export const DashboardNavigation: DashboardNavigationType[] = [
 		icon: IconType.Appointments,
 	},
 	{
-		title: 'manage team',
-		link: '/dashboard/manage-team',
-		icon: IconType.Team,
+		title: 'manage information',
+		link: '/dashboard/manage-information',
+		icon: IconType.Schedule,
 	},
 	{
 		title: 'Visite Website',

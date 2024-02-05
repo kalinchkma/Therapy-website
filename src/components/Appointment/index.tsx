@@ -6,8 +6,16 @@ import ContentWrapper from '../common/content-wrapper';
 
 import AppointmentForm from './appointment-form';
 import ContactInfo from '../Contact/contact-info';
+import { getAllServices } from '@/methods/services';
+import { notFound } from 'next/navigation';
 
-export default function AppointmentPageComponent() {
+export default async function AppointmentPageComponent() {
+	const services = await getAllServices();
+
+	if (!services) {
+		notFound();
+	}
+
 	return (
 		<div className='w-full'>
 			<PageTitle
@@ -22,7 +30,7 @@ export default function AppointmentPageComponent() {
 					</div>
 					{/* Appointment form */}
 					<div className='col-span-3 md:col-span-2'>
-						<AppointmentForm />
+						<AppointmentForm services={services} />
 					</div>
 				</div>
 			</ContentWrapper>

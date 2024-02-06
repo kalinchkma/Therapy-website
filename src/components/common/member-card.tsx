@@ -44,7 +44,7 @@ export default function MemberCard({
 					</ul>
 				</div>
 			</div>
-			<div className='flex p-8 flex-col'>
+			<div className='flex p-5 flex-col'>
 				{/* name */}
 				<h4 className='text-xl font-bold text-zinc-600'>{name}</h4>
 				{/* profession */}

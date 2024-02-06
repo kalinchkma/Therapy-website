@@ -78,6 +78,20 @@
       "when": 1707064209263,
       "tag": "0010_lush_impossible_man",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1707197475507,
+      "tag": "0011_majestic_firebrand",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "5",
+      "when": 1707210038704,
+      "tag": "0012_natural_captain_flint",
+      "breakpoints": true
     }
   ]
 }

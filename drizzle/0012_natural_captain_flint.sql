@@ -1,0 +1,1 @@
+ALTER TABLE `informations` ADD `website_name` varchar(256) NOT NULL;

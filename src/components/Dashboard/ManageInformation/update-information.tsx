@@ -5,6 +5,8 @@ import {
 	updateContact,
 	updateEmail,
 	updateLocation,
+	updateOpenningHours,
+	updateSocialLinks,
 	updateWebsiteLogo,
 	updateWebsiteName,
 } from '@/actions/information-actions';
@@ -68,6 +70,22 @@ export default function UpdateInformation({
 
 	const [update_contacts_state, dispatch_update_contacts_state] = useFormState(
 		update_contacts,
+		undefined,
+	);
+
+	// update openning hours
+	const update_openning_hours = updateOpenningHours.bind(
+		null,
+		information[0].id,
+	);
+
+	const [update_openning_hours_state, dispatch_openning_hours_state] =
+		useFormState(update_openning_hours, undefined);
+
+	// update social links
+	const update_social_links = updateSocialLinks.bind(null, information[0].id);
+	const [update_social_links_state, dispatch_social_link_state] = useFormState(
+		update_social_links,
 		undefined,
 	);
 
@@ -189,6 +207,71 @@ export default function UpdateInformation({
 					{update_contacts_state && (
 						<p className='text-red-400'>{update_contacts_state}</p>
 					)}
+					<Button
+						type='submit'
+						size='icon'
+						className='bg-blue-600 hover:bg-blue-500'>
+						<Upload />
+					</Button>
+				</div>
+			</form>
+
+			{/* Openning hours */}
+			<form
+				className='w-full flex flex-col gap-2 mb-4'
+				action={dispatch_openning_hours_state}>
+				<Label htmlFor='openning-hours' className='text-lg'>
+					Openning hours
+				</Label>
+
+				<Textarea
+					cols={50}
+					rows={10}
+					id='openning-hours'
+					defaultValue={JSON.stringify(
+						JSON.parse(String(information[0].openning_hours)),
+						undefined,
+						2,
+					).trim()}
+					name='openning-hours'
+					className='text-xl'
+				/>
+				{update_openning_hours_state && (
+					<p className='text-red-400'>{update_openning_hours_state}</p>
+				)}
+				<div className='flex w-full	 items-center justify-end'>
+					<Button
+						type='submit'
+						size='icon'
+						className='bg-blue-600 hover:bg-blue-500'>
+						<Upload />
+					</Button>
+				</div>
+			</form>
+			{/* Social links */}
+			<form
+				className='w-full flex flex-col gap-2 mb-4'
+				action={dispatch_social_link_state}>
+				<Label htmlFor='social-links' className='text-lg'>
+					Sociak Links
+				</Label>
+
+				<Textarea
+					cols={50}
+					rows={10}
+					id='social-links'
+					defaultValue={JSON.stringify(
+						JSON.parse(String(information[0].social_links)),
+						undefined,
+						2,
+					).trim()}
+					name='social-links'
+					className='text-xl'
+				/>
+				{update_social_links_state && (
+					<p className='text-red-400'>{update_social_links_state}</p>
+				)}
+				<div className='flex w-full	 items-center justify-end'>
 					<Button
 						type='submit'
 						size='icon'

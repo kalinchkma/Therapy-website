@@ -272,3 +272,91 @@ export async function updateContact(
 		return 'Internal server error';
 	}
 }
+
+const OpenningHoursFormSchema = z.object({
+	openning_hours: z.string({
+		invalid_type_error: 'Invalid format',
+	}),
+});
+
+// update openning hours
+export async function updateOpenningHours(
+	id: number,
+	prevState: string | undefined,
+	formData: FormData,
+) {
+	// validate inputs
+	const validateFields = OpenningHoursFormSchema.safeParse({
+		openning_hours: formData.get('openning-hours'),
+	});
+
+	// validate errors
+	if (!validateFields.success) {
+		return 'Invalid format';
+	}
+
+	// else parse input
+	const { openning_hours } = validateFields.data;
+
+	try {
+		// create db connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		await db
+			.update(informations)
+			.set({
+				openning_hours: JSON.parse(openning_hours),
+			})
+			.where(eq(informations.id, id));
+		// close connecttion
+		conn.end();
+		revalidatePath('/dashboard/manage-information', 'page');
+	} catch (error) {
+		return 'Internal server error';
+	}
+}
+
+const SocialLinksFormSchema = z.object({
+	social_links: z.string({
+		invalid_type_error: 'Invalid format',
+	}),
+});
+
+// update social links
+export async function updateSocialLinks(
+	id: number,
+	prevState: string | undefined,
+	formData: FormData,
+) {
+	// validate inputs
+	const validateFields = SocialLinksFormSchema.safeParse({
+		social_links: formData.get('social-links'),
+	});
+
+	// validate errors
+	if (!validateFields.success) {
+		return 'Invalid format';
+	}
+
+	// else parse input
+	const { social_links } = validateFields.data;
+
+	try {
+		// create db connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		await db
+			.update(informations)
+			.set({
+				social_links: JSON.parse(social_links),
+			})
+			.where(eq(informations.id, id));
+		// close connecttion
+		conn.end();
+		revalidatePath('/dashboard/manage-information', 'page');
+	} catch (error) {
+		return 'Internal server error';
+	}
+}

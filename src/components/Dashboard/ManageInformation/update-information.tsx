@@ -2,6 +2,8 @@
 'use client';
 
 import {
+	updateContact,
+	updateEmail,
 	updateLocation,
 	updateWebsiteLogo,
 	updateWebsiteName,
@@ -53,6 +55,22 @@ export default function UpdateInformation({
 		update_location,
 		undefined,
 	);
+
+	// update Emails
+	const update_emails = updateEmail.bind(null, information[0].id);
+	const [update_emails_state, dispatch_update_emails_state] = useFormState(
+		update_emails,
+		undefined,
+	);
+
+	// update contacts
+	const update_contacts = updateContact.bind(null, information[0].id);
+
+	const [update_contacts_state, dispatch_update_contacts_state] = useFormState(
+		update_contacts,
+		undefined,
+	);
+
 	return (
 		<div className='w-full grid'>
 			<h1 className='text-xl font-bold flex items-center justify-center border-b mb-5'>
@@ -116,14 +134,17 @@ export default function UpdateInformation({
 				<Label htmlFor='location' className='text-lg'>
 					Location
 				</Label>
-				<Textarea id='location' defaultValue={information[0].location} />
+				<Textarea
+					id='location'
+					name='location'
+					defaultValue={information[0].location}
+				/>
 				{update_location_state && (
 					<p className='text-red-400'>{update_location_state}</p>
 				)}
 				<div className='flex items-center justify-end'>
 					<Button
 						type='submit'
-						name='location'
 						size='icon'
 						className='bg-blue-600 hover:bg-blue-500'>
 						<Upload />
@@ -131,12 +152,17 @@ export default function UpdateInformation({
 				</div>
 			</form>
 			{/* emails */}
-			<form className='w-full flex flex-col gap-2 mb-4'>
-				<Label htmlFor='location' className='text-lg'>
-					Emails
+			<form
+				className='w-full flex flex-col gap-2 mb-4'
+				action={dispatch_update_emails_state}>
+				<Label htmlFor='email' className='text-lg'>
+					Emails (Please provide emails with &apos;,&apos;)
 				</Label>
 				<div className='flex items-center justify-start gap-2'>
-					<Input id='location' defaultValue={information[0].emails} />
+					<Input id='email' name='email' defaultValue={information[0].emails} />
+					{update_emails_state && (
+						<p className='text-red-400'>{update_emails_state}</p>
+					)}
 					<Button
 						type='submit'
 						size='icon'
@@ -147,13 +173,22 @@ export default function UpdateInformation({
 			</form>
 
 			{/* contact */}
-			<form className='w-full flex flex-col gap-2 mb-4'>
-				<Label htmlFor='location' className='text-lg'>
+			<form
+				className='w-full flex flex-col gap-2 mb-4'
+				action={dispatch_update_contacts_state}>
+				<Label htmlFor='contacts' className='text-lg'>
 					Contacts
 				</Label>
 
 				<div className='flex items-center justify-start gap-2'>
-					<Input id='location' defaultValue={information[0].contact_numbers} />
+					<Input
+						id='contacts'
+						name='contacts'
+						defaultValue={information[0].contact_numbers}
+					/>
+					{update_contacts_state && (
+						<p className='text-red-400'>{update_contacts_state}</p>
+					)}
 					<Button
 						type='submit'
 						size='icon'

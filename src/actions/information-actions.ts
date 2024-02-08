@@ -4,7 +4,7 @@
 
 import { config, createDBConnection } from '@/db';
 import { informations } from '@/db/schema/information';
-import { uploadFile } from '@/lib/helper_function';
+import { deleteFile, uploadFile } from '@/lib/helper_function';
 import { eq } from 'drizzle-orm';
 import mysql from 'mysql2/promise';
 import { revalidatePath } from 'next/cache';
@@ -19,12 +19,26 @@ export async function setupWebInformation() {
 		const conn = mysql.createPool(config);
 		const db = createDBConnection(conn);
 		await db.insert(informations).values({
-			openning_hours: {},
+			openning_hours: {
+				Friday: '',
+				Saturday: '',
+				Sunday: '',
+				Monday: '',
+				Tuesday: '',
+				Wednessday: '',
+				Thursday: '',
+			},
 			contact_numbers: '',
 			emails: '',
 			location: '',
 			logo: '',
-			social_links: {},
+			social_links: {
+				Facebook: '',
+				Instagram: '',
+				Twitter: '',
+				LinkedIn: '',
+				YouTube: '',
+			},
 			website_name: '',
 		});
 		// close database connection
@@ -48,17 +62,39 @@ export async function updateWebsiteLogo(
 	if (logo.size <= 0) {
 		return 'Please attech a Image of a logo';
 	}
+
+	// connect to database
+	const conn = mysql.createPool(config);
+	const db = createDBConnection(conn);
+
+	const information = await db
+		.select()
+		.from(informations)
+		.where(eq(informations.id, id));
+	if (information.length <= 0) {
+		conn.end();
+		return 'Server error';
+	}
+
+	// delete if previous logo is there
+	if (information[0].logo !== '') {
+		const del_res = await deleteFile(information[0].logo);
+		if (!del_res) {
+			conn.end();
+			return 'Internal server error';
+		}
+	}
+
 	const filePath = `/images/${uuid4()}${logo.name}`;
 	const upload_res = await uploadFile(logo, filePath, 10);
 	if (upload_res === 'Big') {
+		conn.end();
 		return 'File is too large, file must be a less than or equal 10MB';
 	} else if (upload_res === 'faild') {
+		conn.end();
 		return 'Internal server error';
 	} else {
 		try {
-			// connect to database
-			const conn = mysql.createPool(config);
-			const db = createDBConnection(conn);
 			await db
 				.update(informations)
 				.set({
@@ -69,6 +105,7 @@ export async function updateWebsiteLogo(
 			conn.end();
 			revalidatePath('/dashboard/manage-information', 'page');
 		} catch (error) {
+			conn.end();
 			return 'Internal server error';
 		}
 	}
@@ -146,6 +183,86 @@ export async function updateLocation(
 			.update(informations)
 			.set({
 				location: location,
+			})
+			.where(eq(informations.id, id));
+		// close database connection
+		conn.end();
+		revalidatePath('/dashboard/manage-information', 'page');
+	} catch (error) {
+		return 'Internal server error';
+	}
+}
+
+const EmailFormSchema = z.object({
+	email: z.string({
+		invalid_type_error: 'Email must be a text format',
+	}),
+});
+
+// update location
+export async function updateEmail(
+	id: number,
+	prevState: string | undefined,
+	formData: FormData,
+) {
+	// validate input
+	const validateFields = EmailFormSchema.safeParse({
+		email: formData.get('email'),
+	});
+
+	// validate error
+	if (!validateFields.success) {
+		return 'Email must be a text format';
+	}
+	const { email } = validateFields.data;
+	try {
+		// create database connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+		await db
+			.update(informations)
+			.set({
+				emails: email,
+			})
+			.where(eq(informations.id, id));
+		// close database connection
+		conn.end();
+		revalidatePath('/dashboard/manage-information', 'page');
+	} catch (error) {
+		return 'Internal server error';
+	}
+}
+
+const ContactFormSchema = z.object({
+	contacts: z.string({
+		invalid_type_error: 'Contacts must be a text format',
+	}),
+});
+
+// update location
+export async function updateContact(
+	id: number,
+	prevState: string | undefined,
+	formData: FormData,
+) {
+	// validate input
+	const validateFields = ContactFormSchema.safeParse({
+		contacts: formData.get('contacts'),
+	});
+
+	// validate error
+	if (!validateFields.success) {
+		return 'Contacts must be a text format';
+	}
+	const { contacts } = validateFields.data;
+	try {
+		// create database connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+		await db
+			.update(informations)
+			.set({
+				contact_numbers: contacts,
 			})
 			.where(eq(informations.id, id));
 		// close database connection

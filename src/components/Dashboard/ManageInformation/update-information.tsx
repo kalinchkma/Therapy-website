@@ -269,7 +269,7 @@ export default function UpdateInformation({
 					className='text-xl'
 				/>
 				{update_social_links_state && (
-					<p className='text-red-400'>{update_social_links_state}</p>
+					<p className='text-red-400 text-base'>{update_social_links_state}</p>
 				)}
 				<div className='flex w-full	 items-center justify-end'>
 					<Button

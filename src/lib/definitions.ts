@@ -83,7 +83,7 @@ export enum IconType {
 export interface SocialLink {
 	title?: string;
 	link: string;
-	icon: IconType;
+	icon?: IconType;
 }
 
 // banner slider content

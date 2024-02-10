@@ -13,53 +13,65 @@ interface SocialLinkProps extends SocialLink {
 	className?: string;
 }
 
-export default function SocialLinkCreator({
+export default function SocialLinkCreator2({
 	title,
 	link,
 	icon,
 	className,
 }: SocialLinkProps) {
-	switch (icon) {
-		case IconType.Facebook:
+	const lower_title = title?.toLowerCase();
+	switch (lower_title) {
+		case 'facebook':
 			return (
 				<Link href={link} className={cn('text-blue-700', className)}>
-					<IconCreator icon={icon} />
+					<IconCreator icon={IconType.Facebook} />
 				</Link>
 			);
-		case IconType.LinkedIn:
+		case 'linkedin':
 			return (
 				<Link href={link} className={cn('text-blue-900', className)}>
-					<IconCreator icon={icon} />
+					<IconCreator icon={IconType.LinkedIn} />
 				</Link>
 			);
-		case IconType.YouTube:
+		case 'youtube':
 			return (
 				<Link href={link} className={cn('text-red-500', className)}>
-					<IconCreator icon={icon} />
+					<IconCreator icon={IconType.YouTube} />
 				</Link>
 			);
-		case IconType.WhatsApp:
+		case 'whatsapp':
 			return (
 				<Link href={link} className={cn('text-green-500', className)}>
-					<IconCreator icon={icon} />
+					<IconCreator icon={IconType.WhatsApp} />
 				</Link>
 			);
-		case IconType.Twitter:
+		case 'old-twitter':
 			return (
 				<Link href={link} className={cn('text-sky-500', className)}>
-					<IconCreator icon={icon} />
+					<IconCreator icon={IconType.Twitter} />
 				</Link>
 			);
-		case IconType.XTwitter:
+		case 'twitter':
 			return (
 				<Link href={link} className={cn('text-zinc-900', className)}>
-					<IconCreator icon={icon} />
+					<IconCreator icon={IconType.XTwitter} />
 				</Link>
 			);
-		case IconType.Instagram:
+		case 'instagram':
 			return (
 				<Link href={link} className={cn('text-pink-600', className)}>
-					<IconCreator icon={icon} />
+					<IconCreator icon={IconType.Instagram} />
+				</Link>
+			);
+		default:
+			return (
+				<Link
+					href={link}
+					className={cn(
+						'flex items-center justify-center font-bold',
+						className,
+					)}>
+					{title?.charAt(0)}
 				</Link>
 			);
 	}

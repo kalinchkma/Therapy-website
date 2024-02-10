@@ -5,6 +5,7 @@ import { ContactData, SocialLinks } from '@/lib/static_data';
 import Link from 'next/link';
 import React from 'react';
 import SocialLinkCreator from '../common/social-link';
+import SocialLinkCreator2 from '../common/social-link-2';
 
 export default function ContactInfo({
 	information,
@@ -20,6 +21,15 @@ export default function ContactInfo({
 		website_name: string;
 	};
 }) {
+	const social_links = JSON.parse(String(information.social_links)) as {
+		Facebook: string;
+		Instagram: string;
+		Twitter: string;
+		LinkedIn: string;
+		YouTube: string;
+	};
+
+	console.log(social_links);
 	return (
 		<div className='w-full'>
 			<div className='bg-purple-900 rounded-sm p-8 w-full flex flex-col'>
@@ -55,12 +65,12 @@ export default function ContactInfo({
 				</div>
 				<div className='flex flex-col items-start justify-center text-zinc-200   '>
 					<h5 className='text-xl font-bold capitalize'>Social Media</h5>
-					<ul className='flex gap-2'>
-						{SocialLinks.map((link, index) => (
+					<ul className='flex gap-2 items-center justify-center'>
+						{Object.entries(social_links).map(([title, link], index) => (
 							<li key={index}>
-								<SocialLinkCreator
-									icon={link.icon}
-									link={link.link}
+								<SocialLinkCreator2
+									title={title}
+									link={link}
 									className='text-zinc-200 text-xl'
 								/>
 							</li>

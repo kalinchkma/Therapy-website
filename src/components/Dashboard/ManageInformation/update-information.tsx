@@ -132,6 +132,7 @@ export default function UpdateInformation({
 					<Input
 						id='website-name'
 						name='website-name'
+						className='text-xl'
 						defaultValue={information[0].website_name}
 					/>
 					{update_websitename_state && (
@@ -155,6 +156,7 @@ export default function UpdateInformation({
 				<Textarea
 					id='location'
 					name='location'
+					className='text-xl'
 					defaultValue={information[0].location}
 				/>
 				{update_location_state && (
@@ -177,7 +179,12 @@ export default function UpdateInformation({
 					Emails (Please provide emails with &apos;,&apos;)
 				</Label>
 				<div className='flex items-center justify-start gap-2'>
-					<Input id='email' name='email' defaultValue={information[0].emails} />
+					<Input
+						id='email'
+						name='email'
+						className='text-xl'
+						defaultValue={information[0].emails}
+					/>
 					{update_emails_state && (
 						<p className='text-red-400'>{update_emails_state}</p>
 					)}
@@ -195,13 +202,14 @@ export default function UpdateInformation({
 				className='w-full flex flex-col gap-2 mb-4'
 				action={dispatch_update_contacts_state}>
 				<Label htmlFor='contacts' className='text-lg'>
-					Contacts
+					Contacts (Please provide contact witn &quot;,&quot;)
 				</Label>
 
 				<div className='flex items-center justify-start gap-2'>
 					<Input
 						id='contacts'
 						name='contacts'
+						className='text-xl'
 						defaultValue={information[0].contact_numbers}
 					/>
 					{update_contacts_state && (

@@ -6,42 +6,49 @@ import Link from 'next/link';
 import React from 'react';
 import SocialLinkCreator from '../common/social-link';
 
-export default function ContactInfo() {
+export default function ContactInfo({
+	information,
+}: {
+	information: {
+		id: number;
+		openning_hours: unknown;
+		emails: string;
+		location: string;
+		contact_numbers: string;
+		social_links: unknown;
+		logo: string;
+		website_name: string;
+	};
+}) {
 	return (
 		<div className='w-full'>
 			<div className='bg-purple-900 rounded-sm p-8 w-full flex flex-col'>
 				<div className='flex flex-col items-start justify-center text-zinc-200 '>
 					<h5 className='text-xl font-bold capitalize'>
-						Universal Physioterapy & Rehad Center
+						{/* Website name */}
+						{information.website_name}
 					</h5>
-					<p className='text-zinc-300 text-base'>
-						{
-							ContactData.filter(
-								(data) => data.type === ContactType.Location,
-							)[0].location?.details
-						}
-					</p>
+					{/* location */}
+					<p className='text-zinc-300 text-base'>{information.location}</p>
 				</div>
+				{/* Contact numbers */}
 				<div className='flex flex-col items-start justify-center text-zinc-200 '>
-					<h5 className='text-xl font-bold capitalize'>Phone number</h5>
+					<h5 className='text-xl font-bold capitalize'>Contact numbers</h5>
 					<ul>
-						{ContactData.filter(
-							(data) => data.type === ContactType.contact,
-						)[0].contact?.phoneNumbers?.data.map((number) => (
-							<li key={number}>
-								<Link href={'/'}>{number}</Link>
+						{information.contact_numbers.split(',').map((contact) => (
+							<li key={contact}>
+								<p>{contact}</p>
 							</li>
 						))}
 					</ul>
 				</div>
+				{/* Emails */}
 				<div className='flex flex-col items-start justify-center text-zinc-200  '>
-					<h5 className='text-xl font-bold capitalize'>Email</h5>
+					<h5 className='text-xl font-bold capitalize'>Emails</h5>
 					<ul>
-						{ContactData.filter(
-							(data) => data.type === ContactType.contact,
-						)[0].contact?.emails?.data.map((email) => (
+						{information.emails.split(',').map((email) => (
 							<li key={email}>
-								<Link href={'/'}>{email}</Link>
+								<p>{email}</p>
 							</li>
 						))}
 					</ul>

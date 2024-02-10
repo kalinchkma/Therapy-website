@@ -12,8 +12,10 @@ import SocialLinkCreator from '../common/social-link';
 import { Input } from '../ui/input';
 import ContactInfo from './contact-info';
 import ContactForm from './contact-form';
+import { getInformations } from '@/methods/information';
 
-export default function ContactPageComponent() {
+export default async function ContactPageComponent() {
+	const getInformation = await getInformations();
 	return (
 		<div className='w-full'>
 			<PageTitle title='Contact' />
@@ -31,7 +33,7 @@ export default function ContactPageComponent() {
                         contact info 
                         ---------------------------------------------
                         */}
-						<ContactInfo />
+						<ContactInfo information={getInformation[0]} />
 						{/* 
                         -------------------------------------------------
                         openning hours 

@@ -31,7 +31,10 @@ export default async function AppointmentPageComponent() {
 					</div>
 					{/* Appointment form */}
 					<div className='col-span-3 md:col-span-2'>
-						<AppointmentForm services={services} />
+						<AppointmentForm
+							services={services}
+							information={getInformation[0]}
+						/>
 					</div>
 				</div>
 			</ContentWrapper>

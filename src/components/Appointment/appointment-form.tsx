@@ -22,8 +22,26 @@ import { Calendar } from '../ui/calendar';
 import { makeAppointment } from '@/actions/appointment-actions';
 import { Service } from '../Dashboard/Services/columns';
 
-export default function AppointmentForm({ services }: { services: Service[] }) {
+type Information = {
+	id: number;
+	openning_hours: unknown;
+	emails: string;
+	location: string;
+	contact_numbers: string;
+	social_links: unknown;
+	logo: string;
+	website_name: string;
+};
+
+export default function AppointmentForm({
+	services,
+	information,
+}: {
+	services: Service[];
+	information: Information;
+}) {
 	const [date, setDate] = React.useState<Date>();
+	// @TODO: Create a service hours on information section
 
 	return (
 		<form
@@ -144,7 +162,7 @@ export default function AppointmentForm({ services }: { services: Service[] }) {
 						<SelectContent>
 							<SelectGroup>
 								<SelectLabel>Select Time</SelectLabel>
-								<SelectItem value='9am-10am'>9am-10am</SelectItem>
+
 								<SelectItem value='10am-11am'>10am-11am</SelectItem>
 								<SelectItem value='11am-12pm'>11am-12pm</SelectItem>
 							</SelectGroup>

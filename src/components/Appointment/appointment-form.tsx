@@ -1,6 +1,6 @@
 /** @format */
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Label } from '../ui/label';
 
 import {
@@ -19,8 +19,12 @@ import { cn } from '@/lib/utils';
 import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { Calendar } from '../ui/calendar';
-import { makeAppointment } from '@/actions/appointment-actions';
+import {
+	createAppointment,
+	AppointmentState,
+} from '@/actions/appointment-actions';
 import { Service } from '../Dashboard/Services/columns';
+import { useFormState, useFormStatus } from 'react-dom';
 
 type Information = {
 	id: number;
@@ -33,25 +37,93 @@ type Information = {
 	website_name: string;
 };
 
+function Submit() {
+	const { pending } = useFormStatus();
+	return (
+		<button
+			className='rounded-full py-4 px-6 bg-purple-800 hover:bg-purple-900 transition-all font-bold text-zinc-50'
+			type='submit'
+			disabled={pending}>
+			{pending ? 'Submitting...' : 'Submit'}
+		</button>
+	);
+}
+
 export default function AppointmentForm({
 	services,
 	information,
+	auth_id,
 }: {
 	services: Service[];
 	information: Information;
+	auth_id: number;
 }) {
 	const [date, setDate] = React.useState<Date>();
-	// @TODO: Create a service hours on information section
 
-	return (
+	const openning_hours = JSON.parse(String(information.openning_hours)) as {
+		Friday: string;
+		Saturday: string;
+		Sunday: string;
+		Monday: string;
+		Tuesday: string;
+		Wednessday: string;
+		Thursday: string;
+	};
+
+	let hours: String[] = [];
+
+	if (openning_hours.Friday) {
+		const service_hours = openning_hours.Friday.split('-');
+		let start_hour = service_hours[0].match(/(\d+)/);
+		let end_hour = service_hours[1].match(/(\d+)/);
+		if (start_hour && end_hour) {
+			for (let i = Number(start_hour[0]); i < Number(end_hour[0]) + 12; i++) {
+				if (i > 12) {
+					hours.push(String(i - 12) + ' pm');
+				} else {
+					hours.push(String(i) + ' am');
+				}
+			}
+		}
+	}
+
+	const initialState: AppointmentState = { message: '', status: 100 };
+	const make_appointment = createAppointment.bind(null, auth_id);
+
+	const [make_appointment_state, dipatch_make_appointment_state] = useFormState(
+		make_appointment,
+		initialState,
+	);
+
+	const [formMessage, setFormMessage] = useState<string | undefined>();
+
+	const { pending } = useFormStatus();
+	useEffect(() => {
+		setFormMessage(make_appointment_state.message);
+
+		(document.getElementById('appointment-form') as HTMLFormElement).reset();
+		setTimeout(() => {
+			setFormMessage(undefined);
+		}, 4000);
+	}, [make_appointment_state]);
+	return !pending ? (
 		<form
+			id='appointment-form'
 			className='w-full flex flex-col bg-zinc-100 p-6 lg:p-10 rounded-md gap-5'
-			action={makeAppointment}>
+			action={dipatch_make_appointment_state}>
 			{/* Form header */}
-			<div className='flex items-center justify-center mb-0'>
+			<div className='flex flex-col items-center justify-center mb-0'>
 				<h2 className='text-2xl uppercase text-blue-950 font-bold'>
 					Appointment Form
 				</h2>
+				{make_appointment_state.status === 200 &&
+					make_appointment_state.message && (
+						<p className='text-green-500'>{formMessage}</p>
+					)}
+				{make_appointment_state.status === 500 &&
+					make_appointment_state.message && (
+						<p className='text-red-500'>{formMessage}</p>
+					)}
 			</div>
 			{/* name input */}
 			<div className=' flex flex-col'>
@@ -60,12 +132,18 @@ export default function AppointmentForm({
 				</Label>
 				<input
 					id='name'
-					name='name'
+					name='paitent-name'
 					type='text'
 					placeholder='Enter your name....'
 					className='border py-3 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50'
 					required
 				/>
+				{make_appointment_state.status === 400 &&
+					make_appointment_state.errors?.paitent_name && (
+						<p className='text-red-400'>
+							{make_appointment_state.errors.paitent_name[0]}
+						</p>
+					)}
 			</div>
 			{/* contect number input */}
 			<div className='flex flex-col'>
@@ -82,6 +160,12 @@ export default function AppointmentForm({
 					className='border py-3 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50'
 					required
 				/>
+				{make_appointment_state.status === 400 &&
+					make_appointment_state.errors?.contact_number && (
+						<p className='text-red-400'>
+							{make_appointment_state.errors.contact_number[0]}
+						</p>
+					)}
 			</div>
 			{/* email input */}
 			<div className='flex flex-col'>
@@ -95,14 +179,20 @@ export default function AppointmentForm({
 					placeholder='Enter your email....'
 					className='border py-3 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50'
 				/>
+				{make_appointment_state.status === 400 &&
+					make_appointment_state.errors?.email && (
+						<p className='text-red-400'>
+							{make_appointment_state.errors.email[0]}
+						</p>
+					)}
 			</div>
 
 			{/* appointment type */}
 			<div className='flex flex-col'>
-				<Label htmlFor='email' className='text-base mb-2 text-zinc-500'>
+				<Label className='text-base mb-2 text-zinc-500'>
 					Select Appointment
 				</Label>
-				<Select name='service'>
+				<Select name='selected-service' required>
 					<SelectTrigger className='border py-2 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50 ring-transparent focus:ring-transparent'>
 						<SelectValue placeholder='Select Service' />
 					</SelectTrigger>
@@ -117,8 +207,13 @@ export default function AppointmentForm({
 						</SelectGroup>
 					</SelectContent>
 				</Select>
+				{make_appointment_state.status === 400 &&
+					make_appointment_state.errors?.selected_service && (
+						<p className='text-red-400'>
+							{make_appointment_state.errors.selected_service[0]}
+						</p>
+					)}
 			</div>
-
 			{/* select time & date */}
 			<div className='flex flex-col'>
 				<Label className='text-base mb-2 text-zinc-500'>
@@ -138,10 +233,13 @@ export default function AppointmentForm({
 								<input
 									type='text'
 									readOnly={true}
+									required
 									name='appointment-date'
-									value={date ? String(format(date, 'PPP')) : 'Pick a date'}
-									className='hover:cursor-pointer'
+									value={date ? String(format(date, 'PPP')) : ''}
+									placeholder='Pick a date'
+									className='text-zinc-800 hover:cursor-pointer'
 								/>
+
 								{/* {date ? format(date, 'PPP') : <span>Pick a date</span>} */}
 							</Button>
 						</PopoverTrigger>
@@ -155,20 +253,34 @@ export default function AppointmentForm({
 						</PopoverContent>
 					</Popover>
 					{/* select time */}
-					<Select name='appointment-time'>
+					<Select name='appointment-time' required>
 						<SelectTrigger className='w-[200px] border py-2 px-4  outline-none focus:border-zinc-400 bg-zinc-50 ring-transparent focus:ring-transparent'>
 							<SelectValue placeholder='Select Time' />
 						</SelectTrigger>
 						<SelectContent>
 							<SelectGroup>
 								<SelectLabel>Select Time</SelectLabel>
-
-								<SelectItem value='10am-11am'>10am-11am</SelectItem>
-								<SelectItem value='11am-12pm'>11am-12pm</SelectItem>
+								{hours.map((hour, index) => (
+									<SelectItem key={index} value={String(hour)}>
+										{hour}
+									</SelectItem>
+								))}
 							</SelectGroup>
 						</SelectContent>
 					</Select>
 				</div>
+				{make_appointment_state.status === 400 &&
+					make_appointment_state.errors?.appointment_date && (
+						<p className='text-red-400 mt-4'>
+							{make_appointment_state.errors.appointment_date[0]}
+						</p>
+					)}
+				{make_appointment_state.status === 400 &&
+					make_appointment_state.errors?.appointment_time && (
+						<p className='text-red-400 mt-4'>
+							{make_appointment_state.errors.appointment_time[0]}
+						</p>
+					)}
 			</div>
 			{/* message input */}
 			<div className='flex flex-col'>
@@ -179,17 +291,23 @@ export default function AppointmentForm({
 					id='message'
 					name='message'
 					placeholder='Leave us message....'
-					className=' focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0 border py-3 px-4 outline-none focus:border-zinc-400 bg-zinc-50 w-full h-[200px] max-h-[400px]'
+					className='focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0 border py-3 px-4 outline-none focus:border-zinc-400 bg-zinc-50 w-full h-[200px] max-h-[400px]'
 				/>
+				{make_appointment_state.status === 400 &&
+					make_appointment_state.errors?.message && (
+						<p className='text-red-400 mt-4'>
+							{make_appointment_state.errors.message[0]}
+						</p>
+					)}
 			</div>
 			{/* action box */}
 			<div className='flex justify-end'>
-				<button
-					className='rounded-full py-4 px-6 bg-purple-800 hover:bg-purple-900 transition-all font-bold text-zinc-50'
-					type='submit'>
-					Submit
-				</button>
+				<Submit />
 			</div>
 		</form>
+	) : (
+		<div className='w-full h-[500px] bg-zinc-100 flex items-center justify-center'>
+			<div className='w-[50px] h-[50px] border-l-4 rounded-full animate-spin'></div>
+		</div>
 	);
 }

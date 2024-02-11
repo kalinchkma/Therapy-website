@@ -9,6 +9,7 @@ import ContactInfo from '../Contact/contact-info';
 import { getAllServices } from '@/methods/services';
 import { notFound } from 'next/navigation';
 import { getInformations } from '@/methods/information';
+import { checkAndGetAuth } from '@/lib/helper_function';
 
 export default async function AppointmentPageComponent() {
 	const services = await getAllServices();
@@ -16,6 +17,15 @@ export default async function AppointmentPageComponent() {
 		notFound();
 	}
 	const getInformation = await getInformations();
+	let auth_id = -1;
+	const auth = await checkAndGetAuth();
+	if (auth === '/404') {
+		auth_id = -1;
+	} else if (auth === '/login') {
+		auth_id = -1;
+	} else {
+		auth_id = Number(auth.id);
+	}
 
 	return (
 		<div className='w-full'>
@@ -34,6 +44,7 @@ export default async function AppointmentPageComponent() {
 						<AppointmentForm
 							services={services}
 							information={getInformation[0]}
+							auth_id={auth_id}
 						/>
 					</div>
 				</div>

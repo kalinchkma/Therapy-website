@@ -29,7 +29,6 @@ export default function ContactInfo({
 		YouTube: string;
 	};
 
-	console.log(social_links);
 	return (
 		<div className='w-full'>
 			<div className='bg-purple-900 rounded-sm p-8 w-full flex flex-col'>

@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { verify_auth_token } from '@/lib/utils';
 import { AuthTokenName, User, UsersType } from './definitions';
-import { getUserByEmail } from '@/methods/users';
+import { getUserByEmail } from '@/methods/users-method';
 import fs from 'fs/promises';
 
 export async function checkAuth() {

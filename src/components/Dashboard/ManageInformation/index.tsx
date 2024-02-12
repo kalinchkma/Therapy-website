@@ -2,7 +2,7 @@
 
 import React from 'react';
 import SetupInformation from './setup-information';
-import { getInformations } from '@/methods/information';
+import { getInformations } from '@/methods/information-method';
 
 import UpdateInformation from './update-information';
 

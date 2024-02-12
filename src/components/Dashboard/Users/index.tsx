@@ -1,7 +1,7 @@
 /** @format */
 
 import { User, UsersType } from '@/lib/definitions';
-import { getAllUsers } from '@/methods/users';
+import { getAllUsers } from '@/methods/users-method';
 import UserDataTable from './user-table';
 import { UserDataCol } from './columns';
 import { notFound } from 'next/navigation';

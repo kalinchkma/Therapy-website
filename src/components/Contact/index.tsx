@@ -12,7 +12,7 @@ import SocialLinkCreator from '../common/social-link';
 import { Input } from '../ui/input';
 import ContactInfo from './contact-info';
 import ContactForm from './contact-form';
-import { getInformations } from '@/methods/information';
+import { getInformations } from '@/methods/information-method';
 
 export default async function ContactPageComponent() {
 	const getInformation = await getInformations();

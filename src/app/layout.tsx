@@ -10,7 +10,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { cookies } from 'next/headers';
 import { AuthTokenName, UsersType } from '@/lib/definitions';
 import { verify_auth_token, verify_auth_token2 } from '@/lib/utils';
-import { getUserByEmail } from '@/methods/users';
+import { getUserByEmail } from '@/methods/users-method';
 import { unstable_noStore as noStore } from 'next/cache';
 import { checkAndGetAuth } from '@/lib/helper_function';
 import { NextURL } from 'next/dist/server/web/next-url';

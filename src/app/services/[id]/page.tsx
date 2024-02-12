@@ -2,7 +2,7 @@
 
 import { Service } from '@/components/Dashboard/Services/columns';
 import IndividualService from '@/components/services/individual-service';
-import { getServiceById } from '@/methods/services';
+import { getServiceById } from '@/methods/services-method';
 import { notFound } from 'next/navigation';
 import React from 'react';
 import { unstable_noStore as noStore } from 'next/cache';

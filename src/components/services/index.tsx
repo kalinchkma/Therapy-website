@@ -5,7 +5,7 @@ import ContentWrapper from '../common/content-wrapper';
 import PageBreadcrumb from '../common/page-breadcrumb';
 import { ServiceCard } from '../common/service-card';
 import PageTitle from '../common/page-title';
-import { getAllServices } from '@/methods/services';
+import { getAllServices } from '@/methods/services-method';
 import { notFound } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
 

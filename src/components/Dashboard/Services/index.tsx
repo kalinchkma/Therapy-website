@@ -4,7 +4,7 @@ import React from 'react';
 import ServiceDataTable from './service-table';
 
 import { Service } from './columns';
-import { getAllServices } from '@/methods/services';
+import { getAllServices } from '@/methods/services-method';
 import { redirect } from 'next/navigation';
 
 export default async function ServicesPageComponent() {

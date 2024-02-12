@@ -6,9 +6,9 @@ import ContentWrapper from '../common/content-wrapper';
 
 import AppointmentForm from './appointment-form';
 import ContactInfo from '../Contact/contact-info';
-import { getAllServices } from '@/methods/services';
+import { getAllServices } from '@/methods/services-method';
 import { notFound } from 'next/navigation';
-import { getInformations } from '@/methods/information';
+import { getInformations } from '@/methods/information-method';
 import { checkAndGetAuth } from '@/lib/helper_function';
 
 export default async function AppointmentPageComponent() {

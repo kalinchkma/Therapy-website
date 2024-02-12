@@ -42,6 +42,8 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 import { Appointment } from './columns';
+import { Trash2 } from 'lucide-react';
+import AppointmentDetails from './appointment-details';
 
 export type Payment = {
 	id: string;
@@ -81,22 +83,6 @@ export const columns: ColumnDef<Appointment>[] = [
 		),
 	},
 	{
-		accessorKey: 'contact_email',
-		header: ({ column }) => {
-			return (
-				<Button
-					variant='ghost'
-					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-					Email
-					<CaretSortIcon className='ml-2 h-4 w-4' />
-				</Button>
-			);
-		},
-		cell: ({ row }) => (
-			<div className='lowercase'>{row.getValue('contact_email')}</div>
-		),
-	},
-	{
 		accessorKey: 'contact_number',
 		header: ({ column }) => {
 			return (
@@ -112,6 +98,23 @@ export const columns: ColumnDef<Appointment>[] = [
 			<div className='lowercase'>{row.getValue('contact_number')}</div>
 		),
 	},
+	{
+		accessorKey: 'contact_email',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant='ghost'
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+					Email
+					<CaretSortIcon className='ml-2 h-4 w-4' />
+				</Button>
+			);
+		},
+		cell: ({ row }) => (
+			<div className='lowercase'>{row.getValue('contact_email')}</div>
+		),
+	},
+
 	{
 		accessorKey: 'appointment_date',
 		header: 'Appointment Date',
@@ -129,40 +132,39 @@ export const columns: ColumnDef<Appointment>[] = [
 	{
 		accessorKey: 'selected_service',
 		header: 'Selected Service',
-		cell: ({ row }) => (
-			<div className='capitalize'>{row.getValue('selected_service')}</div>
-		),
+		cell: ({ row }) => {
+			const original = row.original;
+			let service_name = '';
+
+			original.services.forEach((service) => {
+				if (service.id === original.selected_service) {
+					service_name = service.name;
+				}
+			});
+
+			return <div className='capitalize'>{service_name}</div>;
+		},
 	},
 	{
 		accessorKey: 'message',
 		header: 'Message',
 		cell: ({ row }) => (
-			<div className='capitalize'>{row.getValue('message')}</div>
+			<div className='capitalize line-clamp-2'>{row.getValue('message')}</div>
 		),
 	},
 
 	{
-		id: 'actions',
-		enableHiding: false,
+		header: 'Actions',
 		cell: ({ row }) => {
 			const appointment = row.original;
 
 			return (
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant='ghost' className='h-8 w-8 p-0'>
-							<span className='sr-only'>Open menu</span>
-							<DotsHorizontalIcon className='h-4 w-4' />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align='end'>
-						<DropdownMenuLabel>Actions</DropdownMenuLabel>
-
-						<DropdownMenuSeparator />
-						<DropdownMenuItem>View customer</DropdownMenuItem>
-						<DropdownMenuItem>View payment details</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
+				<div className='flex items-center justify-center gap-2'>
+					<AppointmentDetails appointment={appointment} />
+					<Button size='icon' variant='destructive'>
+						<Trash2 />
+					</Button>
+				</div>
 			);
 		},
 	},
@@ -200,10 +202,12 @@ export default function AppointmentTable({ data }: { data: Appointment[] }) {
 		<div className='w-full'>
 			<div className='flex items-center py-4'>
 				<Input
-					placeholder='Filter emails...'
-					value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
+					placeholder='Filter with patient name...'
+					value={
+						(table.getColumn('patient_name')?.getFilterValue() as string) ?? ''
+					}
 					onChange={(event) =>
-						table.getColumn('email')?.setFilterValue(event.target.value)
+						table.getColumn('patient_name')?.setFilterValue(event.target.value)
 					}
 					className='max-w-sm'
 				/>

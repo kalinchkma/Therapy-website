@@ -10,7 +10,7 @@ import {
 } from 'drizzle-orm/mysql-core';
 
 export const appointments = mysqlTable('appointment', {
-	id: bigint('id', { mode: 'bigint' }).primaryKey().autoincrement(),
+	id: bigint('id', { mode: 'number' }).primaryKey().autoincrement(),
 	patient_name: varchar('patient_name', { length: 256 }).notNull(),
 	contact_number: varchar('contact_number', { length: 256 }).notNull(),
 	contact_email: varchar('contact_email', { length: 256 }).default('None'),

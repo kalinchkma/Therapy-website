@@ -27,9 +27,6 @@ import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
 	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
@@ -44,6 +41,7 @@ import {
 import { Appointment } from './columns';
 import { Trash2 } from 'lucide-react';
 import AppointmentDetails from './appointment-details';
+import { deleteAppointment } from '@/actions/appointment-actions';
 
 export type Payment = {
 	id: string;
@@ -157,13 +155,15 @@ export const columns: ColumnDef<Appointment>[] = [
 		header: 'Actions',
 		cell: ({ row }) => {
 			const appointment = row.original;
-
+			const delete_appointment = deleteAppointment.bind(null, appointment.id);
 			return (
 				<div className='flex items-center justify-center gap-2'>
 					<AppointmentDetails appointment={appointment} />
-					<Button size='icon' variant='destructive'>
-						<Trash2 />
-					</Button>
+					<form action={delete_appointment}>
+						<Button size='icon' type='submit' variant='destructive'>
+							<Trash2 />
+						</Button>
+					</form>
 				</div>
 			);
 		},

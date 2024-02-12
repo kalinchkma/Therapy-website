@@ -11,6 +11,8 @@ import { z } from 'zod';
 import { informations } from '@/db/schema/information';
 import { services } from '@/db/schema/services';
 import { eq } from 'drizzle-orm';
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 // appointment state
 export type AppointmentState = {
@@ -190,5 +192,20 @@ export async function createAppointment(
 			status: 500,
 			message: 'Internal server error',
 		};
+	}
+}
+
+// delete appointment
+export async function deleteAppointment(id: number, formData: FormData) {
+	try {
+		// create database connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+		await db.delete(appointments).where(eq(appointments.id, id));
+		// close connection
+		conn.end();
+		revalidatePath('/dashboard/appointments', 'page');
+	} catch (error) {
+		redirect('/errors');
 	}
 }

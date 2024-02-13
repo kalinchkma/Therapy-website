@@ -536,6 +536,16 @@ export const DashboardNavigation: DashboardNavigationType[] = [
 		icon: IconType.Services,
 	},
 	{
+		title: 'service area',
+		link: '/dashboard/services-area',
+		icon: IconType.Schedule,
+	},
+	{
+		title: 'Manage packages',
+		link: '/dashboard/manage-packages',
+		icon: IconType.Reports,
+	},
+	{
 		title: 'manage shop',
 		link: '/dashboard/manage-shop',
 		icon: IconType.Shop,

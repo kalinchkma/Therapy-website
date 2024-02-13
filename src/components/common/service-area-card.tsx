@@ -2,17 +2,22 @@
 
 import { cn } from '@/lib/utils';
 import React from 'react';
+import { Button } from '../ui/button';
 
 interface ServiceAreaCardProps {
 	className?: string;
 	title: string;
 	areas: string[];
+	scope?: string;
+	id?: number;
+	admin?: React.ReactNode;
 }
 
 export default function ServiceAreaCard({
 	className,
 	title,
 	areas,
+	admin,
 }: ServiceAreaCardProps) {
 	return (
 		<div
@@ -28,6 +33,8 @@ export default function ServiceAreaCard({
 					</li>
 				))}
 			</ul>
+			{/* for admin */}
+			{admin}
 		</div>
 	);
 }

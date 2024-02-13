@@ -61,9 +61,59 @@ export async function createServiceArea(
 
 		// close database connection
 		conn.end();
+		revalidatePath('/dashboard/services-area', 'page');
 		return {
 			status: 200,
 			message: 'Service area created successfully',
+		};
+	} catch (error) {
+		return {
+			status: 500,
+			message: 'Internal server error',
+		};
+	}
+}
+
+export async function updateServiceArea(
+	id: number,
+	prevState: FormState,
+	formData: FormData,
+) {
+	// validate input
+	const validatedFields = FormSchema.safeParse({
+		service_area_name: formData.get('service-area-name'),
+		service_area_list: formData.get('service-area-list'),
+	});
+
+	// validate input
+	if (!validatedFields.success) {
+		return {
+			errors: validatedFields.error.flatten().fieldErrors,
+			status: 400,
+		};
+	}
+	// parse input
+	const { service_area_list, service_area_name } = validatedFields.data;
+
+	try {
+		// create database connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		await db
+			.update(service_area)
+			.set({
+				service_area_name: service_area_name,
+				service_area_list: JSON.parse(String(service_area_list)),
+			})
+			.where(eq(service_area.id, id));
+
+		// close database connection
+		conn.end();
+		revalidatePath('/dashboard/services-area', 'page');
+		return {
+			status: 200,
+			message: 'Service area Updated successfully',
 		};
 	} catch (error) {
 		return {

@@ -1,7 +1,12 @@
 /** @format */
 
 import React from 'react';
+import ManagePackagesComponent from '@/components/Dashboard/ManagePackages';
 
 export default function ManagePackages() {
-	return <div>ManagePackages</div>;
+	return (
+		<div className='w-full'>
+			<ManagePackagesComponent />
+		</div>
+	);
 }

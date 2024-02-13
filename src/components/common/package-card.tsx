@@ -43,7 +43,7 @@ export default function PackageCard({
 				<p className='text-sm text-blue-950 text-center'>{description}</p>
 				{/* fee section */}
 				<div className='flex flex-col pt-8  pb-10 items-center border-b-2'>
-					{offers && (
+					{offers !== 0 && (
 						<div className='flex flex-row items-center justify-center gap-2'>
 							<span className='text-zinc-600 line-through'>
 								{moneyType === MoneyType.DOLLER ? `$${price}` : `৳${price}`}

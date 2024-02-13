@@ -411,7 +411,7 @@ export const Packages: PackageDescriptionType[] = [
 		description:
 			'We Provide one of the best physio terapy service in the world',
 		moneyType: MoneyType.TAKA,
-		offers: 30,
+		offers: 0,
 		price: 1500,
 		packageType: PackageType.DAILY,
 		packageDetails: {

@@ -162,10 +162,10 @@ export type ServiceAreaType = {
 };
 
 export enum PackageType {
-	'DAILY' = 'Day',
-	'MONTHLY' = 'Month',
-	'YEARLY' = 'Year',
-	'WEEKLY' = 'Week',
+	'DAILY' = 'Daily',
+	'MONTHLY' = 'Monthly',
+	'YEARLY' = 'Yearly',
+	'WEEKLY' = 'Weekly',
 }
 
 export enum MoneyType {

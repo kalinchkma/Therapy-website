@@ -4,6 +4,7 @@ import ServiceAreaCard from '@/components/common/service-area-card';
 import { Button } from '@/components/ui/button';
 import React from 'react';
 import UpdateServiceArea from './update-service-area';
+import DeleteServiceArea from './delete-service-area';
 
 export default function AllServiceArea({
 	all_service_area,
@@ -28,7 +29,7 @@ export default function AllServiceArea({
 						admin={
 							<div className='flex items-center justify-center gap-2 mt-8'>
 								<UpdateServiceArea ServiceArea={service_area} />
-								<Button variant='destructive'>Delete</Button>
+								<DeleteServiceArea id={service_area.id} />
 							</div>
 						}
 					/>

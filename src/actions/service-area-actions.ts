@@ -29,6 +29,7 @@ export type FormState = {
 	message?: string;
 };
 
+// create new service area
 export async function createServiceArea(
 	prevState: FormState,
 	formData: FormData,
@@ -74,6 +75,7 @@ export async function createServiceArea(
 	}
 }
 
+// update service area
 export async function updateServiceArea(
 	id: number,
 	prevState: FormState,
@@ -120,5 +122,20 @@ export async function updateServiceArea(
 			status: 500,
 			message: 'Internal server error',
 		};
+	}
+}
+
+// delete service area
+export async function deleteServiceArea(id: number) {
+	try {
+		// connect database
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+		await db.delete(service_area).where(eq(service_area.id, id));
+		// close database connection
+		conn.end();
+		revalidatePath('/dashboard/services-area', 'page');
+	} catch (error) {
+		redirect('/errors');
 	}
 }

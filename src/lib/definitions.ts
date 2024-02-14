@@ -182,10 +182,7 @@ export type PackageDescriptionType = {
 	moneyType: MoneyType;
 	packageType: PackageType;
 	packageLink: string;
-	packageDetails: {
-		title: string;
-		description: string[];
-	};
+	packageDetails: string;
 };
 
 // blog post

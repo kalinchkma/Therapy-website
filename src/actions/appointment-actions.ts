@@ -62,9 +62,11 @@ const AppointmentFormSchema = z.object({
 // make appointment
 export async function createAppointment(
 	id: number,
+	appointment_type: string,
 	prevState: AppointmentState | undefined,
 	formData: FormData,
 ) {
+	console.log(formData.get('selected-service'));
 	// validate inputs
 	const validateFields = AppointmentFormSchema.safeParse({
 		paitent_name: formData.get('paitent-name'),
@@ -108,6 +110,7 @@ export async function createAppointment(
 			user_id: id,
 			contact_email: email,
 			message: message,
+			appointment_type: appointment_type,
 		});
 
 		// get admin emails

@@ -74,6 +74,10 @@ export default function AppointmentDetails({
 						<span className='text-zinc-600 text-sm'>Selected Service:</span>{' '}
 						<p className='p-2'>{service_name}</p>
 					</div>
+					<div className='flex flex-col'>
+						<span className='text-zinc-600 text-sm'>Appointment Type:</span>{' '}
+						<p className='p-2'>{appointment.appointment_type}</p>
+					</div>
 					{appointment.message && (
 						<div className='flex flex-col'>
 							<span className='text-zinc-600 text-sm'>Message:</span>{' '}

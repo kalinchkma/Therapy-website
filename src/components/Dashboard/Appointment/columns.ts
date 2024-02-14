@@ -12,6 +12,7 @@ export type Appointment = {
 	message: string;
 	selected_service: number;
 	user_id: number;
+	appointment_type: string;
 	services: {
 		id: number;
 		name: string;

@@ -19,4 +19,5 @@ export const appointments = mysqlTable('appointment', {
 	appointment_time: text('appointment_time').notNull(),
 	message: text('message').default('None'),
 	user_id: bigint('user_id', { mode: 'number' }).default(-1),
+	appointment_type: varchar('appointment_type', { length: 256 }).notNull(),
 });

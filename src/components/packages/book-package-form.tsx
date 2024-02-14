@@ -23,9 +23,8 @@ import {
 	createAppointment,
 	AppointmentState,
 } from '@/actions/appointment-actions';
-import { Service } from '../Dashboard/Services/columns';
 import { useFormState, useFormStatus } from 'react-dom';
-import ActionButton, { ActionButtonStyles } from '../common/action-button';
+import ActionButton from '../common/action-button';
 
 type Information = {
 	id: number;
@@ -50,14 +49,21 @@ function Submit() {
 	);
 }
 
-export default function AppointmentForm({
-	services,
+export default function BookPackageForm({
+	p,
 	information,
-	auth_id,
 }: {
-	services: Service[];
+	p: {
+		id: number;
+		description: string;
+		title: string;
+		package_type: string;
+		price: number;
+		offers: number | null;
+		moneyType: string | null;
+		packageDetails: string;
+	};
 	information: Information;
-	auth_id: number;
 }) {
 	const [date, setDate] = React.useState<Date>();
 
@@ -89,7 +95,7 @@ export default function AppointmentForm({
 	}
 
 	const initialState: AppointmentState = { message: '', status: 100 };
-	const make_appointment = createAppointment.bind(null, auth_id, 'service');
+	const make_appointment = createAppointment.bind(null, -1, 'package');
 
 	const [make_appointment_state, dipatch_make_appointment_state] = useFormState(
 		make_appointment,
@@ -97,27 +103,23 @@ export default function AppointmentForm({
 	);
 
 	const [formMessage, setFormMessage] = useState<string | undefined>();
-
 	const [successState, setSuccessState] = useState<boolean>(false);
 
+	const { pending } = useFormStatus();
 	useEffect(() => {
 		setFormMessage(make_appointment_state.message);
 		if (make_appointment_state.status === 200) {
-			const top = document.getElementById('form-top') as HTMLDivElement;
 			(document.getElementById('appointment-form') as HTMLFormElement).reset();
 			setSuccessState(true);
-			top.scrollIntoView({ behavior: 'smooth' });
+			(document.getElementById('top-view') as HTMLDivElement).scrollIntoView({
+				behavior: 'smooth',
+			});
 		}
 	}, [make_appointment_state]);
 
-	// reset form handler
-	const resetForm = () => {
-		setSuccessState(false);
-	};
-
 	return (
 		<>
-			<div id='form-top'></div>
+			<div id='top-view'></div>
 			{!successState ? (
 				<form
 					id='appointment-form'
@@ -126,9 +128,12 @@ export default function AppointmentForm({
 					{/* Form header */}
 					<div className='flex flex-col items-center justify-center mb-0'>
 						<h2 className='text-2xl uppercase text-blue-950 font-bold'>
-							Appointment Form
+							Book Package
 						</h2>
-
+						{make_appointment_state.status === 200 &&
+							make_appointment_state.message && (
+								<p className='text-green-500'>{formMessage}</p>
+							)}
 						{make_appointment_state.status === 500 &&
 							make_appointment_state.message && (
 								<p className='text-red-500'>{formMessage}</p>
@@ -161,6 +166,7 @@ export default function AppointmentForm({
 							className='text-base mb-2 text-zinc-500'>
 							Enter your content number
 						</Label>
+
 						<input
 							id='contact-number'
 							name='contact-number'
@@ -199,23 +205,12 @@ export default function AppointmentForm({
 					{/* appointment type */}
 					<div className='flex flex-col'>
 						<Label className='text-base mb-2 text-zinc-500'>
-							Select Appointment
+							Selected Package
 						</Label>
-						<Select name='selected-service' required>
-							<SelectTrigger className='border py-2 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50 ring-transparent focus:ring-transparent'>
-								<SelectValue placeholder='Select Service' />
-							</SelectTrigger>
-							<SelectContent>
-								<SelectGroup>
-									<SelectLabel>Select Service</SelectLabel>
-									{services.map((service) => (
-										<SelectItem key={service.id} value={String(service.id)}>
-											{service.name}
-										</SelectItem>
-									))}
-								</SelectGroup>
-							</SelectContent>
-						</Select>
+						<input disabled className='py-2 px-4' defaultValue={p.title} />
+
+						<input type='hidden' name='selected-service' value={p.id} />
+
 						{make_appointment_state.status === 400 &&
 							make_appointment_state.errors?.selected_service && (
 								<p className='text-red-400'>
@@ -248,8 +243,6 @@ export default function AppointmentForm({
 											placeholder='Pick a date'
 											className='text-zinc-800 hover:cursor-pointer'
 										/>
-
-										{/* {date ? format(date, 'PPP') : <span>Pick a date</span>} */}
 									</Button>
 								</PopoverTrigger>
 								<PopoverContent className='w-auto p-0' align='start'>
@@ -316,13 +309,11 @@ export default function AppointmentForm({
 				</form>
 			) : (
 				<div className='w-full h-[500px] bg-zinc-100 flex flex-col items-center justify-center'>
-					{make_appointment_state.status === 200 &&
-						make_appointment_state.message && (
-							<p className='text-green-500'>{formMessage}</p>
-						)}
-					<Button className={ActionButtonStyles} onClick={() => resetForm()}>
-						Book new one
-					</Button>
+					<h1 className='text-zinc-700 font-bold'>
+						Successfully booked package{' '}
+						<span className='text-blue-900'>{p.title}</span>
+					</h1>
+					<ActionButton title='Back' link='/packages' />
 				</div>
 			)}
 		</>

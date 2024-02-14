@@ -109,7 +109,9 @@ export const columns: ColumnDef<Appointment>[] = [
 			);
 		},
 		cell: ({ row }) => (
-			<div className='lowercase'>{row.getValue('contact_email')}</div>
+			<div className='lowercase flex text-ellipsis overflow-hidden max-w-[100px]'>
+				{row.getValue('contact_email')}
+			</div>
 		),
 	},
 
@@ -148,6 +150,13 @@ export const columns: ColumnDef<Appointment>[] = [
 		header: 'Message',
 		cell: ({ row }) => (
 			<div className='capitalize line-clamp-2'>{row.getValue('message')}</div>
+		),
+	},
+	{
+		accessorKey: 'appointment_type',
+		header: 'Appointment Type',
+		cell: ({ row }) => (
+			<div className='capitalize'>{row.getValue('appointment_type')}</div>
 		),
 	},
 

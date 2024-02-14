@@ -14,6 +14,8 @@ interface PackageCardProps extends PackageDescriptionType {
 	className?: string;
 }
 
+import Markdown from 'react-markdown';
+
 export default function PackageCard({
 	className,
 	description,
@@ -62,20 +64,11 @@ export default function PackageCard({
 						1 {packageType}
 					</p>
 					{/* duration */}
-					<ActionButton link={packageLink} title='Make Appointment' />
+					<ActionButton link={packageLink} title='সেবা নিন' />
 				</div>
 				{/* Description box */}
-				<div className='flex flex-col items-start justify-center'>
-					<h5 className='text-blue-950 font-bold py-8 text-xl capitalize'>
-						{packageDetails.title}
-					</h5>
-					<ul className='text-blue-900 font- text-sm list-disc inline-flex flex-col px-5'>
-						{packageDetails.description.map((details, index) => (
-							<li key={index}>
-								<p>{details}</p>
-							</li>
-						))}
-					</ul>
+				<div className='flex flex-col items-start justify-center mt-10'>
+					<Markdown className='content-preview'>{packageDetails}</Markdown>
 				</div>
 			</div>
 		</div>

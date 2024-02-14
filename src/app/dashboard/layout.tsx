@@ -36,7 +36,7 @@ export default async function RootLayout({
 			</div>
 			<div className='flex-grow relative'>
 				<DashboardHeader className='absolute top-0 left-0 z-50' />
-				<div className='w-full h-[100vh] overflow-y-auto pt-[60px]'>
+				<div className='w-full h-[100vh] overflow-auto pt-[60px]'>
 					{children}
 				</div>
 			</div>

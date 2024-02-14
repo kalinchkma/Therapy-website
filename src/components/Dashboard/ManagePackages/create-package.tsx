@@ -7,19 +7,30 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from '@/components/ui/dialog';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { MoneyType, PackageType } from '@/lib/definitions';
 import { Textarea } from '@/components/ui/textarea';
+import { useFormState } from 'react-dom';
+import { createNewPackage, FormState } from '@/actions/packages-actions';
 
 export default function CreatePackage() {
 	// dialog open state
 	const [open, setOpen] = useState<boolean>(false);
 	// creation state
 	const [creationState, setCreationState] = useState<boolean>(false);
+	const initalState: FormState = { status: 100 };
+	const [state, dispatch] = useFormState(createNewPackage, initalState);
+
+	useEffect(() => {
+		if (state.status === 200) {
+			(document.getElementById('package-form') as HTMLFormElement).reset();
+			setCreationState(true);
+		}
+	}, [state]);
 
 	return (
 		<Dialog open={open}>
@@ -31,10 +42,16 @@ export default function CreatePackage() {
 					<>
 						<DialogHeader className='flex flex-col items-center justify-center'>
 							<DialogTitle>Create new package</DialogTitle>
-							<DialogDescription className='text-red-400'></DialogDescription>
-							<DialogDescription className='text-green-400'></DialogDescription>
+							{state.status === 500 && state.message && (
+								<DialogDescription className='text-red-400'>
+									{state.message}
+								</DialogDescription>
+							)}
 						</DialogHeader>
-						<form className='flex flex-col w-full md:w-[600px] mx-auto'>
+						<form
+							id='package-form'
+							className='flex flex-col w-full md:w-[600px] mx-auto'
+							action={dispatch}>
 							{/* title */}
 							<div className='w-full flex flex-col items-start justify-center gap-2 pb-3'>
 								<Label htmlFor='package-title'>Title</Label>
@@ -43,7 +60,11 @@ export default function CreatePackage() {
 									name='package-title'
 									placeholder='Enter package title....'
 								/>
-								<p className='text-red-400'></p>
+								{state.errors?.package_title && (
+									<p className='text-red-400'>
+										{state.errors.package_title[0]}
+									</p>
+								)}
 							</div>
 							{/* Descrription */}
 							<div className='w-full flex flex-col items-start justify-center gap-2 pb-3'>
@@ -53,7 +74,11 @@ export default function CreatePackage() {
 									name='package-description'
 									placeholder='Enter package description....'
 								/>
-								<p className='text-red-400'></p>
+								{state.errors?.package_description && (
+									<p className='text-red-400'>
+										{state.errors.package_description[0]}
+									</p>
+								)}
 							</div>
 
 							{/* price */}
@@ -65,16 +90,21 @@ export default function CreatePackage() {
 										<Input
 											id='package-price'
 											name='package-price'
+											type='number'
 											placeholder='Enter package Price....'
 										/>
-										<p className='text-red-400'></p>
+										{state.errors?.package_price && (
+											<p className='text-red-400'>
+												{state.errors.package_price[0]}
+											</p>
+										)}
 									</div>
 									{/* money type */}
 									<div className='flex flex-col gap-2'>
-										<Label htmlFor='package-type'>Money Type</Label>
+										<Label htmlFor='money-type'>Money Type</Label>
 										<select
-											id='package-type'
-											name='package-type'
+											id='money-type'
+											name='money-type'
 											className='py-2 px-4 rounded-sm bg-transparent border'>
 											<option disabled>Select Money Type</option>
 											<option value={MoneyType.TAKA} selected>
@@ -84,17 +114,24 @@ export default function CreatePackage() {
 												$ {MoneyType.DOLLER}
 											</option>
 										</select>
-										<p className='text-red-400'></p>
+										{state.errors?.money_type && (
+											<p className='text-red-400'>{state.errors.money_type}</p>
+										)}
 									</div>
 									{/* offers */}
 									<div className='flex flex-col gap-2'>
-										<Label htmlFor='package-offer'>Offer(optional)</Label>
+										<Label htmlFor='package-offer'>Offer</Label>
 										<Input
 											id='package-offer'
 											name='package-offer'
+											type='number'
 											placeholder='Define Package offer....'
 										/>
-										<p className='text-red-400'></p>
+										{state.errors?.package_offer && (
+											<p className='text-red-400'>
+												{state.errors.package_offer}
+											</p>
+										)}
 									</div>
 								</div>
 							</div>
@@ -123,7 +160,9 @@ export default function CreatePackage() {
 										</option>
 									</select>
 								</div>
-								<p className='text-red-400'></p>
+								{state.errors?.package_type && (
+									<p className='text-red-400'>{state.errors.package_type}</p>
+								)}
 							</div>
 
 							{/* Package details */}
@@ -133,8 +172,11 @@ export default function CreatePackage() {
 									id='package-details'
 									name='package-details'
 									placeholder='Enter package details....'
+									className='md:h-[250px] h-[200px]'
 								/>
-								<p className='text-red-400'></p>
+								{state.errors?.package_details && (
+									<p className='text-red-400'>{state.errors.package_details}</p>
+								)}
 							</div>
 							{/* action */}
 							<div className='flex items-center justify-center mt-3'>
@@ -151,9 +193,11 @@ export default function CreatePackage() {
 				) : (
 					<div className='flex flex-col items-center justify-center'>
 						<DialogHeader className='flex flex-col items-center justify-center'>
-							<DialogTitle className='text-green-400'>
-								Package created successfully!
-							</DialogTitle>
+							{state.status === 200 && state.message && (
+								<DialogTitle className='text-green-400'>
+									{state.message}
+								</DialogTitle>
+							)}
 						</DialogHeader>
 						<Button type='button' onClick={() => setCreationState(false)}>
 							Create New one

@@ -2,13 +2,15 @@
 
 import React from 'react';
 import ManagePackagesTable from './manage-package-table';
-import CreatePackage from './create-package';
+import { getPackages } from '@/methods/packages-method';
+import { Package } from './columns';
 
 export default async function ManagePackagesComponent() {
+	const allPackages = await getPackages();
 	return (
 		<div className='w-full p-4'>
 			{/* package table */}
-			<ManagePackagesTable data={[]} />
+			<ManagePackagesTable data={allPackages as Package[]} />
 		</div>
 	);
 }

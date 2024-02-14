@@ -44,6 +44,9 @@ import {
 
 import { Package } from './columns';
 import CreatePackage from './create-package';
+import { Trash2 } from 'lucide-react';
+import EditPackage from './edit-package';
+import DeletePackage from './delete-package';
 
 export const columns: ColumnDef<Package>[] = [
 	{
@@ -69,63 +72,69 @@ export const columns: ColumnDef<Package>[] = [
 		enableHiding: false,
 	},
 	{
-		accessorKey: 'status',
-		header: 'Status',
+		accessorKey: 'title',
+		header: 'Package Title',
 		cell: ({ row }) => (
-			<div className='capitalize'>{row.getValue('status')}</div>
+			<div className='capitalize'>{row.getValue('title')}</div>
 		),
 	},
 	{
-		accessorKey: 'email',
-		header: ({ column }) => {
-			return (
-				<Button
-					variant='ghost'
-					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-					Email
-					<CaretSortIcon className='ml-2 h-4 w-4' />
-				</Button>
-			);
-		},
-		cell: ({ row }) => <div className='lowercase'>{row.getValue('email')}</div>,
+		accessorKey: 'package_type',
+		header: 'Package Type',
+		cell: ({ row }) => (
+			<div className='capitalize'>{row.getValue('package_type')}</div>
+		),
 	},
 	{
-		accessorKey: 'amount',
-		header: () => <div className='text-right'>Amount</div>,
-		cell: ({ row }) => {
-			const amount = parseFloat(row.getValue('amount'));
-
-			// Format the amount as a dollar amount
-			const formatted = new Intl.NumberFormat('en-US', {
-				style: 'currency',
-				currency: 'USD',
-			}).format(amount);
-
-			return <div className='text-right font-medium'>{formatted}</div>;
-		},
+		accessorKey: 'price',
+		header: 'Price',
+		cell: ({ row }) => (
+			<div className='capitalize'>{row.getValue('price')}</div>
+		),
 	},
 	{
-		id: 'actions',
-		enableHiding: false,
+		accessorKey: 'offers',
+		header: 'Offer',
+		cell: ({ row }) => (
+			<div className='capitalize'>{row.getValue('offers')}</div>
+		),
+	},
+	{
+		accessorKey: 'moneyType',
+		header: 'Money Type',
+		cell: ({ row }) => (
+			<div className='capitalize'>{row.getValue('moneyType')}</div>
+		),
+	},
+	{
+		accessorKey: 'description',
+		header: 'Description',
+		cell: ({ row }) => (
+			<div className='capitalize line-clamp-2'>
+				{row.getValue('description')}
+			</div>
+		),
+	},
+	{
+		accessorKey: 'packageDetails',
+		header: 'Package Details',
+		cell: ({ row }) => (
+			<div className='capitalize line-clamp-2'>
+				{row.getValue('packageDetails')}
+			</div>
+		),
+	},
+
+	{
+		header: 'actions',
 		cell: ({ row }) => {
-			const payment = row.original;
+			const orginal = row.original;
 
 			return (
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant='ghost' className='h-8 w-8 p-0'>
-							<span className='sr-only'>Open menu</span>
-							<DotsHorizontalIcon className='h-4 w-4' />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align='end'>
-						<DropdownMenuLabel>Actions</DropdownMenuLabel>
-
-						<DropdownMenuSeparator />
-						<DropdownMenuItem>View customer</DropdownMenuItem>
-						<DropdownMenuItem>View payment details</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
+				<div className='flex flex-wrap gap-2'>
+					<EditPackage curr_package={orginal} />
+					<DeletePackage id={orginal.id} />
+				</div>
 			);
 		},
 	},

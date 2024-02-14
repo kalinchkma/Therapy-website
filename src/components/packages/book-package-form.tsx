@@ -105,7 +105,6 @@ export default function BookPackageForm({
 	const [formMessage, setFormMessage] = useState<string | undefined>();
 	const [successState, setSuccessState] = useState<boolean>(false);
 
-	const { pending } = useFormStatus();
 	useEffect(() => {
 		setFormMessage(make_appointment_state.message);
 		if (make_appointment_state.status === 200) {
@@ -123,7 +122,7 @@ export default function BookPackageForm({
 			{!successState ? (
 				<form
 					id='appointment-form'
-					className='w-full flex flex-col bg-zinc-100 p-6 lg:p-10 rounded-md gap-5'
+					className='w-full flex flex-col bg-zinc-200 p-6 lg:p-10 rounded-md gap-5 shadow-2xl'
 					action={dipatch_make_appointment_state}>
 					{/* Form header */}
 					<div className='flex flex-col items-center justify-center mb-0'>

@@ -6,7 +6,6 @@ import PageBreadcrumb from '../common/page-breadcrumb';
 import ContentWrapper from '../common/content-wrapper';
 import ActionButton from '../common/action-button';
 import PackageCard from '../common/package-card';
-import { Packages } from '@/lib/static_data';
 import { getPackages } from '@/methods/packages-method';
 import { MoneyType, PackageType } from '@/lib/definitions';
 

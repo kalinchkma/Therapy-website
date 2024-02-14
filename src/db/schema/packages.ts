@@ -18,5 +18,5 @@ export const packages = mysqlTable('packages', {
 	offers: int('offers').default(0),
 	moneyType: varchar('money_type', { length: 256 }).default(MoneyType.TAKA),
 	description: text('description').notNull(),
-	packageDetails: json('package_details').notNull(),
+	packageDetails: text('package_details').notNull(),
 });

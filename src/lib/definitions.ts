@@ -169,8 +169,8 @@ export enum PackageType {
 }
 
 export enum MoneyType {
-	'DOLLER' = 'doller',
-	'TAKA' = 'taka',
+	'DOLLER' = 'Doller',
+	'TAKA' = 'Taka',
 }
 
 // package types

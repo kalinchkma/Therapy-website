@@ -43,6 +43,7 @@ import {
 } from '@/components/ui/table';
 
 import { Package } from './columns';
+import CreatePackage from './create-package';
 
 export const columns: ColumnDef<Package>[] = [
 	{
@@ -169,6 +170,8 @@ export default function ManagePackagesTable({ data }: { data: Package[] }) {
 					}
 					className='max-w-sm'
 				/>
+				{/* create package */}
+				<CreatePackage />
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button variant='outline' className='ml-auto'>
@@ -236,7 +239,7 @@ export default function ManagePackagesTable({ data }: { data: Package[] }) {
 								<TableCell
 									colSpan={columns.length}
 									className='h-24 text-center'>
-									No results.
+									No package found
 								</TableCell>
 							</TableRow>
 						)}

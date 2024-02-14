@@ -35,4 +35,14 @@ export type Appointment = {
 		createdAt: Date | null;
 		updatedAt: Date | null;
 	}[];
+	all_packages: {
+		description: string;
+		moneyType: string | null;
+		packageDetails: string;
+		price: number;
+		title: string;
+		offers: number | null;
+		id: number;
+		package_type: string;
+	}[];
 };

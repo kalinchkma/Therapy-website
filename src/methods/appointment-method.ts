@@ -2,6 +2,7 @@
 
 import { config, createDBConnection } from '@/db';
 import { appointments } from '@/db/schema/appointments';
+import { packages } from '@/db/schema/packages';
 import { services } from '@/db/schema/services';
 import { users } from '@/db/schema/users';
 import { eq } from 'drizzle-orm';
@@ -16,6 +17,7 @@ export async function getAppointments() {
 		const appointment = await db.select().from(appointments);
 		const service = await db.select().from(services);
 		const user = await db.select().from(users);
+		const all_packages = await db.select().from(packages);
 		const sorted_appointments = appointment.sort((a, b) => {
 			return b.id - a.id;
 		});
@@ -24,6 +26,7 @@ export async function getAppointments() {
 				...data,
 				services: service,
 				users: user,
+				all_packages: all_packages,
 			};
 		});
 

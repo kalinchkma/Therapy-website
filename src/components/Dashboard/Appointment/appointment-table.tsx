@@ -136,11 +136,20 @@ export const columns: ColumnDef<Appointment>[] = [
 			const original = row.original;
 			let service_name = '';
 
-			original.services.forEach((service) => {
-				if (service.id === original.selected_service) {
-					service_name = service.name;
-				}
-			});
+			if (original.appointment_type.toLowerCase() === 'service') {
+				original.services.forEach((service) => {
+					if (service.id === original.selected_service) {
+						service_name = service.name;
+					}
+				});
+			} else
+				[
+					original.all_packages.forEach((p) => {
+						if (p.id === original.selected_service) {
+							service_name = p.title;
+						}
+					}),
+				];
 
 			return <div className='capitalize'>{service_name}</div>;
 		},

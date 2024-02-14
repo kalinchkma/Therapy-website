@@ -108,3 +108,7 @@ h6 {
 	padding: 4px;
 	max-width: 70%;
 }
+
+.content-preview p {
+	@apply my-4;
+}

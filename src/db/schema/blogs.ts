@@ -13,7 +13,7 @@ import {
 export const blog = mysqlTable('blog', {
 	id: bigint('id', { mode: 'number' }).primaryKey().autoincrement(),
 	title: varchar('title', { length: 256 }).notNull(),
-	thumbnailImage: varchar('thumbnailImage', { length: 256 }).notNull(),
+	thumbnailImage: varchar('thumbnailImage', { length: 256 }).default('None'),
 	summary: text('summary').notNull(),
 	content: text('content').default('None'),
 	author: varchar('author', { length: 256 }).notNull(),

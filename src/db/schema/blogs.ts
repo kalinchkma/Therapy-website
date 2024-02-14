@@ -18,7 +18,7 @@ export const blog = mysqlTable('blog', {
 	content: text('content').default('None'),
 	author: varchar('author', { length: 256 }).notNull(),
 	comment: bigint('comment', { mode: 'number' }).default(0),
-	keywords: json('keywords').default(''),
+	keywords: text('keywords').default(''),
 	createdAt: timestamp('createdAt'),
 	updatedAt: timestamp('updatedAt'),
 });

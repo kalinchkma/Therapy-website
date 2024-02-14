@@ -32,6 +32,17 @@ export default function CreateNewBlog() {
 	const [fileDataURL, setFileDataURL] = useState<string | ArrayBuffer>();
 	const imageMimeType = /image\/(png|jpg|jpeg)/i;
 
+	const closeModel = () => {
+		setOpen(false);
+		setSuccessState(false);
+		setTitle('');
+		setAuthor('');
+		setAbstract('');
+		setContent('');
+		setFileDataURL('');
+		setKeywords('');
+	};
+
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files) {
 			let file = e.target.files[0];
@@ -102,7 +113,7 @@ export default function CreateNewBlog() {
 							<Button onClick={() => setSuccessState(false)}>
 								Create New Blog Post
 							</Button>
-							<Button variant='secondary' onClick={() => setOpen(false)}>
+							<Button variant='secondary' onClick={() => closeModel()}>
 								Cancel
 							</Button>
 						</div>
@@ -117,7 +128,7 @@ export default function CreateNewBlog() {
 							<Button
 								type='button'
 								variant='secondary'
-								onClick={() => setOpen(false)}>
+								onClick={() => closeModel()}>
 								Cancel
 							</Button>
 						</div>

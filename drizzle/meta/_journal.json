@@ -141,6 +141,13 @@
       "when": 1707939025948,
       "tag": "0019_eminent_diamondback",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "5",
+      "when": 1707947837006,
+      "tag": "0020_strange_the_captain",
+      "breakpoints": true
     }
   ]
 }

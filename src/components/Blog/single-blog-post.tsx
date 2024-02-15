@@ -16,6 +16,7 @@ export default function SingleBlogPostComponent() {
 				paths={[
 					{ name: 'Home', url: '/' },
 					{ name: 'Blog', url: '/blog' },
+					{ name: 'Single blog' },
 				]}
 			/>
 		</div>

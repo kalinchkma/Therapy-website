@@ -5,14 +5,15 @@ import PageTitle from '../common/page-title';
 import PageBreadcrumb from '../common/page-breadcrumb';
 import ContentWrapper from '../common/content-wrapper';
 import BlogCard from '../common/blog-card';
-
-import { BlogPosts, Keywords } from '@/lib/static_data';
-import { Input } from '../ui/input';
+import { Keywords } from '@/lib/static_data';
 import IconCreator from '../common/icon-creator';
 import { IconType } from '@/lib/definitions';
 import Link from 'next/link';
+import { getBlogs } from '@/methods/blog-method';
+import { v4 as uuidv4 } from 'uuid';
 
-export default function BlogPageComponent() {
+export default async function BlogPageComponent() {
+	const all_blog = await getBlogs();
 	return (
 		<div className='w-full'>
 			<PageTitle
@@ -28,16 +29,17 @@ export default function BlogPageComponent() {
 			<ContentWrapper className='py-16'>
 				<div className='grid grid-cols-4 gap-10 md:px-12 lg:px-0'>
 					<div className='col-span-4 lg:col-span-3 flex flex-col gap-16'>
-						{BlogPosts.map((post, index) => (
+						{all_blog.map((blog, index) => (
 							<BlogCard
 								key={index}
-								author={post.author}
-								blogLink=''
-								comments={post.comments_count}
-								description={post.description}
-								thumbnilImage={post.thumbnilImage}
-								keywords={post.keywords}
-								title={post.title}
+								author={blog.author}
+								blogLink={`/blog/${uuidv4()}${blog.id}`}
+								comments={0}
+								description={blog.summary}
+								thumbnilImage={blog.thumbnailImage!}
+								keywords={blog.keywords!}
+								title={blog.title}
+								createdAt={blog.createdAt}
 								className='col-span-1'
 							/>
 						))}

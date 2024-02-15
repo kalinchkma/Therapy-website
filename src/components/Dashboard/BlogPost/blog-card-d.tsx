@@ -1,24 +1,35 @@
 /** @format */
-
+'use client';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import React from 'react';
-import ActionButton, {
-	ActionButtonStyles,
-} from '@/components/common/action-button';
-import Link from 'next/link';
-import MoreBtn from '@/components/common/more-btn';
+import { ActionButtonStyles } from '@/components/common/action-button';
+
 import { Button } from '@/components/ui/button';
+import UpdateBlog from './update-blog';
+import { deleteBlogPost } from '@/actions/blog-actions';
 
 interface BlogCardProps {
 	title: string;
 	className?: string;
 	thumbnilImage: string;
-	blogLink: string;
+	blogLink?: string;
 	keywords?: string;
 	author: string;
 	description: string;
 	comments?: number;
+	blog: {
+		author: string;
+		keywords: string | null;
+		title: string;
+		summary: string;
+		id: number;
+		content: string | null;
+		createdAt: Date | null;
+		updatedAt: Date | null;
+		thumbnailImage: string | null;
+		comment: number | null;
+	};
 }
 
 export default function BlogCard({
@@ -30,7 +41,10 @@ export default function BlogCard({
 	thumbnilImage,
 	keywords,
 	title,
+	blog,
 }: BlogCardProps) {
+	const date = new Date(blog.createdAt as Date);
+	const delete_blog = deleteBlogPost.bind(null, blog.id);
 	return (
 		<div className={cn('w-full border rounded-sm', className)}>
 			<div className='w-full relative'>
@@ -49,16 +63,16 @@ export default function BlogCard({
 						ActionButtonStyles,
 						'absolute bottom-10 left-12 capitalize',
 					)}>
-					2 Aug
+					{date.getDate()}-{date.getMonth()}-{date.getFullYear()}
 				</span>
 			</div>
-			<div className='p-12'>
-				<h4 className='w-full flex text-sm md:text-base flex-row gap-4 text-zinc-400 font-boldpb-7'>
+			<div className='p-6'>
+				<h4 className='w-full flex text-sm md:text-base flex-row gap-4 text-zinc-400 font-bold pb-2'>
 					{/* author name */}
 					<span className='text-zinc-500'>{author}</span> / {/* Comments */}
 					<span className='text-zinc-500'>{comments} comment</span> /{' '}
 				</h4>
-				<div className='flex flex-wrap text-zinc-500 italic border-b pb-10'>
+				<div className='flex flex-wrap text-zinc-500 italic border-b pb-5'>
 					<span className='pr-3'>Keywords:</span>
 					{/* keywords */}
 					{keywords?.split(',').map((keyword) => (
@@ -67,14 +81,18 @@ export default function BlogCard({
 						</span>
 					))}
 				</div>
-				<h4 className='font-bold text-zinc-600 text-xl md:text-3xl hover:text-blue-400 transition-all py-6 flex'>
+				<h4 className='font-bold text-zinc-600 text-lg md:text-3xl hover:text-blue-400 transition-all py-2 flex'>
 					{title}
 				</h4>
 				<p className='line-clamp-3 text-base text-zinc-500'>{description}</p>
 			</div>
 			<div className='flex w-full items-center justify-center py-6 gap-4'>
-				<Button>Edit</Button>
-				<Button variant='destructive'>Delete</Button>
+				<UpdateBlog blog={blog!} />
+				<form action={delete_blog}>
+					<Button type='submit' variant='destructive'>
+						Delete
+					</Button>
+				</form>
 			</div>
 		</div>
 	);

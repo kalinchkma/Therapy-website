@@ -82,20 +82,20 @@
 *
 */
 .content-preview h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+.content-preview h2,
+.content-preview h3,
+.content-preview h4,
+.content-preview h5,
+.content-preview h6 {
 	@apply font-bold mb-2;
 }
 
 .content-preview h2,
-h3,
-h4,
-h5,
-h6 {
-	@apply mt-8;
+.content-preview h3,
+.content-preview h4,
+.content-preview h5,
+.content-preview h6 {
+	@apply mt-6;
 }
 
 .content-preview ul {
@@ -111,4 +111,10 @@ h6 {
 
 .content-preview p {
 	@apply my-4;
+}
+
+.blog-content h2,
+.blog-content h3,
+.blog-content h4 {
+	@apply text-2xl;
 }

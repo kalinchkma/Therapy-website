@@ -74,8 +74,11 @@ export default function BlogCard({
 					</span>
 				</h4>
 				{/* keywords */}
-				<h4 className='text-zinc-500 '>
-					Keywords: <span className='text-zinc-950 italic'>{keywords}</span>
+				<h4 className='text-zinc-500 mt-5'>
+					Keywords:{' '}
+					<span className='text-zinc-950 italic font-bold capitalize'>
+						{keywords}
+					</span>
 				</h4>
 				<Link
 					href={blogLink}

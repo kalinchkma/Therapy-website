@@ -6,6 +6,7 @@ import { eq } from 'drizzle-orm';
 import mysql from 'mysql2/promise';
 import { redirect } from 'next/navigation';
 
+// fetch all blog post
 export async function getBlogs(search: string = '') {
 	try {
 		// connection database
@@ -17,7 +18,10 @@ export async function getBlogs(search: string = '') {
 		// close database connection
 		conn.end();
 		if (!search) {
-			return blogs;
+			const sorted = blogs.sort((a, b) => {
+				return b.id - a.id;
+			});
+			return sorted;
 		} else {
 			const filter_blog = blogs.filter((blog) => {
 				return blog.keywords?.toLowerCase().includes(search);
@@ -28,7 +32,25 @@ export async function getBlogs(search: string = '') {
 		return [];
 	}
 }
+// fetch blogpost by id
+export async function getBlogById(id: number) {
+	try {
+		// connection database
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
 
+		const blog_post = await db.select().from(blog).where(eq(blog.id, id));
+
+		// close database connection
+		conn.end();
+
+		return blog_post[0];
+	} catch (error) {
+		redirect('/errors');
+	}
+}
+
+// fetch blogpost by keyword
 export async function getBlogByKeyword(keyword: string) {
 	try {
 		// connection database

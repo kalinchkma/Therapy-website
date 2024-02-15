@@ -10,27 +10,37 @@ import { ActionButtonStyles } from '../common/action-button';
 import { cn } from '@/lib/utils';
 import { MessageSquareText, User } from 'lucide-react';
 import Markdown from 'react-markdown';
+import BlogComment from './blog-comment';
+
+type Post = {
+	summary: string;
+	title: string;
+	id: number;
+	createdAt: Date | null;
+	updatedAt: Date | null;
+	thumbnailImage: string | null;
+	content: string | null;
+	author: string;
+	comment: number | null;
+	keywords: string | null;
+};
 
 export default function SingleBlogPostComponent({
 	blog_post,
 }: {
-	blog_post: {
-		summary: string;
-		title: string;
-		id: number;
-		createdAt: Date | null;
-		updatedAt: Date | null;
-		thumbnailImage: string | null;
-		content: string | null;
-		author: string;
-		comment: number | null;
-		keywords: string | null;
-	};
+	blog_post: Post;
 }) {
 	const uploaded_at = new Date(blog_post.createdAt as Date);
+
 	return (
 		<div className='w-full'>
-			<PageTitle title={blog_post.title} />
+			<PageTitle
+				title={blog_post.title}
+				className='text-center py-0'
+				bgImageUrl={blog_post.thumbnailImage!}
+				overlayStyles='bg-gray-700 py-28 bg-opacity-60'
+				titleStyle='text-white'
+			/>
 			<PageBreadcrumb
 				paths={[
 					{ name: 'Home', url: '/' },
@@ -86,10 +96,15 @@ export default function SingleBlogPostComponent({
 							</h3>
 						</div>
 						{/* blog contents */}
-						<Markdown className='content-preview'>{blog_post.content}</Markdown>
+						<Markdown className='content-preview blog-content mb-10'>
+							{blog_post.content}
+						</Markdown>
+
+						{/* public comments */}
+						<BlogComment blog_id={blog_post.id} />
 					</div>
 					{/* side menu */}
-					<SideMenu />
+					<SideMenu location='single' />
 				</div>
 			</ContentWrapper>
 		</div>

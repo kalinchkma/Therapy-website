@@ -7,8 +7,9 @@ import { IconType } from '@/lib/definitions';
 import { getBlogs } from '@/methods/blog-method';
 import Image from 'next/image';
 import { v4 } from 'uuid';
+import BlogSearch from './blog-search';
 
-export default async function SideMenu() {
+export default async function SideMenu({ location }: { location: string }) {
 	const all_blogs = await getBlogs();
 	const keywords: string[] = [];
 
@@ -24,20 +25,10 @@ export default async function SideMenu() {
 	return (
 		<div className='col-span-4 lg:col-span-1'>
 			{/* Search form */}
-			<form className='flex flex-row mb-8'>
-				<input
-					type='text'
-					placeholder='search...'
-					className='py-2 px-4 outline-none border focus:border-blue-700 transition-all'
-				/>
-				<button
-					type='submit'
-					className='py-3 px-4 bg-blue-800 hover:bg-blue-900 transition-all font-bold text-white'>
-					Search
-				</button>
-			</form>
+			{!(location === 'single') && <BlogSearch />}
+
 			{/* Recent post */}
-			<div className='flex flex-col pb-3'>
+			<div className='flex flex-col pb-10'>
 				<h4 className='text-xl text-zinc-600 mb-5 border-b pb-2'>
 					Recent post
 				</h4>
@@ -92,20 +83,21 @@ export default async function SideMenu() {
 					</li>
 				</ul>
 			</div>
+
 			{/* Categories */}
-			<div className='flex flex-col pb-8'>
+			<div className='flex flex-col pb-10'>
 				<h4 className='text-xl text-zinc-600 mb-5 border-b pb-2'>Categories</h4>
-				<ul>
+				<ul className='flex flex-col gap-2 '>
 					{keywords.map((keyword, index) => (
 						<li key={index}>
 							<Link
-								href={`/${keyword}`}
-								className='flex flex-row text-sm items-center justify-start gap-1'>
+								href={`/blog/?key=${keyword}`}
+								className='flex flex-row text-sm items-center justify-start gap-1 text-zinc-700 font-bold hover:text-blue-400'>
 								<IconCreator
 									icon={IconType.RightArrow}
 									className='text-zinc-400'
 								/>
-								<span className='text-blue-400 capitalize'>{keyword}</span>
+								<span className=' capitalize text-lg'>{keyword}</span>
 							</Link>
 						</li>
 					))}

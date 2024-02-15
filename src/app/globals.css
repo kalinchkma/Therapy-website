@@ -81,6 +81,12 @@
 * Styles of content preview markdown 
 *
 */
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6,
 .content-preview h1,
 .content-preview h2,
 .content-preview h3,
@@ -90,31 +96,48 @@
 	@apply font-bold mb-2;
 }
 
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6,
 .content-preview h2,
 .content-preview h3,
 .content-preview h4,
 .content-preview h5,
 .content-preview h6 {
-	@apply mt-6;
+	@apply mt-8 mb-3;
 }
 
+.blog-content ul,
 .content-preview ul {
-	@apply list-disc list-inside;
+	@apply list-disc list-inside flex flex-col gap-3;
 }
 
+.blog-content img,
 .content-preview img {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	padding: 4px;
-	max-width: 70%;
+	@apply p-4 md:max-w-[70%] h-auto object-cover;
 }
 
+.blog-content p,
 .content-preview p {
-	@apply my-4;
+	@apply my-4 text-base leading-loose tracking-wide antialiased text-wrap;
 }
 
-.blog-content h2,
-.blog-content h3,
-.blog-content h4 {
+.blog-content a {
+	@apply text-blue-500;
+}
+
+.blog-content h1 {
+	@apply text-4xl;
+}
+
+.blog-content h2 {
+	@apply text-3xl;
+}
+.blog-content h3 {
 	@apply text-2xl;
+}
+.blog-content h4 {
+	@apply text-xl;
 }

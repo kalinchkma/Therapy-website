@@ -49,24 +49,3 @@ export async function getBlogById(id: number) {
 		redirect('/errors');
 	}
 }
-
-// fetch blogpost by keyword
-export async function getBlogByKeyword(keyword: string) {
-	try {
-		// connection database
-		const conn = mysql.createPool(config);
-		const db = createDBConnection(conn);
-
-		const blogs = await db.select().from(blog);
-
-		// close database connection
-		conn.end();
-
-		const filter_blog = blogs.filter((blog) => {
-			return blog.keywords?.toLowerCase().includes(keyword);
-		});
-		return filter_blog;
-	} catch (error) {
-		return [];
-	}
-}

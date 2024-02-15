@@ -12,6 +12,7 @@ interface PageTitleProps {
 	title?: string;
 	description?: string;
 	name?: string;
+	titleStyle?: string;
 }
 
 export default function PageTitle({
@@ -21,6 +22,7 @@ export default function PageTitle({
 	bgImageUrl,
 	className,
 	overlayStyles,
+	titleStyle,
 }: PageTitleProps) {
 	return (
 		<PageBanner
@@ -28,7 +30,11 @@ export default function PageTitle({
 			bgImageUrl={bgImageUrl}
 			overlayStyles={overlayStyles}>
 			<ContentWrapper>
-				{title && <h1 className='font-bold text-4xl text-zinc-600'>{title}</h1>}
+				{title && (
+					<h1 className={cn('font-bold text-4xl text-zinc-800', titleStyle)}>
+						{title}
+					</h1>
+				)}
 				{name && (
 					<h1 className=' text-3xl text-zinc-600 flex items-center justify-start flex-wrap gap-3'>
 						Welcome Back

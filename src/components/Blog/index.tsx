@@ -13,8 +13,22 @@ import { getBlogs } from '@/methods/blog-method';
 import { v4 as uuidv4 } from 'uuid';
 import SideMenu from './side-menu';
 
-export default async function BlogPageComponent() {
-	const all_blog = await getBlogs();
+export default async function BlogPageComponent({
+	all_blog,
+}: {
+	all_blog: {
+		id: number;
+		createdAt: Date | null;
+		updatedAt: Date | null;
+		title: string;
+		thumbnailImage: string | null;
+		summary: string;
+		content: string | null;
+		author: string;
+		comment: number | null;
+		keywords: string | null;
+	}[];
+}) {
 	return (
 		<div className='w-full'>
 			<PageTitle
@@ -47,7 +61,7 @@ export default async function BlogPageComponent() {
 						))}
 					</div>
 					{/* side menu */}
-					<SideMenu />
+					<SideMenu location='multiple' />
 				</div>
 			</ContentWrapper>
 		</div>

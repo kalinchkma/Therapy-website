@@ -63,7 +63,7 @@ export default function BlogCard({
 						ActionButtonStyles,
 						'absolute bottom-10 left-12 capitalize',
 					)}>
-					{date.getDate()}-{date.getMonth()}-{date.getFullYear()}
+					{date.toISOString()}
 				</span>
 			</div>
 			<div className='p-6'>

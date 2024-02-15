@@ -37,10 +37,10 @@ export default function BlogCard({
 				<div className='flex items-center justify-center w-full'>
 					<Image
 						src={thumbnilImage}
-						width={600}
-						height={600}
+						width={300}
+						height={300}
 						alt='blog image'
-						className='min-w-[100%] min-h-[350px] md:min-h-[400px] lg:min-h-[450px] object-cover'
+						className='min-w-[100%] min-h-[250px] md:min-h-[270px] lg:min-h-[300px] object-cover'
 					/>
 				</div>
 				{/* button with uploaded data */}

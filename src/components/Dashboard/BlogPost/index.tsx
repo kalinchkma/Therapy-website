@@ -3,14 +3,14 @@
 import React from 'react';
 import CreateNewBlog from './create-new-blog';
 import { getBlogs } from '@/methods/blog-method';
-import BlogCard from './blog-card';
+import BlogCard from './blog-card-d';
 
 export default async function BlogPostComponent() {
 	const blogs = await getBlogs();
 	return (
 		<div className='w-full p-4'>
 			<CreateNewBlog />
-			<div className='grid grid-cols-1 md:grid-cols-2 gap-5 mt-10'>
+			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10'>
 				{blogs.map((blog, index) => (
 					<BlogCard
 						key={index}

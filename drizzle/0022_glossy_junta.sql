@@ -1,0 +1,1 @@
+ALTER TABLE `blog` ADD `published` boolean DEFAULT false;

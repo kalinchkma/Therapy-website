@@ -2,6 +2,7 @@
 
 import {
 	bigint,
+	boolean,
 	date,
 	json,
 	mysqlTable,
@@ -19,6 +20,7 @@ export const blog = mysqlTable('blog', {
 	author: varchar('author', { length: 256 }).notNull(),
 	comment: bigint('comment', { mode: 'number' }).default(0),
 	keywords: text('keywords').default(''),
+	published: boolean('published').default(false),
 	createdAt: timestamp('createdAt'),
 	updatedAt: timestamp('updatedAt'),
 });

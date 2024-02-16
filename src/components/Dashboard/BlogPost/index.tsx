@@ -2,7 +2,7 @@
 
 import React from 'react';
 import CreateNewBlog from './create-new-blog';
-import { getBlogs } from '@/methods/blog-method';
+import { getBlogsForAdmin } from '@/methods/blog-method';
 import BlogCard from './blog-card-d';
 import SearchBlog from './search-blog';
 
@@ -11,7 +11,7 @@ export default async function BlogPostComponent({
 }: {
 	search?: string;
 }) {
-	const blogs = await getBlogs(search);
+	const blogs = await getBlogsForAdmin(search);
 
 	return (
 		<div className='w-full p-4'>
@@ -25,7 +25,7 @@ export default async function BlogPostComponent({
 						key={index}
 						author={blog.author}
 						blogLink={`/blog/${blog.id}`}
-						comments={0}
+						comments={blog.comment!}
 						description={blog.summary}
 						thumbnilImage={blog.thumbnailImage!}
 						title={blog.title}

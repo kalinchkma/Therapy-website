@@ -8,9 +8,15 @@ import SideMenu from './side-menu';
 import Image from 'next/image';
 import { ActionButtonStyles } from '../common/action-button';
 import { cn } from '@/lib/utils';
-import { MessageSquareText, User } from 'lucide-react';
+import {
+	CircleUserRound,
+	MessageSquareText,
+	SquareUserRound,
+	User,
+} from 'lucide-react';
 import Markdown from 'react-markdown';
 import BlogComment from './blog-comment';
+import { getCommentsByPostId } from '@/methods/comments-method';
 
 type Post = {
 	summary: string;
@@ -25,13 +31,13 @@ type Post = {
 	keywords: string | null;
 };
 
-export default function SingleBlogPostComponent({
+export default async function SingleBlogPostComponent({
 	blog_post,
 }: {
 	blog_post: Post;
 }) {
 	const uploaded_at = new Date(blog_post.createdAt as Date);
-
+	const all_comments = await getCommentsByPostId(blog_post.id);
 	return (
 		<div className='w-full'>
 			<PageTitle
@@ -99,6 +105,30 @@ export default function SingleBlogPostComponent({
 						<Markdown className='content-preview blog-content mb-10'>
 							{blog_post.content}
 						</Markdown>
+
+						{/* comments of blog */}
+						<div className='flex flex-col'>
+							{/* section heading */}
+							<h4 className='text-2xl mb-8 border-b pb-5'>Comments</h4>
+							{/* comments */}
+							<div className='flex flex-col max-h-[300px] md:max-h-[400px] gap-5 overflow-y-auto'>
+								{all_comments.map((comment, index) => (
+									<div
+										key={index}
+										className='flex flex-col p-8 bg-zinc-100 rounded-3xl'>
+										<h5 className='flex items-center justify-start gap-1 text-gray-600 italic text-sm'>
+											<SquareUserRound className='h-4 w-4 italic' />{' '}
+											<span className=''>{comment.name}</span>
+										</h5>
+										<p className='py-2 px-5 text-gray-800 text-base'>
+											{comment.comment_content}
+										</p>
+									</div>
+								))}
+
+								{/* ---------------- */}
+							</div>
+						</div>
 
 						{/* public comments */}
 						<BlogComment blog_id={blog_post.id} />

@@ -97,9 +97,10 @@ export async function postComments(
 
 		// close database connection
 		conn.end();
+		revalidatePath('/blog', 'page');
 		return {
 			status: 200,
-			message: 'Comment post successfull',
+			message: 'Thanks for your comments',
 		};
 	} catch (error) {
 		return {

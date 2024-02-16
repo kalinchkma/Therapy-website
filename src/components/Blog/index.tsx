@@ -46,15 +46,21 @@ export default async function BlogPageComponent({
 				]}
 			/>
 			<ContentWrapper className='py-16'>
-				<div className='grid grid-cols-4 gap-10 md:px-12 lg:px-0'>
-					{/* all blog list */}
-					<AllBlogPost
-						posts={all_blog}
-						uid={uuidv4()}
-						all_blog_key={all_blog_key}
-						host={HOST!}
-					/>
-				</div>
+				{all_blog_key.length <= 0 ? (
+					<div className='flex items-center justify-center h-full w-full'>
+						<h4>No Blog post found</h4>
+					</div>
+				) : (
+					<div className='grid grid-cols-4 gap-10 md:px-12 lg:px-0'>
+						{/* all blog list */}
+						<AllBlogPost
+							posts={all_blog}
+							uid={uuidv4()}
+							all_blog_key={all_blog_key}
+							host={HOST!}
+						/>
+					</div>
+				)}
 			</ContentWrapper>
 		</div>
 	);

@@ -78,7 +78,8 @@ export default function AllBlogPost({
 								className='col-span-1'
 							/>
 					  ))
-					: posts.map((blog, index) => (
+					: all_blog.length > 0 &&
+					  posts.map((blog, index) => (
 							<BlogCard
 								key={index}
 								author={blog.author}

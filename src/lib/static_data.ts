@@ -20,6 +20,12 @@ import {
 	DashboardNavigationType,
 } from './definitions';
 
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '.env.local' });
+
+export const HOST = process.env.HOST;
+
 export const NavigationLinks: NavigationLink[] = [
 	{
 		name: 'Home',

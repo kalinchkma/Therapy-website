@@ -17,6 +17,8 @@ import {
 import Markdown from 'react-markdown';
 import BlogComment from './blog-comment';
 import { getCommentsByPostId } from '@/methods/comments-method';
+import { getBlogs } from '@/methods/blog-method';
+import { v4 } from 'uuid';
 
 type Post = {
 	summary: string;
@@ -38,6 +40,18 @@ export default async function SingleBlogPostComponent({
 }) {
 	const uploaded_at = new Date(blog_post.createdAt as Date);
 	const all_comments = await getCommentsByPostId(blog_post.id);
+
+	const all_blogs = await getBlogs();
+	const keywords: string[] = [];
+
+	// filter all keywords
+	all_blogs.forEach((blog) => {
+		blog.keywords?.split(',').forEach((word) => {
+			if (!keywords.includes(word.toLowerCase().trim())) {
+				keywords.push(word.toLowerCase().trim());
+			}
+		});
+	});
 	return (
 		<div className='w-full'>
 			<PageTitle
@@ -134,7 +148,12 @@ export default async function SingleBlogPostComponent({
 						<BlogComment blog_id={blog_post.id} />
 					</div>
 					{/* side menu */}
-					<SideMenu location='single' />
+					<SideMenu
+						location='single'
+						keywords={keywords}
+						all_blogs={all_blogs}
+						uid={v4()}
+					/>
 				</div>
 			</ContentWrapper>
 		</div>

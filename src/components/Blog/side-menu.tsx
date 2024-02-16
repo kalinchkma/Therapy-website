@@ -4,28 +4,41 @@ import Link from 'next/link';
 import React from 'react';
 import IconCreator from '../common/icon-creator';
 import { IconType } from '@/lib/definitions';
-import { getBlogs } from '@/methods/blog-method';
+
 import Image from 'next/image';
-import { v4 } from 'uuid';
+
 import BlogSearch from './blog-search';
 
-export default async function SideMenu({ location }: { location: string }) {
-	const all_blogs = await getBlogs();
-	const keywords: string[] = [];
+type Post = {
+	summary: string;
+	title: string;
+	id: number;
+	createdAt: Date | null;
+	updatedAt: Date | null;
+	thumbnailImage: string | null;
+	content: string | null;
+	author: string;
+	comment: number | null;
+	keywords: string | null;
+};
 
-	// filter all keywords
-	all_blogs.forEach((blog) => {
-		blog.keywords?.split(',').forEach((word) => {
-			if (!keywords.includes(word.toLowerCase().trim())) {
-				keywords.push(word.toLowerCase().trim());
-			}
-		});
-	});
-
+export default function SideMenu({
+	location,
+	keywords,
+	all_blogs,
+	uid,
+	setSearchKey,
+}: {
+	location: string;
+	keywords: string[];
+	all_blogs: Post[];
+	uid: string;
+	setSearchKey?: React.Dispatch<React.SetStateAction<string | undefined>>;
+}) {
 	return (
 		<div className='col-span-4 lg:col-span-1'>
 			{/* Search form */}
-			{!(location === 'single') && <BlogSearch />}
+			{!(location === 'single') && <BlogSearch setSearchKey={setSearchKey!} />}
 
 			{/* Recent post */}
 			<div className='flex flex-col pb-10'>
@@ -35,7 +48,7 @@ export default async function SideMenu({ location }: { location: string }) {
 				<ul className='flex flex-col gap-4'>
 					<li>
 						<Link
-							href={`/blog/${v4()}${all_blogs[0].id}`}
+							href={`/blog/${uid}${all_blogs[0].id}`}
 							className='flex items-start justify-start gap-2 hover:opacity-90'>
 							<Image
 								src={all_blogs[0].thumbnailImage!}
@@ -51,7 +64,7 @@ export default async function SideMenu({ location }: { location: string }) {
 					</li>
 					<li>
 						<Link
-							href={`/blog/${v4()}${all_blogs[1].id}`}
+							href={`/blog/${uid}${all_blogs[1].id}`}
 							className='flex items-start justify-start gap-2 hover:opacity-90'>
 							<Image
 								src={all_blogs[1].thumbnailImage!}
@@ -67,7 +80,7 @@ export default async function SideMenu({ location }: { location: string }) {
 					</li>
 					<li>
 						<Link
-							href={`/blog/${v4()}${all_blogs[2].id}`}
+							href={`/blog/${uid}${all_blogs[2].id}`}
 							className='flex items-start justify-start gap-2 hover:opacity-90'>
 							<Image
 								src={all_blogs[2].thumbnailImage!}

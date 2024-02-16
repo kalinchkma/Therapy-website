@@ -5,30 +5,34 @@ import PageTitle from '../common/page-title';
 import PageBreadcrumb from '../common/page-breadcrumb';
 import ContentWrapper from '../common/content-wrapper';
 import BlogCard from '../common/blog-card';
-import { Keywords } from '@/lib/static_data';
-import IconCreator from '../common/icon-creator';
-import { IconType } from '@/lib/definitions';
+
 import Link from 'next/link';
 import { getBlogs } from '@/methods/blog-method';
 import { v4 as uuidv4 } from 'uuid';
 import SideMenu from './side-menu';
+import AllBlogPost from './all_blog_post';
+
+type Post = {
+	id: number;
+	createdAt: Date | null;
+	updatedAt: Date | null;
+	title: string;
+	thumbnailImage: string | null;
+	summary: string;
+	content: string | null;
+	author: string;
+	comment: number | null;
+	keywords: string | null;
+};
+import { HOST } from '@/lib/static_data';
 
 export default async function BlogPageComponent({
 	all_blog,
 }: {
-	all_blog: {
-		id: number;
-		createdAt: Date | null;
-		updatedAt: Date | null;
-		title: string;
-		thumbnailImage: string | null;
-		summary: string;
-		content: string | null;
-		author: string;
-		comment: number | null;
-		keywords: string | null;
-	}[];
+	all_blog: Post[];
 }) {
+	const all_blog_key = await getBlogs();
+
 	return (
 		<div className='w-full'>
 			<PageTitle
@@ -44,24 +48,12 @@ export default async function BlogPageComponent({
 			<ContentWrapper className='py-16'>
 				<div className='grid grid-cols-4 gap-10 md:px-12 lg:px-0'>
 					{/* all blog list */}
-					<div className='col-span-4 lg:col-span-3 flex flex-col gap-16'>
-						{all_blog.map((blog, index) => (
-							<BlogCard
-								key={index}
-								author={blog.author}
-								blogLink={`/blog/${uuidv4()}${blog.id}`}
-								comments={0}
-								description={blog.summary}
-								thumbnilImage={blog.thumbnailImage!}
-								keywords={blog.keywords!}
-								title={blog.title}
-								createdAt={blog.createdAt}
-								className='col-span-1'
-							/>
-						))}
-					</div>
-					{/* side menu */}
-					<SideMenu location='multiple' />
+					<AllBlogPost
+						posts={all_blog}
+						uid={uuidv4()}
+						all_blog_key={all_blog_key}
+						host={HOST!}
+					/>
 				</div>
 			</ContentWrapper>
 		</div>

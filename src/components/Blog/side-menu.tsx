@@ -35,6 +35,14 @@ export default function SideMenu({
 	uid: string;
 	setSearchKey?: React.Dispatch<React.SetStateAction<string | undefined>>;
 }) {
+	// slice recent post
+	let recent_post: Post[] = [];
+	if (all_blogs.length > 3) {
+		recent_post = all_blogs.slice(0, 3);
+	} else {
+		recent_post = all_blogs;
+	}
+
 	return (
 		<div className='col-span-4 lg:col-span-1'>
 			{/* Search form */}
@@ -46,58 +54,24 @@ export default function SideMenu({
 					Recent post
 				</h4>
 				<ul className='flex flex-col gap-4'>
-					{all_blogs.length > 0 && (
-						<>
-							<li>
-								<Link
-									href={`/blog/${uid}${all_blogs[0].id}`}
-									className='flex items-start justify-start gap-2 hover:opacity-90'>
-									<Image
-										src={all_blogs[0].thumbnailImage!}
-										width={50}
-										height={50}
-										alt='blog-image'
-										className='rounded-xl min-h-[50px] min-w-[50px] object-cover'
-									/>
-									<h4 className='p-0 m-0 text-blue-400 line-clamp-2'>
-										{all_blogs[0].title}
-									</h4>
-								</Link>
-							</li>
-							<li>
-								<Link
-									href={`/blog/${uid}${all_blogs[1].id}`}
-									className='flex items-start justify-start gap-2 hover:opacity-90'>
-									<Image
-										src={all_blogs[1].thumbnailImage!}
-										width={50}
-										height={50}
-										alt='blog-image'
-										className='rounded-xl min-h-[50px] min-w-[50px] object-cover'
-									/>
-									<h4 className='p-0 m-0 text-blue-400 line-clamp-2'>
-										{all_blogs[1].title}
-									</h4>
-								</Link>
-							</li>
-							<li>
-								<Link
-									href={`/blog/${uid}${all_blogs[2].id}`}
-									className='flex items-start justify-start gap-2 hover:opacity-90'>
-									<Image
-										src={all_blogs[2].thumbnailImage!}
-										width={50}
-										height={50}
-										alt='blog-image'
-										className='rounded-xl min-h-[50px] min-w-[50px] object-cover'
-									/>
-									<h4 className='p-0 m-0 text-blue-400 line-clamp-2'>
-										{all_blogs[2].title}
-									</h4>
-								</Link>
-							</li>
-						</>
-					)}
+					{recent_post.map((blog, index) => (
+						<li key={index}>
+							<Link
+								href={`/blog/${uid}${blog.id}`}
+								className='flex items-start justify-start gap-2 hover:opacity-90'>
+								<Image
+									src={blog.thumbnailImage!}
+									width={50}
+									height={50}
+									alt='blog-image'
+									className='rounded-xl min-h-[50px] min-w-[50px] object-cover'
+								/>
+								<h4 className='p-0 m-0 text-blue-400 line-clamp-2'>
+									{blog.title}
+								</h4>
+							</Link>
+						</li>
+					))}
 				</ul>
 			</div>
 

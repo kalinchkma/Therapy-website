@@ -4,6 +4,7 @@
 
 import { config, createDBConnection } from '@/db';
 import { blog } from '@/db/schema/blogs';
+import { comments } from '@/db/schema/comments';
 import { deleteFile, uploadFile } from '@/lib/helper_function';
 import { eq } from 'drizzle-orm';
 import mysql from 'mysql2/promise';
@@ -279,8 +280,43 @@ export async function deleteBlogPost(id: number) {
 					redirect('/errors');
 				}
 			}
-
+			// delete blog post
 			await db.delete(blog).where(eq(blog.id, id));
+
+			// delete blog post comment
+			await db.delete(comments).where(eq(comments.blog_id, id));
+
+			// close database connection
+			conn.end();
+			revalidatePath('/dashboard/blog-post', 'page');
+		}
+	} catch (error) {
+		redirect('/errors');
+	}
+}
+
+// make public and private of blog post
+export async function publishBlogPost(id: number) {
+	try {
+		// connect database
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		// find the blog post
+		const cur_blog = await db.select().from(blog).where(eq(blog.id, id));
+
+		if (cur_blog.length <= 0) {
+			conn.end();
+			redirect('/errors');
+		} else {
+			// update blog post
+			await db
+				.update(blog)
+				.set({
+					published: !cur_blog[0].published,
+				})
+				.where(eq(blog.id, id));
+
 			// close database connection
 			conn.end();
 			revalidatePath('/dashboard/blog-post', 'page');

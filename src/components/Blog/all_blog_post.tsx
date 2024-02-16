@@ -62,9 +62,9 @@ export default function AllBlogPost({
 	return (
 		<>
 			<div className='col-span-4 lg:col-span-3 flex flex-col gap-16'>
-				{searchKey
-					? all_blog.length > 0 &&
-					  all_blog.map((blog, index) => (
+				{searchKey ? (
+					all_blog.length > 0 ? (
+						all_blog.map((blog, index) => (
 							<BlogCard
 								key={index}
 								author={blog.author}
@@ -77,29 +77,39 @@ export default function AllBlogPost({
 								createdAt={blog.createdAt}
 								className='col-span-1'
 							/>
-					  ))
-					: all_blog.length > 0 &&
-					  posts.map((blog, index) => (
-							<BlogCard
-								key={index}
-								author={blog.author}
-								blogLink={`/blog/${uid}${blog.id}`}
-								comments={blog.comment!}
-								description={blog.summary}
-								thumbnilImage={blog.thumbnailImage!}
-								keywords={blog.keywords!}
-								title={blog.title}
-								createdAt={blog.createdAt}
-								className='col-span-1'
-							/>
-					  ))}
+						))
+					) : (
+						<div className='w-full h-full flex items-start justify-center'>
+							<h4>No Blog post found!</h4>
+						</div>
+					)
+				) : posts.length > 0 ? (
+					posts.map((blog, index) => (
+						<BlogCard
+							key={index}
+							author={blog.author}
+							blogLink={`/blog/${uid}${blog.id}`}
+							comments={blog.comment!}
+							description={blog.summary}
+							thumbnilImage={blog.thumbnailImage!}
+							keywords={blog.keywords!}
+							title={blog.title}
+							createdAt={blog.createdAt}
+							className='col-span-1'
+						/>
+					))
+				) : (
+					<div className='w-full h-full flex items-start justify-center'>
+						<h4>No Blog post found!</h4>
+					</div>
+				)}
 
-				{posts.length <= 0 ||
+				{/* {posts.length <= 0 ||
 					(all_blog.length <= 0 && (
 						<div className='w-full h-full flex items-start justify-center'>
 							<h4>No Blog post found!</h4>
 						</div>
-					))}
+					))} */}
 			</div>
 			{/* side menu */}
 			<SideMenu

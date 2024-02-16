@@ -5,6 +5,7 @@ import CreateNewBlog from './create-new-blog';
 import { getBlogsForAdmin } from '@/methods/blog-method';
 import BlogCard from './blog-card-d';
 import SearchBlog from './search-blog';
+import { HOST } from '@/lib/static_data';
 
 export default async function BlogPostComponent({
 	search,
@@ -31,6 +32,7 @@ export default async function BlogPostComponent({
 						title={blog.title}
 						keywords={blog.keywords!}
 						blog={blog}
+						host={HOST!}
 					/>
 				))}
 			</div>

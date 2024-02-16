@@ -2,7 +2,7 @@
 
 import BlogPageComponent from '@/components/Blog';
 import { getBlogs } from '@/methods/blog-method';
-import React from 'react';
+import React, { Suspense } from 'react';
 
 type Props = {
 	searchParams: {

@@ -109,3 +109,42 @@ export async function postComments(
 		};
 	}
 }
+
+// delete comments
+export async function deleteComment(id: number) {
+	try {
+		// create database connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		// find comment
+		const comment = await db.select().from(comments).where(eq(comments.id, id));
+
+		if (comment.length <= 0) {
+			conn.end();
+			redirect('/errors');
+		} else {
+			// find blog
+			const blog_post = await db
+				.select()
+				.from(blog)
+				.where(eq(blog.id, comment[0].blog_id));
+
+			if (blog_post.length <= 0) {
+				redirect('/errors');
+			} else {
+				// delete comment
+				await db.delete(comments).where(eq(comments.id, id));
+
+				await db.update(blog).set({
+					comment: blog_post[0].comment! - 1,
+				});
+				// close database connection
+				conn.end();
+				revalidatePath('/dashboard/blog-post', 'page');
+			}
+		}
+	} catch (error) {
+		redirect('/errors');
+	}
+}

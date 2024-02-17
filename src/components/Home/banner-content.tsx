@@ -20,7 +20,7 @@ export default function BannerContent({
 	className,
 }: BannerContentProps) {
 	return (
-		<div className={cn('flex flex-col pl-16', className)}>
+		<div className={cn('flex flex-col pl-28', className)}>
 			<h2 className='uppercase text-sm font-extrabold text-blue-700 tracking-widest'>
 				{bannerSecondaryTitle}
 			</h2>

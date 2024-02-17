@@ -13,7 +13,14 @@ import Markdown from 'react-markdown';
 export default function IndividualService({ service }: { service: Service }) {
 	return (
 		<div className='w-full'>
-			<PageTitle title={service.name} />
+			{/* <PageTitle title={service.name} /> */}
+			<PageTitle
+				title={service.name}
+				className='text-center py-0'
+				bgImageUrl={service.thumbnailImage!}
+				overlayStyles='bg-gray-700 py-28 bg-opacity-60'
+				titleStyle='text-white'
+			/>
 			<PageBreadcrumb
 				paths={[
 					{ name: 'Home', url: '/' },
@@ -30,7 +37,7 @@ export default function IndividualService({ service }: { service: Service }) {
 					<div className='col-span-1 flex flex-col items-start md:items-center md:justify-start'>
 						<ActionButton
 							link={`/appointment?service=${service.id}`}
-							title='Book Appointment'
+							title='সেবা নিন'
 							className='text-center'
 						/>
 					</div>

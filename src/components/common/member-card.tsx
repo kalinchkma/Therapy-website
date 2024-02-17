@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 
 interface MemberCardProps extends MemberType {
 	className?: string;
+	education?: string;
 }
 
 export default function MemberCard({
@@ -18,6 +19,7 @@ export default function MemberCard({
 	imageUrl,
 	profileUrl,
 	socialLinks,
+	education,
 	className,
 }: MemberCardProps) {
 	return (
@@ -28,7 +30,7 @@ export default function MemberCard({
 					width={'300'}
 					height={'300'}
 					alt='member image'
-					className='min-h-[250px] min-w-[100%] object-cover'
+					className='h-[250px] w-[100%] object-cover'
 				/>
 				<div className='absolute flex items-center justify-center w-full h-full top-0 left-0 bg-zinc-700 bg-opacity-0 hover:bg-opacity-50 opacity-0 hover:opacity-100 transition-all duration-500'>
 					<ul className='flex items-center justify-center gap-3 flex-wrap'>
@@ -46,14 +48,16 @@ export default function MemberCard({
 			</div>
 			<div className='flex p-5 flex-col'>
 				{/* name */}
-				<h4 className='text-xl font-bold text-zinc-600'>{name}</h4>
+				<h4 className='text-xl font-bold text-zinc-700 capitalize'>{name}</h4>
 				{/* profession */}
 				<h5 className='text-base font-bold text-purple-400'>{profession}</h5>
+				{/* education */}
+				<h5 className='text-base font-bold text-zinc-400'>{education}</h5>
 				<hr className='my-5' />
 				<p className='line-clamp-4 text-base text-zinc-400'>{summary}</p>
-				<div className='flex items-center justify-start'>
+				{/* <div className='flex items-center justify-start'>
 					<MoreBtn title='Read more' link={profileUrl} />
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

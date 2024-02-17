@@ -75,7 +75,7 @@ export default async function BlogCard({
 						width={300}
 						height={300}
 						alt='blog image'
-						className='min-w-[100%] min-h-[250px] md:min-h-[270px] lg:min-h-[300px] object-cover'
+						className='w-[100%] h-[250px] md:h-[270px] lg:h-[300px] object-cover'
 					/>
 				</div>
 				{/* button with uploaded data */}

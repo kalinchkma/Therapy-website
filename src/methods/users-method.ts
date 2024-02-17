@@ -59,3 +59,32 @@ export async function getAllUsers(): Promise<User[] | undefined> {
 		return undefined;
 	}
 }
+
+// get team
+export async function getTeam(): Promise<User[]> {
+	noStore();
+	try {
+		const conn = mysql.createPool(config);
+
+		const dbConn = createDBConnection(conn);
+
+		const allUsers = await dbConn
+			.select()
+			.from(users)
+			.where(
+				or(
+					eq(users.user_type, UsersType['team-member']),
+					eq(users.user_type, UsersType.admin),
+				),
+			);
+
+		// close connection
+		conn.end();
+		if (allUsers.length !== 0) {
+			return allUsers;
+		}
+		return [];
+	} catch (error) {
+		return [];
+	}
+}

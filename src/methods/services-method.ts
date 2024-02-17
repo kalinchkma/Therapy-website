@@ -13,6 +13,27 @@ export async function getAllServices() {
 		const db = createDBConnection(conn);
 		// perform operation
 		const res = await db.select().from(services);
+
+		// close database connection
+		conn.end();
+		// return all services
+		return res;
+	} catch (err) {
+		return false;
+	}
+}
+
+// get all services
+export async function getAllServicesPublic() {
+	try {
+		// conn database
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+		// perform operation
+		const res = await db
+			.select()
+			.from(services)
+			.where(eq(services.published, 1));
 		// close database connection
 		conn.end();
 		// return all services

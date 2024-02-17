@@ -42,7 +42,7 @@ const test_data = [
 
 export default function CustomerReview() {
 	return (
-		<section className='w-full py-16'>
+		<section className='w-full py-28'>
 			<ContentWrapper>
 				<div className='flex justify-center md:justify-start'>
 					<SectionHeader title='Customer Review' />

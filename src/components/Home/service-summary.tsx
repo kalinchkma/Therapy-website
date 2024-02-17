@@ -6,40 +6,60 @@ import { ServiceCard } from '../common/service-card';
 import { Services } from '@/lib/static_data';
 import ActionButton from '../common/action-button';
 import ContentWrapper from '../common/content-wrapper';
+import { getAllServicesPublic } from '@/methods/services-method';
+import { v4 } from 'uuid';
 
-export default function ServiceSummary() {
+type S = {
+	id: number;
+	name: string;
+	description: string | null;
+	price: string | null;
+	thumbnailImage: string;
+	content: string | null;
+	published: number | null;
+};
+
+export default async function ServiceSummary() {
+	const services = await getAllServicesPublic();
+	let service_pin: S[] = [];
+	if (services) {
+		if (services.length > 3) {
+			service_pin = services.splice(0, 3);
+		} else {
+			service_pin = services;
+		}
+	}
 	return (
-		<section className='w-full py-16'>
+		<section className='w-full py-28'>
 			<ContentWrapper className=' flex items-center justify-center'>
 				<div className='w-full grid md:grid-cols-3 lg:grid-cols-4 gap-8'>
 					<div className='md:col-span-3 lg:col-span-1'>
 						<div className='flex w-full flex-col'>
 							<h4 className='text-4xl font-bold capitalize mb-8'>
-								We offer various Physio Services
+								আমরা বিভিন্ন ফিজিও সেবা দিয়ে থাকি
 							</h4>
-							<p className='text-zinc-500 mb-5'>
-								We are proud to offer a wide range of comprehensive services to
-								meet the needs of adults, seniors, and pediatric patients. Our
-								team of professional caregivers specialize in providing
-								personalized medical care, rehabilitative therapy and companion
-								assistance.
+							<p className='text-zinc-600 text-lg mb-5'>
+								আমরা বিস্তৃত বিস্তৃত পরিষেবা সরবরাহ করতে পেরে গর্বিত
+								প্রাপ্তবয়স্ক, প্রবীণ এবং শিশু রোগীদের চাহিদা পূরণ করুন। আমাদের
+								পেশাদার যত্নশীলদের দল সরবরাহে বিশেষজ্ঞ ব্যক্তিগতকৃত চিকিৎসা
+								যত্ন, পুনর্বাসন থেরাপি এবং সহচর সহায়তার।
 							</p>
 							<div className='flex items-center justify-start'>
 								<ActionButton
 									link='/services'
-									title='See all Services'
+									title='সকল সেবা দেখুন'
 									className='inline-flex'
 								/>
 							</div>
 						</div>
 					</div>
-					{Services.slice(0, 3).map((service) => (
-						<div className='col-span-1' key={service.title}>
+					{service_pin.map((service, index) => (
+						<div className='col-span-1' key={index}>
 							<ServiceCard
-								title={service.title}
-								description={service.description}
+								title={service.name}
+								description={service.description!}
 								thumbnailImage={service.thumbnailImage}
-								serviceLink={service.serviceLink}
+								serviceLink={`/services/${v4()}${service.id}`}
 							/>
 						</div>
 					))}

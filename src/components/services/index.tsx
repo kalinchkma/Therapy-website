@@ -5,17 +5,16 @@ import ContentWrapper from '../common/content-wrapper';
 import PageBreadcrumb from '../common/page-breadcrumb';
 import { ServiceCard } from '../common/service-card';
 import PageTitle from '../common/page-title';
-import { getAllServices } from '@/methods/services-method';
+import { getAllServicesPublic } from '@/methods/services-method';
 import { notFound } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
 
 export default async function ServicesPageComponent() {
-	const allServices = await getAllServices();
+	const allServices = await getAllServicesPublic();
 	if (!allServices) {
 		notFound();
 	}
-	// filter published services
-	const services = allServices.filter((service) => service.published === 1);
+
 	return (
 		<div className='w-full'>
 			<PageTitle
@@ -31,8 +30,8 @@ export default async function ServicesPageComponent() {
 			/>
 			<ContentWrapper className='py-12'>
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-					{services.length > 0 ? (
-						services.map((service, index) => (
+					{allServices.length > 0 ? (
+						allServices.map((service, index) => (
 							<ServiceCard
 								title={service.name}
 								serviceLink={`/services/${uuidv4()}${service.id}`}

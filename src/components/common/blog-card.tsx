@@ -22,10 +22,15 @@ interface BlogCardProps {
 	thumbnilImage: string;
 	blogLink: string;
 	keywords?: string;
-	author: string;
-	description: string;
-	comments: number;
-	createdAt: Date | null;
+	author?: string;
+	description?: string;
+	comments?: number;
+	createdAt?: Date | null;
+	imageStyles?: string;
+	contentBoxStyles?: string;
+	titleStyles?: string;
+	createAtStyles?: string;
+	authorBoxStyles?: string;
 }
 
 export default function BlogCard({
@@ -38,6 +43,11 @@ export default function BlogCard({
 	keywords,
 	title,
 	createdAt,
+	imageStyles,
+	contentBoxStyles,
+	titleStyles,
+	createAtStyles,
+	authorBoxStyles,
 }: BlogCardProps) {
 	const created_time = new Date(createdAt as Date);
 
@@ -50,20 +60,27 @@ export default function BlogCard({
 					<Image
 						src={thumbnilImage}
 						width={600}
-						height={600}
+						height={500}
 						alt='blog image'
-						className='min-w-[100%] min-h-[350px] md:min-h-[400px] lg:min-h-[450px] object-cover'
+						className={cn(
+							'min-w-[100%] h-[350px] md:h-[400px] lg:h-[450px] object-cover',
+							imageStyles,
+						)}
 					/>
 				</Link>
 				{/* button with uploaded data */}
 				<ActionButton
 					link={blogLink}
 					title={created_time.toUTCString()}
-					className='absolute bottom-10 left-12 capitalize'
+					className={cn('absolute bottom-5 left-5 capitalize', createAtStyles)}
 				/>
 			</div>
-			<div className='p-12'>
-				<h4 className='w-full flex text-sm md:text-base flex-row gap-4 text-zinc-400 font-bold border-b pb-7'>
+			<div className={cn('p-12', contentBoxStyles)}>
+				<h4
+					className={cn(
+						'w-full flex text-sm md:text-base flex-row gap-4 text-zinc-400 font-bold border-b pb-7',
+						authorBoxStyles,
+					)}>
 					{/* author name */}
 					<span className='text-zinc-500 flex items-end gap-2'>
 						<User /> {author}
@@ -74,20 +91,25 @@ export default function BlogCard({
 					</span>
 				</h4>
 				{/* keywords */}
-				<h4 className='text-zinc-500 mt-5'>
-					Keywords:{' '}
-					<span className='text-zinc-950 italic font-bold capitalize'>
-						{keywords}
-					</span>
-				</h4>
+				{keywords && (
+					<h4 className='text-zinc-500 mt-5'>
+						Keywords:{' '}
+						<span className='text-zinc-950 italic font-bold capitalize'>
+							{keywords}
+						</span>
+					</h4>
+				)}
 				<Link
 					href={blogLink}
-					className='font-bold text-zinc-600 text-xl md:text-3xl hover:text-blue-400 transition-all py-6 flex'>
+					className={cn(
+						'font-bold text-zinc-600 text-xl md:text-3xl hover:text-blue-400 transition-all py-6 flex',
+						titleStyles,
+					)}>
 					{title}
 				</Link>
 				<p className='line-clamp-3 text-base text-zinc-500'>{description}</p>
 
-				<MoreBtn link={blogLink} title='Read more' />
+				<MoreBtn link={blogLink} title='আরও দেখুন' />
 			</div>
 		</div>
 	);

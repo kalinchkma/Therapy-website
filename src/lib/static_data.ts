@@ -467,6 +467,11 @@ export const DashboardNavigation: DashboardNavigationType[] = [
 		icon: IconType.Pages,
 	},
 	{
+		title: 'Customer review',
+		link: '/dashboard/customer-review',
+		icon: IconType.Post,
+	},
+	{
 		title: 'manage users',
 		link: '/dashboard/users',
 		icon: IconType.UserSettings,

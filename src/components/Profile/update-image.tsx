@@ -92,7 +92,7 @@ export default function UpdateImage({
 					<div className='grid gap-4 py-4'>
 						<div className='grid grid-cols-4 items-center gap-4'>
 							<div className='flex flex-col col-span-4 items-center justify-center'>
-								{fileDataURL ? (
+								{fileDataURL && (
 									<p className='img-preview-wrapper'>
 										{
 											<Image
@@ -103,7 +103,7 @@ export default function UpdateImage({
 											/>
 										}
 									</p>
-								) : null}
+								)}
 								<Button
 									variant={'secondary'}
 									type='button'

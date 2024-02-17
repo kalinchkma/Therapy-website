@@ -23,7 +23,7 @@ interface ReviewCardProps {
 	children?: React.ReactNode;
 	className?: string;
 	videoUrl: string;
-	thumbnil?: string;
+	thumbnil?: string | ArrayBuffer;
 }
 
 export default function ReviewCard({
@@ -43,7 +43,7 @@ export default function ReviewCard({
 					<DialogTrigger asChild>
 						<div className='w-full h-full relative cursor-pointer'>
 							<Image
-								src={thumbnil!}
+								src={thumbnil as string}
 								alt='thumbnil'
 								width={400}
 								height={400}
@@ -63,14 +63,14 @@ export default function ReviewCard({
 								width={'100%'}
 								height={'100%'}
 								controls={true}
-								light={
-									<Image
-										src={thumbnil!}
-										alt='video thumbnil'
-										width={'1000'}
-										height={'1000'}
-									/>
-								}
+								// light={
+								// 	<Image
+								// 		src={thumbnil!}
+								// 		alt='video thumbnil'
+								// 		width={'1000'}
+								// 		height={'1000'}
+								// 	/>
+								// }
 							/>
 						</div>
 					</DialogContent>

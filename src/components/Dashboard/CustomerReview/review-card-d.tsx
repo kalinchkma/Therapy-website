@@ -1,7 +1,7 @@
 /** @format */
 'use client';
 import React from 'react';
-import { Card, CardContent } from '../ui/card';
+import { Card, CardContent } from '../../ui/card';
 import { cn } from '@/lib/utils';
 import { IoPlayForwardOutline } from 'react-icons/io5';
 import { IoPlayForwardSharp } from 'react-icons/io5';
@@ -18,7 +18,7 @@ import {
 
 import ReactPlayer from 'react-player/lazy';
 import Image from 'next/image';
-import { Button } from '../ui/button';
+import { Button } from '../../ui/button';
 
 interface ReviewCardProps {
 	children?: React.ReactNode;
@@ -28,17 +28,18 @@ interface ReviewCardProps {
 	admin?: React.ReactNode;
 }
 
-export default function ReviewCard({
+export default function ReviewCardD({
 	children,
 	thumbnil,
 	videoUrl,
 	className,
+	admin,
 }: ReviewCardProps) {
 	return (
 		<Card className='border-0'>
 			<CardContent
 				className={cn(
-					'flex aspect-square items-center justify-center p-2 ',
+					'flex flex-col aspect-square items-center justify-center p-2 gap-2 bg-zinc-100 ',
 					className,
 				)}>
 				<Dialog>
@@ -65,18 +66,11 @@ export default function ReviewCard({
 								width={'100%'}
 								height={'100%'}
 								controls={true}
-								// light={
-								// 	<Image
-								// 		src={thumbnil!}
-								// 		alt='video thumbnil'
-								// 		width={'1000'}
-								// 		height={'1000'}
-								// 	/>
-								// }
 							/>
 						</div>
 					</DialogContent>
 				</Dialog>
+				{admin}
 			</CardContent>
 		</Card>
 	);

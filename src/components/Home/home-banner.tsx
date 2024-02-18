@@ -13,27 +13,33 @@ import {
 import PageBanner from '../common/page-banner';
 import BannerContent from './banner-content';
 import { BannserSlideData } from '@/lib/static_data';
+import { fetchBanner } from '@/methods/home-page-methods';
+import { Content } from '@/actions/home-page-actions';
 
-export default function HomePageBanner() {
+export default async function HomePageBanner() {
+	const banners = await fetchBanner();
 	return (
 		<section className='w-full'>
 			<Carousel opts={{ loop: true }}>
 				<CarouselContent>
-					{BannserSlideData.map((data) => (
-						<CarouselItem key={data.title}>
-							<PageBanner
-								bgImageUrl={data.slideImage}
-								className='h-[50vh] md:h-[75vh] p-3 container'>
-								<BannerContent
-									bannerTitle={data.title}
-									bannerSecondaryTitle={data.secondaryTitle}
-									btnLink={data.btnLink}
-									btnTitle={data.btnTitle}
-									className='w-full md:w-8/12'
-								/>
-							</PageBanner>
-						</CarouselItem>
-					))}
+					{banners.map((data, index) => {
+						const banner = JSON.parse(String(data.content)) as Content;
+						return (
+							<CarouselItem key={index}>
+								<PageBanner
+									bgImageUrl={banner.image}
+									className='h-[50vh] md:h-[75vh] p-3 container'>
+									<BannerContent
+										bannerTitle={banner.title}
+										bannerSecondaryTitle={banner.subTitle}
+										btnLink={banner.navigate_link.URL}
+										btnTitle={banner.navigate_link.title}
+										className='w-full md:w-8/12'
+									/>
+								</PageBanner>
+							</CarouselItem>
+						);
+					})}
 				</CarouselContent>
 				<CarouselPrevious />
 				<CarouselNext />

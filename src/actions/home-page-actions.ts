@@ -14,6 +14,16 @@ import { redirect } from 'next/navigation';
 import { v4 as uuidv4, v4 } from 'uuid';
 import { z } from 'zod';
 
+export type Content = {
+	title: string;
+	subTitle: string;
+	navigate_link: {
+		title: string;
+		URL: string;
+	};
+	image: string;
+};
+
 // setup banner section
 export async function addBanner() {
 	try {
@@ -65,16 +75,6 @@ const BannerFormSchema = z.object({
 		.optional(),
 });
 
-type Content = {
-	title: string;
-	subTitle: string;
-	navigate_link: {
-		title: string;
-		URL: string;
-	};
-	image: string;
-};
-
 export type BannerFormState = {
 	errors?: {
 		title?: string[];
@@ -116,7 +116,6 @@ export async function updateBanner(
 		const bgImage = formData.get('image') as File;
 		if (bgImage.size > 0) {
 			if (cur_content.image || cur_content.image !== '') {
-				console.log('current content', cur_content);
 				// delete old image
 				const delete_res = await deleteFile(cur_content.image);
 				if (!delete_res) {

@@ -5,15 +5,11 @@ import { Nunito } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Toaster } from '@/components/ui/sonner';
-
-import { cookies } from 'next/headers';
-import { AuthTokenName, UsersType } from '@/lib/definitions';
-import { verify_auth_token, verify_auth_token2 } from '@/lib/utils';
-import { getUserByEmail } from '@/methods/users-method';
-import { unstable_noStore as noStore } from 'next/cache';
+import { UsersType } from '@/lib/definitions';
 import { checkAndGetAuth } from '@/lib/helper_function';
-import { NextURL } from 'next/dist/server/web/next-url';
+import StoreProvider from './StoreProvider';
+import { cn } from '@/lib/utils';
+import ShopCart from '@/components/cart';
 
 const nunito = Nunito({
 	subsets: ['latin'],
@@ -39,13 +35,16 @@ export default async function RootLayout({
 	}
 
 	return (
-		<html lang='en'>
-			<body className={nunito.className}>
-				<Header auth={hasAuth} authType={userType} />
-				{children}
-				<Footer />
-				<Toaster />
-			</body>
-		</html>
+		<StoreProvider>
+			<html lang='en'>
+				<body className={cn(nunito.className, 'relative')}>
+					<Header auth={hasAuth} authType={userType} />
+					{children}
+					<Footer />
+
+					<ShopCart />
+				</body>
+			</html>
+		</StoreProvider>
 	);
 }

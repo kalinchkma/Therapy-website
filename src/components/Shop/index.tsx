@@ -38,7 +38,7 @@ export default function ShopPageComponent() {
 					{ name: 'Shop', url: '/shop' },
 				]}
 			/>
-			<ContentWrapper className='py-12'>
+			<ContentWrapper className='py-12 '>
 				<div className='flex flex-col items-center justify-center md:items-start md:justify-start md:grid md:grid-cols-3 lg:grid-cols-4 gap-3'>
 					{/* left side of shop page */}
 					<div className='lg:col-span-1 md:col-span-3 flex flex-col p-1 w-full'>

@@ -7,7 +7,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { UsersType } from '@/lib/definitions';
 import { checkAndGetAuth } from '@/lib/helper_function';
-import StoreProvider from './StoreProvider';
+import StoreProvider from '../store/StoreProvider';
 import { cn } from '@/lib/utils';
 import ShopCart from '@/components/cart';
 
@@ -41,7 +41,6 @@ export default async function RootLayout({
 					<Header auth={hasAuth} authType={userType} />
 					{children}
 					<Footer />
-
 					<ShopCart />
 				</body>
 			</html>

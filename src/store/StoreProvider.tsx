@@ -3,7 +3,7 @@
 'use client';
 import { useRef } from 'react';
 import { Provider } from 'react-redux';
-import { Store, AppStore } from '../store/store';
+import { Store, AppStore } from './store';
 
 export default function StoreProvider({
 	children,

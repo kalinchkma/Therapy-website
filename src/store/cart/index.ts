@@ -4,6 +4,7 @@ import { createSlice, Dispatch } from '@reduxjs/toolkit';
 
 interface Cart {
 	total_price: number;
+	total_items: number;
 	items: {
 		item_id: number;
 		item_price: number;
@@ -20,6 +21,7 @@ interface CartState {
 const initialState: CartState = {
 	cartDetails: {
 		total_price: 0,
+		total_items: 0,
 		items: [],
 	},
 };

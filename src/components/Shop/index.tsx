@@ -27,11 +27,20 @@ import ProductCard from '../common/product-card';
 import IconCreator from '../common/icon-creator';
 import { IconType } from '@/lib/definitions';
 import Link from 'next/link';
-import { fetchAllProduct } from '@/methods/product-method';
+import {
+	fetchAllProduct,
+	fetchAllProductClient,
+} from '@/methods/product-method';
 import AllProducs from './all-products';
+import SearchProduct from './search-product';
 
-export default async function ShopPageComponent() {
-	const all_products = await fetchAllProduct();
+export default async function ShopPageComponent({
+	search,
+}: {
+	search: string;
+}) {
+	const all_products = await fetchAllProductClient(search);
+	console.log(search);
 	return (
 		<div className='w-full'>
 			<PageTitle title='Shop' />
@@ -46,16 +55,7 @@ export default async function ShopPageComponent() {
 					{/* left side of shop page */}
 					<div className='lg:col-span-1 md:col-span-3 flex flex-col p-1 w-full'>
 						{/* Search */}
-						<form className='flex flex-row relative '>
-							<input
-								type='text'
-								placeholder='Search'
-								className=' rounded-full outline-none pl-5 pr-12 py-3 border-2 text-zinc-500 flex-grow focus:border-blue-300 transition-all w-full'
-							/>
-							<button className='inline-block font-bold text-zinc-800 hover:text-blue-400 text-lg absolute right-0 top-0 h-full px-4'>
-								<IconCreator icon={IconType.Search} />
-							</button>
-						</form>
+						<SearchProduct />
 						{/* keywords */}
 						<div className='flex flex-col p-1 my-5'>
 							<h4 className='text-xl text-zinc-700 font-bold border-b-2 py-2 mb-5'>

@@ -7,10 +7,11 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { UsersType } from '@/lib/definitions';
 import { checkAndGetAuth } from '@/lib/helper_function';
-import StoreProvider from '../store/StoreProvider';
+
 import { cn } from '@/lib/utils';
 import ShopCart from '@/components/cart';
 import Provider from '@/store/Provider';
+import { getInformations } from '@/methods/information-method';
 
 const nunito = Nunito({
 	subsets: ['latin'],
@@ -20,6 +21,11 @@ const nunito = Nunito({
 export const metadata: Metadata = {
 	title: 'Universal Physiotherapy & Rehab Center',
 	description: 'This website created by Universal Physiotherapy & Rehab center',
+};
+
+export type Shipping_cost = {
+	dhaka: number;
+	outside_dhaka: number;
 };
 
 export default async function RootLayout({
@@ -35,6 +41,13 @@ export default async function RootLayout({
 		userType = auth.user_type as UsersType;
 	}
 
+	const informations = await getInformations();
+	let shipping_cost: Shipping_cost = { dhaka: 0, outside_dhaka: 0 };
+	if (informations.length > 0) {
+		shipping_cost = JSON.parse(
+			String(informations[0].product_shipping_charge),
+		) as Shipping_cost;
+	}
 	return (
 		<Provider>
 			<html lang='en'>
@@ -42,7 +55,7 @@ export default async function RootLayout({
 					<Header auth={hasAuth} authType={userType} />
 					{children}
 					<Footer />
-					<ShopCart />
+					<ShopCart shipping_cost={shipping_cost} />
 				</body>
 			</html>
 		</Provider>

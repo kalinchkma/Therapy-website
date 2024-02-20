@@ -1,0 +1,1 @@
+ALTER TABLE `order` ADD `region` varchar(256) NOT NULL;

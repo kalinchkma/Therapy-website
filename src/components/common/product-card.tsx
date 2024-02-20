@@ -39,6 +39,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 			if (item.item_id === product.id) {
 				new_cart.items[index].amount += 1;
 				new_cart.total_price += product.price;
+				new_cart.total_items += 1;
 				already_in_cart = true;
 			}
 		});
@@ -54,6 +55,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 
 			new_cart.items = [...new_cart.items, new_item];
 			new_cart.total_price += new_item.item_price;
+			new_cart.total_items += 1;
 			dispatch(setCart(new_cart));
 		} else {
 			dispatch(setCart(new_cart));

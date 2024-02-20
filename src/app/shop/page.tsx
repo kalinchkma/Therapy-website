@@ -3,10 +3,20 @@
 import React from 'react';
 import ShopPageComponent from '@/components/Shop';
 
-export default function ShopPage() {
+type Props = {
+	params: {
+		search?: string;
+	};
+};
+
+export default function ShopPage({
+	searchParams,
+}: {
+	searchParams: { search?: string };
+}) {
 	return (
 		<div className='w-full relative'>
-			<ShopPageComponent />
+			<ShopPageComponent search={searchParams.search!} />
 		</div>
 	);
 }

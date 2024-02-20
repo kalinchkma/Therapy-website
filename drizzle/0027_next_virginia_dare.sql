@@ -1,0 +1,1 @@
+ALTER TABLE `product` ADD `title` varchar(256) NOT NULL;

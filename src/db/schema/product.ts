@@ -11,6 +11,7 @@ import {
 
 export const product = mysqlTable('product', {
 	id: bigint('id', { mode: 'number' }).primaryKey().autoincrement(),
+	title: varchar('title', { length: 256 }).notNull(),
 	image: varchar('image', { length: 256 }).notNull(),
 	price: bigint('price', { mode: 'number' }).notNull(),
 	description: text('description').default('None'),

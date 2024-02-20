@@ -10,6 +10,7 @@ import { checkAndGetAuth } from '@/lib/helper_function';
 import StoreProvider from '../store/StoreProvider';
 import { cn } from '@/lib/utils';
 import ShopCart from '@/components/cart';
+import Provider from '@/store/Provider';
 
 const nunito = Nunito({
 	subsets: ['latin'],
@@ -35,7 +36,7 @@ export default async function RootLayout({
 	}
 
 	return (
-		<StoreProvider>
+		<Provider>
 			<html lang='en'>
 				<body className={cn(nunito.className, 'relative')}>
 					<Header auth={hasAuth} authType={userType} />
@@ -44,6 +45,6 @@ export default async function RootLayout({
 					<ShopCart />
 				</body>
 			</html>
-		</StoreProvider>
+		</Provider>
 	);
 }

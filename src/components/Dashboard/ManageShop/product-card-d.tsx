@@ -31,7 +31,7 @@ export default function ProductCardD({ product, className }: ProductCardProps) {
 	return (
 		<div
 			className={cn(
-				'flex items-start justify-center flex-col w-full',
+				'flex items-start justify-center flex-col w-full gap-3',
 				className,
 			)}>
 			<Image
@@ -48,9 +48,11 @@ export default function ProductCardD({ product, className }: ProductCardProps) {
 			{/* product rate */}
 
 			{/* price */}
-			<h5 className='text-zinc-500 font-bold text-lg my-1'>{product.price}</h5>
+			<h5 className='text-zinc-500 font-bold text-lg my-1'>
+				{product.price} Taka
+			</h5>
 			<div className='flex items-center justify-center flex-wrap'>
-				{product.description}
+				<p className=' line-clamp-2'>{product.description}</p>
 			</div>
 			{/* order button */}
 			<div className='flex items-center justify-center w-full gap-2'>

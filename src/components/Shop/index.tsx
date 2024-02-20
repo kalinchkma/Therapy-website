@@ -22,13 +22,16 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from '../ui/pagination';
-import Image from 'next/image';
+
 import ProductCard from '../common/product-card';
 import IconCreator from '../common/icon-creator';
 import { IconType } from '@/lib/definitions';
 import Link from 'next/link';
+import { fetchAllProduct } from '@/methods/product-method';
+import AllProducs from './all-products';
 
-export default function ShopPageComponent() {
+export default async function ShopPageComponent() {
+	const all_products = await fetchAllProduct();
 	return (
 		<div className='w-full'>
 			<PageTitle title='Shop' />
@@ -91,7 +94,9 @@ export default function ShopPageComponent() {
 					<div className='col-span-3 w-full'>
 						<div className='w-full flex items-center justify-between'>
 							{/* result count */}
-							<h5 className='text-base text-zinc-500'>Showing all 7 result</h5>
+							<h5 className='text-base text-zinc-500'>
+								Showing all {all_products.length} result
+							</h5>
 							{/* sort section */}
 							<Select>
 								<SelectTrigger className='w-[200px]'>
@@ -114,17 +119,7 @@ export default function ShopPageComponent() {
 						</div>
 						{/* Shop content */}
 						<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-4 gap-4'>
-							<ProductCard className='col-span-1' />
-							<ProductCard className='col-span-1' />
-							<ProductCard className='col-span-1' />
-							<ProductCard className='col-span-1' />
-							<ProductCard className='col-span-1' />
-							<ProductCard className='col-span-1' />
-							<ProductCard className='col-span-1' />
-							<ProductCard className='col-span-1' />
-							<ProductCard className='col-span-1' />
-							<ProductCard className='col-span-1' />
-							<ProductCard className='col-span-1' />
+							<AllProducs products={all_products} />
 						</div>
 						{/* pagination */}
 						<div className='flex w-full justify-start items-start py-2 bg-zinc-100'>

@@ -17,4 +17,5 @@ export const informations = mysqlTable('informations', {
 	social_links: json('social_links').notNull(),
 	logo: varchar('logo', { length: 256 }).notNull(),
 	website_name: varchar('website_name', { length: 256 }).notNull(),
+	product_shipping_charge: json('product_shipping_charge').default('None'),
 });

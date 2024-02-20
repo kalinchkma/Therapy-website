@@ -16,4 +16,5 @@ export const order = mysqlTable('order', {
 	items_list: json('items_list').notNull(),
 	phone_number: varchar('phone_number', { length: 256 }).notNull(),
 	email: varchar('email', { length: 256 }).default('None'),
+	address: text('address').notNull(),
 });

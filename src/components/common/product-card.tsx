@@ -15,24 +15,49 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setCart } from '@/store/cart';
 
 interface ProductCardProps {
+	product: {
+		id: number;
+		description: string | null;
+		title: string;
+		image: string;
+		price: number;
+	};
+
 	className?: string;
 }
 
-export default function ProductCard({ className }: ProductCardProps) {
+export default function ProductCard({ product, className }: ProductCardProps) {
 	const dispatch = useAppDispatch();
 
 	const { cartDetails } = useAppSelector((state) => state.cart);
 
 	const add_to_cart_handler = () => {
-		const new_cart = { ...cartDetails };
-		const new_item = {
-			item_id: 10,
-			item_price: 99,
-		};
-		new_cart.items = [...new_cart.items, new_item];
-		new_cart.total_price += new_item.item_price;
+		const new_cart = structuredClone(cartDetails);
 
-		dispatch(setCart(new_cart));
+		let already_in_cart: boolean = false;
+		new_cart.items.forEach((item, index) => {
+			if (item.item_id === product.id) {
+				new_cart.items[index].amount += 1;
+				new_cart.total_price += product.price;
+				already_in_cart = true;
+			}
+		});
+
+		if (!already_in_cart) {
+			const new_item = {
+				item_id: product.id,
+				item_price: product.price,
+				title: product.title,
+				image: product.image,
+				amount: 1,
+			};
+
+			new_cart.items = [...new_cart.items, new_item];
+			new_cart.total_price += new_item.item_price;
+			dispatch(setCart(new_cart));
+		} else {
+			dispatch(setCart(new_cart));
+		}
 	};
 
 	return (
@@ -42,7 +67,7 @@ export default function ProductCard({ className }: ProductCardProps) {
 				className,
 			)}>
 			<Image
-				src={'/images/service1.jpg'}
+				src={product.image}
 				width={400}
 				height={400}
 				alt='product image'
@@ -50,7 +75,7 @@ export default function ProductCard({ className }: ProductCardProps) {
 			/>
 			{/* product title */}
 			<h4 className='text-xl text-zinc-700 font-bold mt-4 mb-2'>
-				Medical Tape
+				{product.title}
 			</h4>
 			{/* product rate */}
 			{/* <div className='flex flex-row text-yellow-400'>
@@ -60,7 +85,9 @@ export default function ProductCard({ className }: ProductCardProps) {
 				<IconCreator icon={IconType.Star} />
 			</div> */}
 			{/* price */}
-			<h5 className='text-zinc-500 font-bold text-lg my-1'>$1200</h5>
+			<h5 className='text-zinc-500 font-bold text-lg my-1'>
+				{product.price} Taka
+			</h5>
 			{/* order button */}
 			<div className='flex items-center justify-center w-full'>
 				<Button

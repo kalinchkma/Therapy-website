@@ -1,0 +1,1 @@
+ALTER TABLE `informations` MODIFY COLUMN `product_shipping_charge` json DEFAULT ('None');

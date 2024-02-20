@@ -6,6 +6,7 @@ import {
 	updateEmail,
 	updateLocation,
 	updateOpenningHours,
+	updateShippingCost,
 	updateSocialLinks,
 	updateWebsiteLogo,
 	updateWebsiteName,
@@ -23,14 +24,15 @@ export default function UpdateInformation({
 	information,
 }: {
 	information: {
-		logo: string;
-		location: string;
 		id: number;
 		openning_hours: unknown;
 		emails: string;
+		location: string;
 		contact_numbers: string;
 		social_links: unknown;
+		logo: string;
 		website_name: string;
+		product_shipping_charge: unknown;
 	}[];
 }) {
 	// update log
@@ -89,6 +91,10 @@ export default function UpdateInformation({
 		undefined,
 	);
 
+	// update shipping cost
+	const update_shipping_cost = updateShippingCost.bind(null, information[0].id);
+	const [update_shipping_cost_state, dispatch_update_shipping_cost_state] =
+		useFormState(update_shipping_cost, undefined);
 	return (
 		<div className='w-full grid'>
 			<h1 className='text-xl font-bold flex items-center justify-center border-b mb-5'>
@@ -278,6 +284,36 @@ export default function UpdateInformation({
 				/>
 				{update_social_links_state && (
 					<p className='text-red-400 text-base'>{update_social_links_state}</p>
+				)}
+				<div className='flex w-full	 items-center justify-end'>
+					<Button
+						type='submit'
+						size='icon'
+						className='bg-blue-600 hover:bg-blue-500'>
+						<Upload />
+					</Button>
+				</div>
+			</form>
+			{/* product shipping charge */}
+			<form
+				className='w-full flex flex-col gap-2 mb-4'
+				action={dispatch_update_shipping_cost_state}>
+				<Label htmlFor='shpping-cost' className='text-lg'>
+					Enter product shipping cost
+				</Label>
+				<Textarea
+					rows={5}
+					id='shpping-cost'
+					defaultValue={JSON.stringify(
+						JSON.parse(String(information[0].product_shipping_charge)),
+						undefined,
+						2,
+					).trim()}
+					name='shpping-cost'
+					className='text-xl'
+				/>
+				{update_shipping_cost_state && (
+					<p className='text-red-400 text-base'>{update_shipping_cost_state}</p>
 				)}
 				<div className='flex w-full	 items-center justify-end'>
 					<Button

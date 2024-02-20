@@ -7,6 +7,9 @@ interface Cart {
 	items: {
 		item_id: number;
 		item_price: number;
+		amount: number;
+		title: string;
+		image: string;
 	}[];
 }
 

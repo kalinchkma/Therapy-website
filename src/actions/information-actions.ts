@@ -40,6 +40,10 @@ export async function setupWebInformation() {
 				YouTube: '',
 			},
 			website_name: '',
+			product_shipping_charge: {
+				dhaka: 0,
+				outside_dhaka: 0,
+			},
 		});
 		// close database connection
 		conn.end();
@@ -351,6 +355,50 @@ export async function updateSocialLinks(
 			.update(informations)
 			.set({
 				social_links: JSON.parse(social_links),
+			})
+			.where(eq(informations.id, id));
+		// close connecttion
+		conn.end();
+		revalidatePath('/dashboard/manage-information', 'page');
+	} catch (error) {
+		return 'Internal server error';
+	}
+}
+
+const ShippingCostFormSchema = z.object({
+	shipping_cost: z.string({
+		invalid_type_error: 'Invalid format',
+	}),
+});
+
+// update social links
+export async function updateShippingCost(
+	id: number,
+	prevState: string | undefined,
+	formData: FormData,
+) {
+	// validate inputs
+	const validateFields = ShippingCostFormSchema.safeParse({
+		shipping_cost: formData.get('shpping-cost'),
+	});
+
+	// validate errors
+	if (!validateFields.success) {
+		return 'Invalid format';
+	}
+
+	// else parse input
+	const { shipping_cost } = validateFields.data;
+
+	try {
+		// create db connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		await db
+			.update(informations)
+			.set({
+				product_shipping_charge: JSON.parse(shipping_cost),
 			})
 			.where(eq(informations.id, id));
 		// close connecttion

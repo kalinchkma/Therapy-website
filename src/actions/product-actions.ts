@@ -89,7 +89,7 @@ export async function addNewProduct(
 		product_price: Number(formData.get('product-price')),
 		product_description: formData.get('product-description'),
 	});
-	console.log(formData.get('product-price'));
+
 	// validate inputs
 	if (!validateFields.success) {
 		await deleteFile(image_path);
@@ -127,5 +127,155 @@ export async function addNewProduct(
 			status: 500,
 			message: 'Internal server error',
 		};
+	}
+}
+
+// add new product
+export async function updateProduct(
+	id: number,
+	prevState: ProductFormState | undefined,
+	formData: FormData,
+) {
+	try {
+		// try connect to database
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		const cur_product = await db
+			.select()
+			.from(product)
+			.where(eq(product.id, id));
+
+		if (cur_product.length <= 0) {
+			conn.end();
+			return {
+				status: 500,
+				message: 'Product not found',
+			};
+		} else {
+			let image_path = cur_product[0].image;
+			// validate image input
+			const image = formData.get('product-image') as File;
+
+			// check & save image attacted or not
+			if (image.size > 0) {
+				// delete old image
+				const delete_res = await deleteFile(image_path);
+				if (!delete_res) {
+					conn.end();
+					return {
+						status: 500,
+						message: 'Error deleting old file',
+					};
+				}
+				// save image to disc
+				image_path = `/images/${v4()}${image.name}`;
+				const upload_res = await uploadFile(image, image_path, 50);
+
+				// upload new image
+				if (upload_res === 'Big') {
+					conn.end();
+					return {
+						errors: {
+							product_image: ['Product image is too big'],
+						},
+						status: 400,
+					};
+				} else if (upload_res === 'faild') {
+					conn.end();
+					return {
+						errors: {
+							product_image: ['Failed to upload image'],
+						},
+						status: 400,
+					};
+				}
+			}
+			// validate inputs
+			const validateFields = ProductFormSchema.safeParse({
+				product_title: formData.get('product-title'),
+				product_image: image_path,
+				product_price: Number(formData.get('product-price')),
+				product_description: formData.get('product-description'),
+			});
+
+			// validate inputs
+			if (!validateFields.success) {
+				await deleteFile(image_path);
+				return {
+					errors: validateFields.error.flatten().fieldErrors,
+					status: 400,
+				};
+			}
+			// parse inout
+			const {
+				product_image,
+				product_price,
+				product_title,
+				product_description,
+			} = validateFields.data;
+
+			// insert new product
+			await db
+				.update(product)
+				.set({
+					image: product_image,
+					price: product_price,
+					title: product_title,
+					description: product_description,
+				})
+				.where(eq(product.id, id));
+
+			// close database connection
+			conn.end();
+			revalidatePath('/dashboard/manage-shop', 'page');
+			return {
+				message: 'Product updated successfully',
+				status: 200,
+			};
+		}
+	} catch (error) {
+		return {
+			status: 500,
+			message: 'Internal server error',
+		};
+	}
+}
+
+// delete product post
+export async function deleteProduct(id: number) {
+	try {
+		// connect database
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		// find the product
+		const cur_product = await db
+			.select()
+			.from(product)
+			.where(eq(product.id, id));
+
+		if (cur_product.length <= 0) {
+			conn.end();
+			redirect('/errors');
+		} else {
+			if (cur_product[0].image) {
+				// delete image of product
+				const delete_res = await deleteFile(cur_product[0].image);
+				if (!delete_res) {
+					// end database connection
+					conn.end();
+					redirect('/errors');
+				}
+			}
+			// delete product
+			await db.delete(product).where(eq(product.id, id));
+
+			// close database connection
+			conn.end();
+			revalidatePath('/dashboard/manage-shop', 'page');
+		}
+	} catch (error) {
+		redirect('/errors');
 	}
 }

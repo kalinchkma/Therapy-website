@@ -1,7 +1,7 @@
 /** @format */
 
 import React from 'react';
-import ProductCard from '../common/product-card';
+import ProductCard from './product-card';
 
 type Product = {
 	id: number;

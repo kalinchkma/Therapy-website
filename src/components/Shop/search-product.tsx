@@ -22,11 +22,11 @@ export default function SearchProduct() {
 	}, 300);
 
 	return (
-		<div className='flex flex-row relative '>
+		<div className='flex flex-row relative w-full md:w-auto'>
 			<input
 				type='text'
 				placeholder='Search'
-				className=' rounded-full outline-none pl-5 pr-12 py-3 border-2 text-zinc-500 flex-grow focus:border-blue-300 transition-all w-full'
+				className='rounded-full outline-none pl-5 pr-12 py-3 border-2 text-zinc-500 flex-grow focus:border-blue-300 transition-all w-full'
 				onChange={(e) => {
 					handleChange(e.target.value);
 				}}

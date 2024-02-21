@@ -32,6 +32,25 @@ export default function ShopCart({
 	const { cartDetails } = useAppSelector((state) => state.cart);
 	const [open, setOpen] = useState<boolean>(false);
 
+	// remove item form cart
+	const removeItem = (id: number) => {
+		const new_cart = structuredClone(cartDetails);
+
+		// filter cart
+		const new_items = new_cart.items.filter((item) => {
+			if (item.item_id === id) {
+				new_cart.total_items -= item.amount;
+				new_cart.total_price -= item.item_price * item.amount;
+
+				return false;
+			}
+			return true;
+		});
+		new_cart.items = new_items;
+
+		dispatch(setCart(new_cart));
+	};
+
 	// form state
 	const initialState: OrderFormState = { status: 100 };
 	const [state, dispatch_f] = useFormState(placeOrder, initialState);
@@ -91,16 +110,25 @@ export default function ShopCart({
 											<div
 												className='flex flex-row gap-2 p-2 bg-zinc-50'
 												key={index}>
-												<Image
-													src={item.image}
-													width={100}
-													height={100}
-													alt='item-image'
-												/>
-												<div className='flex flex-col'>
-													<h4>{item.title}</h4>
-													<h5>Price: {item.item_price}</h5>
-													<h6>Amount: {item.amount}x</h6>
+												<div className='flex items-center gap-2'>
+													<Image
+														src={item.image}
+														width={100}
+														height={100}
+														alt='item-image'
+													/>
+													<div className='flex flex-col'>
+														<h4>{item.title}</h4>
+														<h5>Price: {item.item_price}</h5>
+														<h6>Amount: {item.amount}x</h6>
+													</div>
+												</div>
+												<div className='flex flex-col flex-grow items-center justify-center'>
+													<Button
+														variant={'destructive'}
+														onClick={() => removeItem(item.item_id)}>
+														Remove
+													</Button>
 												</div>
 											</div>
 										))}

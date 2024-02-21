@@ -4,7 +4,7 @@
 
 import Image from 'next/image';
 import React from 'react';
-import IconCreator from './icon-creator';
+import IconCreator from '../common/icon-creator';
 import { IconType } from '@/lib/definitions';
 import { cn } from '@/lib/utils';
 

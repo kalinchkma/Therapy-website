@@ -97,3 +97,20 @@ export async function sendMessage(
 		};
 	}
 }
+
+// delete message
+export async function deleteMessage(id: number) {
+	try {
+		// connect database
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		await db.delete(messages).where(eq(messages.id, id));
+
+		// close db connection
+		conn.end();
+		revalidatePath('/dashboard/messages', 'page');
+	} catch (error) {
+		redirect('/errors');
+	}
+}

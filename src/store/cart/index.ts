@@ -2,7 +2,7 @@
 
 import { createSlice, Dispatch } from '@reduxjs/toolkit';
 
-interface Cart {
+export interface Cart {
 	total_price: number;
 	total_items: number;
 	items: {

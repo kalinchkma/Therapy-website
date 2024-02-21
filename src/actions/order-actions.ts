@@ -8,12 +8,12 @@ import { comments } from '@/db/schema/comments';
 import { informations } from '@/db/schema/information';
 import { order } from '@/db/schema/order';
 import { page } from '@/db/schema/page';
-import { deleteFile, uploadFile } from '@/lib/helper_function';
+
 import { and, eq } from 'drizzle-orm';
 import mysql from 'mysql2/promise';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { v4 as uuidv4, v4 } from 'uuid';
+
 import { z } from 'zod';
 
 const OrderFormSchema = z.object({
@@ -149,5 +149,22 @@ export async function placeOrder(
 			status: 500,
 			message: 'Internal server error',
 		};
+	}
+}
+
+// delete order
+export async function deleteOrder(id: number) {
+	try {
+		// connect database
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		await db.delete(order).where(eq(order.id, id));
+
+		// close db connection
+		conn.end();
+		revalidatePath('/dashboard/ordered', 'page');
+	} catch (error) {
+		redirect('/errors');
 	}
 }

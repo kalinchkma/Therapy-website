@@ -10,8 +10,10 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
+import OrderDetails from './order-details';
+import DeleteOrder from './delete-order';
 
-type Order = {
+export type Order = {
 	id: number;
 	name: string;
 	email: string | null;
@@ -42,23 +44,32 @@ export default function OrderTable({ orders }: { orders: Order[] }) {
 			<TableBody>
 				{orders.map((o, index) => (
 					<TableRow key={index}>
-						<TableCell>{o.name}</TableCell>
-						<TableCell>{o.phone_number}</TableCell>
-						<TableCell>{o.email}</TableCell>
-						<TableCell>{o.total_items}</TableCell>
-						<TableCell>{o.total_price}</TableCell>
 						<TableCell>
-							<p className='line-clamp-2'>{o.address}</p>
+							<p className='flex flex-wrap line-clamp-2'>{o.name}</p>
 						</TableCell>
-						<TableCell>{o.region}</TableCell>
+						<TableCell>
+							<p className='flex flex-wrap line-clamp-2'>{o.phone_number}</p>
+						</TableCell>
+						<TableCell>
+							<p className='flex flex-wrap line-clamp-2'>{o.email}</p>
+						</TableCell>
+						<TableCell>
+							<p className='flex flex-wrap line-clamp-2'>{o.total_items}</p>
+						</TableCell>
+						<TableCell>
+							<p className='flex flex-wrap line-clamp-2'>{o.total_price}</p>
+						</TableCell>
+						<TableCell>
+							<p className='line-clamp-2 flex flex-wrap'>{o.address}</p>
+						</TableCell>
+						<TableCell>
+							{' '}
+							<p className='line-clamp-2 flex flex-wrap'>{o.region}</p>
+						</TableCell>
 						<TableCell>
 							<div className='flex flex-wrap gap-1'>
-								<Button className='bg-green-500 hover:bg-green-700' size='sm'>
-									View
-								</Button>
-								<Button variant='destructive' size='sm'>
-									delete
-								</Button>
+								<OrderDetails order={o} />
+								<DeleteOrder id={o.id} />
 							</div>
 						</TableCell>
 					</TableRow>

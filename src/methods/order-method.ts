@@ -17,7 +17,9 @@ export async function getAllOrder() {
 		const all_order = await db.select().from(order);
 		// close connection
 		conn.end();
-		return all_order;
+		return all_order.sort((a, b) => {
+			return b.id - a.id;
+		});
 	} catch (error) {
 		return [];
 	}

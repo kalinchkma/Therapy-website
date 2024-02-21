@@ -56,10 +56,6 @@ export default function ShopCart({
 							<DialogTitle className='text-center text-2xl'>
 								Your Cart
 							</DialogTitle>
-							<DialogDescription className='text-center'>
-								This action cannot be undone. This will permanently delete your
-								account and remove your data from our servers.
-							</DialogDescription>
 						</DialogHeader>
 						<div className='h-full w-full grid grid-cols-1 md:grid-cols-2'>
 							{state.status === 200 ? (

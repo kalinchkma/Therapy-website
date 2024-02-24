@@ -13,6 +13,8 @@ import ShopCart from '@/components/cart';
 import Provider from '@/store/Provider';
 import { getInformations } from '@/methods/information-method';
 
+import { Toaster } from '@/components/ui/toaster';
+
 const nunito = Nunito({
 	subsets: ['latin'],
 	weight: ['200', '300', '400', '500', '700', '800', '900'],
@@ -60,6 +62,7 @@ export default async function RootLayout({
 					{children}
 					{informations.length > 0 && <Footer informations={informations} />}
 					<ShopCart shipping_cost={shipping_cost} />
+					<Toaster />
 				</body>
 			</html>
 		</Provider>

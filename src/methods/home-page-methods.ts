@@ -1,11 +1,10 @@
 /** @format */
 
 import { config, createDBConnection } from '@/db';
-import { blog } from '@/db/schema/blogs';
+
 import { page } from '@/db/schema/page';
 import { and, eq, or } from 'drizzle-orm';
 import mysql from 'mysql2/promise';
-import { redirect } from 'next/navigation';
 
 // fetch home page banner
 export async function fetchBanner() {

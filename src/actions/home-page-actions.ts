@@ -3,8 +3,6 @@
 'use server';
 
 import { config, createDBConnection } from '@/db';
-import { blog } from '@/db/schema/blogs';
-import { comments } from '@/db/schema/comments';
 import { page } from '@/db/schema/page';
 import { deleteFile, uploadFile } from '@/lib/helper_function';
 import { and, eq } from 'drizzle-orm';

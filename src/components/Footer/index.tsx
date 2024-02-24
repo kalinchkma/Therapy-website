@@ -9,23 +9,42 @@ import CopyRight from './copy-right';
 import { IgnoreFooter } from '@/lib/static_data';
 import { usePathname } from 'next/navigation';
 
-export default function Footer() {
+export default function Footer({
+	informations,
+}: {
+	informations: {
+		id: number;
+		openning_hours: unknown;
+		emails: string;
+		location: string;
+		contact_numbers: string;
+		social_links: unknown;
+		logo: string;
+		website_name: string;
+		product_shipping_charge: unknown;
+	}[];
+}) {
 	const pathname = usePathname();
 
 	return (
 		!pathname.startsWith('/dashboard') &&
 		!IgnoreFooter.includes(pathname) && (
-			<footer className='w-full pt-14 bg-pink-900'>
+			<footer className='w-full pt-14 bg-blue-950'>
 				<ContentWrapper className='pb-14'>
 					{/* Contact links */}
-					<ContactLink />
+					{informations.length > 0 && (
+						<ContactLink informations={informations} />
+					)}
 					{/* divider */}
-					<div className='my-14 border-t border-pink-600 w-full' />
+					<div className='my-14 border-t border-blue-900 w-full' />
 					{/* website summary */}
-					<Summary />
+
+					{informations.length > 0 && <Summary informations={informations} />}
 				</ContentWrapper>
 				{/* Copy write */}
-				<CopyRight />
+				{informations.length > 0 && (
+					<CopyRight website_name={informations[0].website_name} />
+				)}
 			</footer>
 		)
 	);

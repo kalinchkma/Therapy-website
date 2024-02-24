@@ -3,22 +3,12 @@
 import React from 'react';
 import { Card, CardContent } from '../ui/card';
 import { cn } from '@/lib/utils';
-import { IoPlayForwardOutline } from 'react-icons/io5';
-import { IoPlayForwardSharp } from 'react-icons/io5';
+
 import { FaPlay } from 'react-icons/fa';
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 
 import ReactPlayer from 'react-player/lazy';
 import Image from 'next/image';
-import { Button } from '../ui/button';
 
 interface ReviewCardProps {
 	children?: React.ReactNode;
@@ -52,8 +42,8 @@ export default function ReviewCard({
 								className='object-cover h-[100%] w-[100%]'
 							/>
 							<div className='absolute transition-all w-full h-full bg-zinc-800 bg-opacity-0 hover:bg-opacity-50 top-0 left-0 flex flex-col gap-2 items-center justify-center'>
-								<button className='py-4 px-5 border border-zinc-500 hover:text-white hover:border-zinc-800 hover:bg-zinc-800 hover:bg-opacity-50 transition-colors'>
-									<FaPlay className='h-8 w-8 text-purple-600' />
+								<button className='py-4 px-5 border border-blue-500 hover:text-white hover:border-blue-800 hover:bg-zinc-800 hover:bg-opacity-50 transition-colors'>
+									<FaPlay className='h-8 w-8 text-blue-600 hover:text-blue-800' />
 								</button>
 							</div>
 						</div>

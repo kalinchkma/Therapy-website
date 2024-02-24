@@ -23,7 +23,7 @@ export default function MemberCard({
 	className,
 }: MemberCardProps) {
 	return (
-		<div className={cn('w-full border', className)}>
+		<div className={cn('w-full border bg-white', className)}>
 			<div className='w-full relative'>
 				<Image
 					src={imageUrl}

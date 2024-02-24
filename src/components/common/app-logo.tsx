@@ -6,17 +6,20 @@ import Logo from '@/assets/logo-2.jpeg';
 // import Logo2 from '@/assets/logo.jpg';
 import Link from 'next/link';
 
-export default function AppLogo() {
+export default function AppLogo({
+	logo,
+	name,
+}: {
+	logo: string;
+	name: string;
+}) {
 	return (
 		<Link href={'/'} className='flex gap-3 items-center justify-start'>
-			{/* <Image src={Logo2} alt='logo' width={400} height={400} /> */}
-			<Image src={Logo} alt='logo' width={50} height={50} />
+			<Image src={logo} alt='logo' width={50} height={50} />
 			<h1 className='text-left'>
-				<span className='font-bold text-lg text-stone-700'>
-					Universal Physiotherapy
-				</span>
+				<span className='font-bold text-lg text-stone-700'>{name}</span>
 				<br />
-				<span className='text-sm font-bold text-stone-400'>& Rehab Center</span>
+				{/* <span className='text-sm font-bold text-stone-400'>& Rehab Center</span> */}
 			</h1>
 		</Link>
 	);

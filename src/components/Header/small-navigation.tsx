@@ -20,7 +20,13 @@ import { cn } from '@/lib/utils';
 import ActionButton from '../common/action-button';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 
-export default function SmallNavigation() {
+export default function SmallNavigation({
+	logo,
+	name,
+}: {
+	logo: string;
+	name: string;
+}) {
 	const pathname = usePathname();
 	return (
 		<div className='flex lg:hidden'>
@@ -31,7 +37,7 @@ export default function SmallNavigation() {
 				<SheetContent side={'left'}>
 					<div className='w-full py-5 px-5'>
 						<DrawerHeader className='flex justify-between'>
-							<AppLogo />
+							<AppLogo logo={logo} name={name} />
 						</DrawerHeader>
 						<div className='pb-0'>
 							<ul>
@@ -41,7 +47,7 @@ export default function SmallNavigation() {
 											href={link.path}
 											className={cn(
 												'flex items-center justify-start font-bold  text-xl text-zinc-700  pb-2 h-10 w-max rounded-md bg-background px-2 py-2 text-md transition-colors hover:bg-accent hover:text-accent-foreground  focus:outline-none disabled:pointer-events-none ',
-												link.path === pathname && 'text-pink-900',
+												link.path === pathname && 'text-blue-900',
 											)}>
 											{link.name}
 										</Link>

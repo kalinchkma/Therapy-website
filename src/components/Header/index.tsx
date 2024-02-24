@@ -11,17 +11,32 @@ import { UsersType } from '@/lib/definitions';
 export default function Header({
 	auth,
 	authType,
+	informations,
 }: {
 	auth?: boolean;
 	authType?: string;
+	informations: {
+		id: number;
+		openning_hours: unknown;
+		emails: string;
+		location: string;
+		contact_numbers: string;
+		social_links: unknown;
+		logo: string;
+		website_name: string;
+		product_shipping_charge: unknown;
+	}[];
 }) {
 	const pathname = usePathname();
 	return !pathname.startsWith('/dashboard') &&
 		!IgnoreNavigation.includes(pathname.trim()) ? (
 		<header className='flex flex-col'>
 			{authType === UsersType.admin && <AdminHeader />}
-			<TopHeader auth={auth} />
-			<Navigation />
+			{informations.length > 0 && (
+				<TopHeader auth={auth} informations={informations} />
+			)}
+
+			<Navigation informations={informations} />
 		</header>
 	) : (
 		<></>

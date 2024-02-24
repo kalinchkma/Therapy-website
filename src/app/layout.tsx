@@ -52,9 +52,13 @@ export default async function RootLayout({
 		<Provider>
 			<html lang='en'>
 				<body className={cn(nunito.className, 'relative')}>
-					<Header auth={hasAuth} authType={userType} />
+					<Header
+						auth={hasAuth}
+						authType={userType}
+						informations={informations}
+					/>
 					{children}
-					<Footer />
+					{informations.length > 0 && <Footer informations={informations} />}
 					<ShopCart shipping_cost={shipping_cost} />
 				</body>
 			</html>

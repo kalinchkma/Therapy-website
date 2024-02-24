@@ -28,7 +28,7 @@ export default async function LatestBlog() {
 			<section className='w-full py-28'>
 				<ContentWrapper>
 					<SectionHeader title='Our Latest blog' />
-					<div className='grid grid-cols-4 gap-10 '>
+					<div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-10 px-5 md:px-0 '>
 						{all_blog.map((blog, index) => (
 							<BlogCard
 								author={blog.author}

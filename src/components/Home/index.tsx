@@ -27,7 +27,11 @@ export default async function HomePageComponent() {
 			{/* Customer review */}
 			<CustomerReview />
 			{/* Meet our Theam */}
-			<Team title='Meet our team' />
+			<Team
+				title='Meet our team'
+				className='bg-blue-900'
+				titleStyles='text-white'
+			/>
 			{/* Location */}
 			<OurLocation />
 			{/* Latest blog */}

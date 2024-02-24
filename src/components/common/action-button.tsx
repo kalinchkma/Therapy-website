@@ -11,7 +11,7 @@ interface ActionButtonProps {
 }
 
 export const ActionButtonStyles =
-	'flex text-wrap bg-pink-800 hover:bg-pink-900 transition-colors py-3 px-5 rounded-3xl text-white font-bold text-sm';
+	'flex text-wrap bg-blue-800 hover:bg-blue-900 transition-colors py-3 px-5 rounded-3xl text-white font-bold text-sm';
 
 export default function ActionButton({
 	className,

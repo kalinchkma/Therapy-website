@@ -77,7 +77,7 @@ export default function SideMenu({
 
 			{/* Categories */}
 			<div className='flex flex-col pb-10'>
-				<h4 className='text-xl text-zinc-600 mb-5 border-b pb-2'>Categories</h4>
+				<h4 className='text-xl text-zinc-600 mb-5 border-b pb-2'>Keywords</h4>
 				<ul className='flex flex-col gap-2 '>
 					{keywords.map((keyword, index) => (
 						<li key={index}>

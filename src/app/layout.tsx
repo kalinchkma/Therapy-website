@@ -14,6 +14,7 @@ import Provider from '@/store/Provider';
 import { getInformations } from '@/methods/information-method';
 
 import { Toaster } from '@/components/ui/toaster';
+import { getAllServices } from '@/methods/services-method';
 
 const nunito = Nunito({
 	subsets: ['latin'],
@@ -50,6 +51,7 @@ export default async function RootLayout({
 			String(informations[0].product_shipping_charge),
 		) as Shipping_cost;
 	}
+	const services = await getAllServices();
 	return (
 		<Provider>
 			<html lang='en'>
@@ -60,7 +62,9 @@ export default async function RootLayout({
 						informations={informations}
 					/>
 					{children}
-					{informations.length > 0 && <Footer informations={informations} />}
+					{informations.length > 0 && (
+						<Footer informations={informations} services={services} />
+					)}
 					<ShopCart shipping_cost={shipping_cost} />
 					<Toaster />
 				</body>

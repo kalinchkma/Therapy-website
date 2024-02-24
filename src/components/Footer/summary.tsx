@@ -8,6 +8,7 @@ import { NavigationLinks, OpenningHours } from '@/lib/static_data';
 
 export default function Summary({
 	informations,
+	services,
 }: {
 	informations: {
 		id: number;
@@ -20,6 +21,17 @@ export default function Summary({
 		website_name: string;
 		product_shipping_charge: unknown;
 	}[];
+	services:
+		| false
+		| {
+				id: number;
+				name: string;
+				description: string | null;
+				price: string | null;
+				thumbnailImage: string;
+				content: string | null;
+				published: number | null;
+		  }[];
 }) {
 	const openning_hours = JSON.parse(String(informations[0].openning_hours)) as {
 		Friday: string;
@@ -30,6 +42,12 @@ export default function Summary({
 		Wednessday: string;
 		Thursday: string;
 	};
+	let slice_service = services;
+	if (services) {
+		if (services.length > 7) {
+			slice_service = services.slice(0, 7);
+		}
+	}
 	return (
 		<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-5'>
 			<div className='col-span-1'>
@@ -57,23 +75,23 @@ export default function Summary({
 				</ul>
 			</div>
 			{/* services */}
-			<div className='col-span-1'>
-				<h5 className='font-bold text-white text-xl mb-5'>Services</h5>
-				<ul>
-					{NavigationLinks.filter(
-						(link) => link.name.toLocaleLowerCase() === 'services',
-					)[0].nestedLinks?.map((link) => (
-						<li key={link.name}>
-							<Link
-								href={link.path}
-								className='flex flex-row items-center justify-start text-zinc-300 gap-2 hover:text-white transition-all'>
-								<IconCreator icon={IconType.RightArrow} />
-								{link.name}
-							</Link>
-						</li>
-					))}
-				</ul>
-			</div>
+			{slice_service && slice_service.length > 0 && (
+				<div className='col-span-1'>
+					<h5 className='font-bold text-white text-xl mb-5'>Services</h5>
+					<ul>
+						{slice_service?.map((service, index) => (
+							<li key={index}>
+								<Link
+									href={`/services/services_8873${service.id}`}
+									className='flex flex-row items-center justify-start text-zinc-300 gap-2 hover:text-white transition-all'>
+									<IconCreator icon={IconType.RightArrow} />
+									{service.name}
+								</Link>
+							</li>
+						))}
+					</ul>
+				</div>
+			)}
 			<div className='col-span-1'>
 				<h5 className='font-bold text-white text-xl mb-5'>Openning Hours</h5>
 				<ul className='flex flex-col gap-2'>

@@ -11,6 +11,7 @@ import { usePathname } from 'next/navigation';
 
 export default function Footer({
 	informations,
+	services,
 }: {
 	informations: {
 		id: number;
@@ -23,6 +24,17 @@ export default function Footer({
 		website_name: string;
 		product_shipping_charge: unknown;
 	}[];
+	services:
+		| false
+		| {
+				id: number;
+				name: string;
+				description: string | null;
+				price: string | null;
+				thumbnailImage: string;
+				content: string | null;
+				published: number | null;
+		  }[];
 }) {
 	const pathname = usePathname();
 
@@ -39,7 +51,9 @@ export default function Footer({
 					<div className='my-14 border-t border-blue-900 w-full' />
 					{/* website summary */}
 
-					{informations.length > 0 && <Summary informations={informations} />}
+					{informations.length > 0 && (
+						<Summary informations={informations} services={services} />
+					)}
 				</ContentWrapper>
 				{/* Copy write */}
 				{informations.length > 0 && (

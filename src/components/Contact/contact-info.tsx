@@ -31,7 +31,7 @@ export default function ContactInfo({
 
 	return (
 		<div className='w-full'>
-			<div className='bg-purple-900 rounded-sm p-8 w-full flex flex-col'>
+			<div className='bg-blue-900 rounded-sm p-8 w-full flex flex-col gap-8'>
 				<div className='flex flex-col items-start justify-center text-zinc-200 '>
 					<h5 className='text-xl font-bold capitalize'>
 						{/* Website name */}

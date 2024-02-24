@@ -176,7 +176,6 @@ export async function login(prevState: LoginState, formData: FormData) {
 	try {
 		// create connection
 		const conn = mysql.createPool(config);
-
 		const db = createDBConnection(conn);
 
 		// Query user from database

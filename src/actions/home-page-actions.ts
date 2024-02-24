@@ -11,7 +11,7 @@ import { and, eq } from 'drizzle-orm';
 import mysql from 'mysql2/promise';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { v4 as uuidv4, v4 } from 'uuid';
+import { v4 } from 'uuid';
 import { z } from 'zod';
 
 export type Content = {

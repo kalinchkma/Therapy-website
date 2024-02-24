@@ -56,6 +56,7 @@ export default function Summary({
 					))}
 				</ul>
 			</div>
+			{/* services */}
 			<div className='col-span-1'>
 				<h5 className='font-bold text-white text-xl mb-5'>Services</h5>
 				<ul>

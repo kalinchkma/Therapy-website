@@ -5,6 +5,7 @@ import {
 	SendMessageFormState,
 	sendMessage,
 } from '@/actions/send-message-actions';
+import { MessageCircle } from 'lucide-react';
 import React, { useEffect } from 'react';
 import { useFormState } from 'react-dom';
 
@@ -33,7 +34,7 @@ export default function ContactForm() {
 						type='test'
 						placeholder='Enter your name...'
 						name='name'
-						className='border py-3 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50'
+						className='border py-3 px-4 flex-1 outline-none focus:border-blue-400 bg-zinc-50'
 						required={true}
 					/>
 					{state.errors?.name && (
@@ -45,7 +46,7 @@ export default function ContactForm() {
 						type='test'
 						placeholder='Subject...'
 						name='subject'
-						className='border w-full py-3 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50'
+						className='border w-full py-3 px-4 flex-1 outline-none focus:border-blue-400 bg-zinc-50'
 						required={true}
 					/>
 					{state.errors?.subject && (
@@ -59,7 +60,7 @@ export default function ContactForm() {
 						type='email'
 						name='email'
 						placeholder='Enter your Email...'
-						className='border py-3 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50'
+						className='border py-3 px-4 flex-1 outline-none focus:border-blue-400 bg-zinc-50'
 						required={true}
 					/>
 					{state.errors?.email && (
@@ -71,7 +72,7 @@ export default function ContactForm() {
 						type='test'
 						placeholder='Phone Number...'
 						name='phone-number'
-						className='border  py-3 px-4 flex-1 outline-none focus:border-zinc-400 bg-zinc-50'
+						className='border  py-3 px-4 flex-1 outline-none focus:border-blue-400 bg-zinc-50'
 						required={true}
 					/>
 					{state.errors?.phone_number && (
@@ -82,7 +83,7 @@ export default function ContactForm() {
 			<div className='flex flex-col w-full'>
 				<textarea
 					name='message'
-					className='outline-none w-full border focus:border-zinc-400 py-3 px-4 h-40 resize-none'
+					className='outline-none w-full border focus:border-blue-400 py-3 px-4 h-40 resize-none'
 					placeholder='Write a Message.....'
 				/>
 				{state.errors?.message && (
@@ -91,9 +92,9 @@ export default function ContactForm() {
 			</div>
 			<div className='flex w-full justify-end'>
 				<button
-					className='rounded-full py-4 px-6 bg-purple-800 hover:bg-purple-900 transition-all font-bold text-zinc-50'
+					className='rounded-full flex items-center justify-center gap-4 py-4 px-6 bg-blue-800 hover:bg-blue-900 transition-all font-bold text-zinc-50'
 					type='submit'>
-					Send Message
+					Send Message <MessageCircle className='h-5 w-5' />
 				</button>
 			</div>
 		</form>

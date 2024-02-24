@@ -202,6 +202,7 @@ export async function updateProduct(
 			// validate inputs
 			if (!validateFields.success) {
 				await deleteFile(image_path);
+				conn.end();
 				return {
 					errors: validateFields.error.flatten().fieldErrors,
 					status: 400,

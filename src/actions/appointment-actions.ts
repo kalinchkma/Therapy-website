@@ -66,7 +66,6 @@ export async function createAppointment(
 	prevState: AppointmentState | undefined,
 	formData: FormData,
 ) {
-	console.log(formData.get('selected-service'));
 	// validate inputs
 	const validateFields = AppointmentFormSchema.safeParse({
 		paitent_name: formData.get('paitent-name'),
@@ -190,7 +189,6 @@ export async function createAppointment(
 				'You have successfully submited you appointment, we will contact to you',
 		};
 	} catch (error) {
-		console.log(error);
 		return {
 			status: 500,
 			message: 'Internal server error',

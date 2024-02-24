@@ -14,8 +14,24 @@ import ContactInfo from './contact-info';
 import ContactForm from './contact-form';
 import { getInformations } from '@/methods/information-method';
 
+type Openning = {
+	Friday: string;
+	Saturday: string;
+	Sunday: string;
+	Monday: string;
+	Tuesday: string;
+	Wednessday: string;
+	Thursday: string;
+};
+
 export default async function ContactPageComponent() {
 	const getInformation = await getInformations();
+	let openning_hours: Openning | null = null;
+	if (getInformation.length > 0) {
+		openning_hours = JSON.parse(
+			String(getInformation[0].openning_hours),
+		) as Openning;
+	}
 	return (
 		<div className='w-full'>
 			<PageTitle title='Contact' />
@@ -39,21 +55,23 @@ export default async function ContactPageComponent() {
                         openning hours 
                         -------------------------------------------------
                         */}
-						<div className='w-full flex flex-col mt-10'>
-							<h5 className='text-2xl  capitalize mb-8'>
-								Openning <span className='font-bold'>Hours</span>
-							</h5>
-							<ul className='flex flex-col items-start justify-center w-full p-4 bg-zinc-200'>
-								{OpenningHours.map((data) => (
-									<li
-										key={data.day}
-										className='w-full flex flex-row lg:justify-between items-center gap-2 text-zinc-500 border-b border-dashed border-zinc-400 py-2'>
-										<span>{data.day}</span>
-										<span>{data.openningHours}</span>
-									</li>
-								))}
-							</ul>
-						</div>
+						{openning_hours && (
+							<div className='w-full flex flex-col mt-10'>
+								<h5 className='text-2xl  capitalize mb-8'>
+									Openning <span className='font-bold'>Hours</span>
+								</h5>
+								<ul className='flex flex-col items-start justify-center w-full p-6 bg-blue-900'>
+									{Object.entries(openning_hours).map(([key, value], index) => (
+										<li
+											key={index}
+											className='w-full flex flex-row lg:justify-between items-center gap-2 text-zinc-200 border-b border-dashed border-white py-2'>
+											<span>{key}</span>
+											<span>{value}</span>
+										</li>
+									))}
+								</ul>
+							</div>
+						)}
 					</div>
 					{/*
                     ------------------------------------------------------
@@ -73,12 +91,13 @@ export default async function ContactPageComponent() {
 						{/* send message secttion */}
 						<div className='flex flex-col items-start justify-center w-full'>
 							<h4 className='text-2xl text-zinc-700 py-6'>
-								Send <span className='font-bold'>us a Message</span>
+								আমাদের <span className='font-bold'>একটি বার্তা পাঠান</span>
 							</h4>
 							<p className='text-zinc-600 text-base'>
-								Feel free to ask any questions over the phone, or get in touch
-								via our contact form below. Your message will be dispatched
-								directly to our staff who will answer as soon as they can.
+								ফোনে কোনও প্রশ্ন জিজ্ঞাসা করতে নির্দ্বিধায়, অথবা নীচের আমাদের
+								যোগাযোগ ফর্মের মাধ্যমে যোগাযোগ করুন। আপনার বার্তাটি সরাসরি
+								আমাদের কর্মীদের কাছে প্রেরণ করা হবে যারা যত তাড়াতাড়ি সম্ভব
+								উত্তর দেবে।
 							</p>
 							<div className='flex w-full items-center justify-start p-10 bg-zinc-100 my-10 '>
 								<ContactForm />

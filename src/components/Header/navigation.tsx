@@ -28,7 +28,7 @@ export default function Navigation({
 	const [sticky, setSticky] = useState<boolean>(false);
 	useEffect(() => {
 		const add_event = () => {
-			if (window.scrollY > 280) {
+			if (window.scrollY > 200) {
 				setSticky(true);
 			} else {
 				setSticky(false);
@@ -44,7 +44,7 @@ export default function Navigation({
 		<nav
 			className={cn(
 				'w-full z-50 bg-white',
-				sticky && 'fixed top-0 left-0 shadow-2xl',
+				sticky && 'fixed top-0 left-0 shadow-2xl ',
 			)}>
 			<ContentWrapper
 				className={cn('flex flex-row py-5', sticky && 'py-3', className)}>

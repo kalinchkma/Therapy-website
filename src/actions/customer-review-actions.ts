@@ -130,6 +130,7 @@ export async function editCustomerReview(
 			.from(customer_review)
 			.where(eq(customer_review.id, id));
 		if (cur_rev.length <= 0) {
+			conn.end();
 			return {
 				status: 500,
 				message: 'Internal server error',

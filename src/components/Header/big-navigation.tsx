@@ -64,13 +64,12 @@ export default function BigNavigationMenu() {
 						</NavigationMenuLink>
 					</NavigationMenuItem>
 				))}
-
-				<ActionButton
-					link='/appointment'
-					title='Book Appointment'
-					className='ml-5'
-				/>
 			</NavigationMenuList>
+			<ActionButton
+				link='/appointment'
+				title='Book Appointment'
+				className='ml-5'
+			/>
 		</NavigationMenu>
 	);
 }

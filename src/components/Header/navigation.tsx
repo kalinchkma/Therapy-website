@@ -25,13 +25,13 @@ export default function Navigation({
 		product_shipping_charge: unknown;
 	}[];
 }) {
-	const [sticy, setSticy] = useState<boolean>(false);
+	const [sticky, setSticky] = useState<boolean>(false);
 	useEffect(() => {
 		const add_event = () => {
 			if (window.scrollY > 280) {
-				setSticy(true);
+				setSticky(true);
 			} else {
-				setSticy(false);
+				setSticky(false);
 			}
 		};
 		window.addEventListener('scroll', add_event);
@@ -44,10 +44,10 @@ export default function Navigation({
 		<nav
 			className={cn(
 				'w-full z-50 bg-white',
-				sticy && 'fixed top-0 left-0 shadow-2xl',
+				sticky && 'fixed top-0 left-0 shadow-2xl',
 			)}>
 			<ContentWrapper
-				className={cn('flex flex-row py-5', sticy && 'py-3', className)}>
+				className={cn('flex flex-row py-5', sticky && 'py-3', className)}>
 				{/* logo */}
 				<div className='flex'>
 					{informations.length > 0 && (

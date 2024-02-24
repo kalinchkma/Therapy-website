@@ -18,36 +18,30 @@ import AppLogo from '../common/app-logo';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import ActionButton from '../common/action-button';
+import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 
 export default function SmallNavigation() {
 	const pathname = usePathname();
 	return (
 		<div className='flex lg:hidden'>
-			<Drawer direction='left'>
-				<DrawerTrigger asChild>
-					<Button variant='outline' size='icon'>
-						<AlignRight />
-					</Button>
-				</DrawerTrigger>
-				<DrawerContent>
-					<div className='w-full py-8 px-8'>
+			<Sheet>
+				<SheetTrigger>
+					<AlignRight />
+				</SheetTrigger>
+				<SheetContent side={'left'}>
+					<div className='w-full py-5 px-5'>
 						<DrawerHeader className='flex justify-between'>
 							<AppLogo />
-							<DrawerClose asChild>
-								<Button variant='outline' size='icon'>
-									<Close />
-								</Button>
-							</DrawerClose>
 						</DrawerHeader>
-						<div className='p-4 pb-0'>
+						<div className='pb-0'>
 							<ul>
 								{NavigationLinks.map((link) => (
 									<li key={link.name + link.path}>
 										<Link
 											href={link.path}
 											className={cn(
-												'flex items-center justify-start font-bold  text-xl text-zinc-700  pb-2 h-10 w-max rounded-md bg-background px-4 py-2 text-md transition-colors hover:bg-accent hover:text-accent-foreground  focus:outline-none disabled:pointer-events-none ',
-												link.path === pathname && 'text-blue-900',
+												'flex items-center justify-start font-bold  text-xl text-zinc-700  pb-2 h-10 w-max rounded-md bg-background px-2 py-2 text-md transition-colors hover:bg-accent hover:text-accent-foreground  focus:outline-none disabled:pointer-events-none ',
+												link.path === pathname && 'text-pink-900',
 											)}>
 											{link.name}
 										</Link>
@@ -59,8 +53,8 @@ export default function SmallNavigation() {
 							</div>
 						</div>
 					</div>
-				</DrawerContent>
-			</Drawer>
+				</SheetContent>
+			</Sheet>
 		</div>
 	);
 }

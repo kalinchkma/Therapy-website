@@ -30,9 +30,10 @@ export default async function ServiceSummary() {
 		}
 	}
 	return (
-		<section className='w-full py-28'>
+		<section className='w-full py-28 '>
 			<ContentWrapper className=' flex items-center justify-center'>
 				<div className='w-full grid md:grid-cols-3 lg:grid-cols-4 gap-8'>
+					{/* appointment section */}
 					<div className='md:col-span-3 lg:col-span-1'>
 						<div className='flex w-full flex-col'>
 							<h4 className='text-4xl font-bold capitalize mb-8'>

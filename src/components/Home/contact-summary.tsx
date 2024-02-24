@@ -21,19 +21,19 @@ type Props = {
 
 export default async function ContactSummary({ information }: Props) {
 	return (
-		<section className='w-full bg-stone-100 py-28'>
+		<section className='w-full bg-pink-900 py-28'>
 			<ContentWrapper>
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
 					<div className='col-span-1'>
 						<div className='flex w-full flex-col'>
-							<h4 className='flex items-center text-zinc-500 justify-start text-xl md:text-2xl lg:text-3xl font-extrabold gap-2 mb-8 capitalize'>
+							<h4 className='flex items-center text-blue-100 justify-start text-xl md:text-2xl lg:text-3xl font-extrabold gap-2 mb-8 capitalize'>
 								<IconCreator icon={IconType.Schedule} />
 								<span>appointment</span>
 							</h4>
-							<h5 className='font-bold text-base mb-4'>
+							<h5 className='font-bold text-base mb-4 text-blue-50'>
 								অ্যাপয়েন্টমেন্ট বুক করুন
 							</h5>
-							<p className='text-zinc-500 mb-3'>
+							<p className='text-white mb-3'>
 								বিশ্বমানের ফিজিওথেরাপি, আমরা আপনার জন্য এখানে সকাল 10 টা থেকে
 								রাত 10 টা পর্যন্ত, দয়া করে এখানে আপনার অনুমোদন জমা দিন
 							</p>
@@ -41,6 +41,7 @@ export default async function ContactSummary({ information }: Props) {
 								<MoreBtn
 									link={'/appointment'}
 									title='অ্যাপয়েন্টমেন্ট বুক করুন'
+									className='text-white bg-pink-950 py-2 px-4 flex items-center justify-center rounded-full'
 								/>
 							</div>
 						</div>

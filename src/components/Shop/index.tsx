@@ -25,9 +25,9 @@ export default async function ShopPageComponent({
 					{ name: 'Shop', url: '/shop' },
 				]}
 			/>
-			<ContentWrapper className='py-12 '>
+			{/* <ContentWrapper className='py-12 '>
 				<ShopWrapper all_products={all_products} />
-			</ContentWrapper>
+			</ContentWrapper> */}
 		</div>
 	);
 }

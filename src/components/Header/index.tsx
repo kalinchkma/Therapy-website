@@ -16,14 +16,14 @@ export default function Header({
 	authType?: string;
 }) {
 	const pathname = usePathname();
-	return (
-		!pathname.startsWith('/dashboard') &&
-		!IgnoreNavigation.includes(pathname.trim()) && (
-			<header className='flex flex-col'>
-				{authType === UsersType.admin && <AdminHeader />}
-				<TopHeader auth={auth} />
-				<Navigation />
-			</header>
-		)
+	return !pathname.startsWith('/dashboard') &&
+		!IgnoreNavigation.includes(pathname.trim()) ? (
+		<header className='flex flex-col'>
+			{authType === UsersType.admin && <AdminHeader />}
+			<TopHeader auth={auth} />
+			<Navigation />
+		</header>
+	) : (
+		<></>
 	);
 }

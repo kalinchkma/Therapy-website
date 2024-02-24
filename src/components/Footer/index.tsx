@@ -15,12 +15,12 @@ export default function Footer() {
 	return (
 		!pathname.startsWith('/dashboard') &&
 		!IgnoreFooter.includes(pathname) && (
-			<footer className='w-full pt-14 bg-zinc-800'>
+			<footer className='w-full pt-14 bg-pink-900'>
 				<ContentWrapper className='pb-14'>
 					{/* Contact links */}
 					<ContactLink />
 					{/* divider */}
-					<div className='my-14 border-t border-zinc-600 w-full' />
+					<div className='my-14 border-t border-pink-600 w-full' />
 					{/* website summary */}
 					<Summary />
 				</ContentWrapper>

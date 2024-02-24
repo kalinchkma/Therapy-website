@@ -52,41 +52,16 @@ export default function BigNavigationMenu() {
 	return (
 		<NavigationMenu className='hidden lg:flex'>
 			<NavigationMenuList>
-				{/* items with nested links */}
-				{/* <NavigationMenuItem>
-					<NavigationMenuTrigger>Components</NavigationMenuTrigger>
-					<NavigationMenuContent>
-						<ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] '>
-							{components.map((component) => (
-								<ListItem
-									key={component.title}
-									title={component.title}
-									href={component.href}>
-									{component.description}
-								</ListItem>
-							))}
-						</ul>
-					</NavigationMenuContent>
-				</NavigationMenuItem> */}
-				{/* item without nested links */}
-				{/* <NavigationMenuItem>
-					<Link href='/docs' legacyBehavior passHref>
-						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
-							Documentation
-						</NavigationMenuLink>
-					</Link>
-				</NavigationMenuItem> */}
 				{NavigationLinks.map((link) => (
 					<NavigationMenuItem key={link.name}>
-						<Link href={link.path} legacyBehavior passHref>
-							<NavigationMenuLink
-								className={cn(
-									'group inline-flex h-10 w-max items-center justify-center px-3 text-sm font-bold text-zinc-700 transition-colors hover:text-blue-800',
-									link.path === pathname && 'text-blue-800',
-								)}>
-								{link.name}
-							</NavigationMenuLink>
-						</Link>
+						<NavigationMenuLink
+							href={link.path}
+							className={cn(
+								'group inline-flex h-10 w-max items-center justify-center px-3 text-sm font-bold text-zinc-700 transition-colors hover:text-pink-800',
+								link.path === pathname && 'text-pink-800',
+							)}>
+							{link.name}
+						</NavigationMenuLink>
 					</NavigationMenuItem>
 				))}
 

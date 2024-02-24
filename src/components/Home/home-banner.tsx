@@ -15,11 +15,16 @@ import BannerContent from './banner-content';
 import { BannserSlideData } from '@/lib/static_data';
 import { fetchBanner } from '@/methods/home-page-methods';
 import { Content } from '@/actions/home-page-actions';
+import { cn } from '@/lib/utils';
 
-export default async function HomePageBanner() {
+export default async function HomePageBanner({
+	className,
+}: {
+	className?: string;
+}) {
 	const banners = await fetchBanner();
 	return (
-		<section className='w-full'>
+		<section className={cn('w-full', className)}>
 			<Carousel opts={{ loop: true }}>
 				<CarouselContent>
 					{banners.map((data, index) => {
@@ -28,7 +33,7 @@ export default async function HomePageBanner() {
 							<CarouselItem key={index}>
 								<PageBanner
 									bgImageUrl={banner.image}
-									className='h-[50vh] md:h-[75vh] p-3 container'>
+									className='h-[50vh] md:h-[80vh] p-3 container'>
 									<BannerContent
 										bannerTitle={banner.title}
 										bannerSecondaryTitle={banner.subTitle}

@@ -95,8 +95,8 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 				<Button
 					onClick={add_to_cart_handler}
 					type='button'
-					className='bg-purple-700 hover:bg-purple-800 flex items-center justify-center gap-1'>
-					Add to cart <ShoppingBasket className='h-4 w-4' />
+					className='bg-blue-700 hover:bg-blue-800 flex items-center justify-center gap-1'>
+					<ShoppingBasket className='h-4 w-4' /> Add to cart
 				</Button>
 			</div>
 		</div>

@@ -7,6 +7,7 @@ import Navigation from './navigation';
 import TopHeader from './top-header';
 import AdminHeader from './admin-header';
 import { UsersType } from '@/lib/definitions';
+import { useEffect, useState } from 'react';
 
 export default function Header({
 	auth,

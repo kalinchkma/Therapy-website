@@ -57,7 +57,7 @@ export default function BigNavigationMenu() {
 						<NavigationMenuLink
 							href={link.path}
 							className={cn(
-								'group inline-flex h-10 w-max items-center justify-center px-3 text-sm font-bold text-zinc-700 transition-colors hover:text-blue-800',
+								'group inline-flex h-10 w-max items-center justify-center px-3 text-[14px] font-bold text-zinc-700 transition-colors hover:text-blue-800',
 								link.path === pathname && 'text-blue-800',
 							)}>
 							{link.name}
@@ -68,7 +68,7 @@ export default function BigNavigationMenu() {
 				<ActionButton
 					link='/appointment'
 					title='Book Appointment'
-					className='ml-4'
+					className='ml-5'
 				/>
 			</NavigationMenuList>
 		</NavigationMenu>

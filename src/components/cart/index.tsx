@@ -31,6 +31,7 @@ export default function ShopCart({
 	const dispatch = useAppDispatch();
 	const { cartDetails } = useAppSelector((state) => state.cart);
 	const [open, setOpen] = useState<boolean>(false);
+	const [show, setShow] = useState<boolean>(false);
 
 	// remove item form cart
 	const removeItem = (id: number) => {
@@ -51,12 +52,21 @@ export default function ShopCart({
 		dispatch(setCart(new_cart));
 	};
 
+	useEffect(() => {
+		if (cartDetails.items.length > 0) {
+			setShow(true);
+		}
+		if (cartDetails.items.length <= 0) {
+			setShow(false);
+		}
+	}, [cartDetails]);
+
 	// form state
 	const initialState: OrderFormState = { status: 100 };
 	const [state, dispatch_f] = useFormState(placeOrder, initialState);
 
 	return (
-		cartDetails.items.length > 0 && (
+		show && (
 			<div className='fixed bottom-[15%] right-[4%]'>
 				<Dialog open={open}>
 					<Button
@@ -64,7 +74,7 @@ export default function ShopCart({
 						size={'icon'}
 						className='relative flex items-center justify-center  bg-green-600 hover:bg-green-700 text-white rounded-lg'>
 						<span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75'></span>
-						<span className='flex items-center justify-center absolute top-[-10px] right-0 p-1 bg-purple-700 rounded-full'>
+						<span className='flex items-center justify-center absolute top-[-10px] right-0 p-1 bg-blue-700 rounded-full'>
 							{cartDetails.total_items}
 						</span>
 						<ShoppingCart className='h-6 w-6' />

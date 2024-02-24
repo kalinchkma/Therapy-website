@@ -12,7 +12,7 @@ export default function DashboardHeader({ className }: { className?: string }) {
 	return (
 		<div
 			className={cn(
-				'w-full flex justify-between items-center h-[60px] px-4 bg-zinc-50',
+				'w-full flex justify-between items-center h-[60px] px-4 bg-zinc-50 shadow-sm',
 				className,
 			)}>
 			<h2 className='font-bold text-blue-900 text-lg flex items-center justify-start gap-2 '>
@@ -25,16 +25,6 @@ export default function DashboardHeader({ className }: { className?: string }) {
 						</span>
 					))}
 			</h2>
-			<div className='inline-flex items-center justify-center'>
-				<Image
-					src={'/images/slide1.jpg'}
-					width={'40'}
-					height={'40'}
-					alt='image'
-					className='min-w-[40px] min-h-[40px] object-cover rounded-full border-2 border-blue-600 cursor-pointer'
-					title='Hunter'
-				/>
-			</div>
 		</div>
 	);
 }

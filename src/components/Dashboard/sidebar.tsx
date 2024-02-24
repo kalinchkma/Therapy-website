@@ -24,8 +24,8 @@ export default function Sidebar({ logout }: { logout: () => Promise<void> }) {
 	return (
 		<div
 			className={cn(
-				'w-full h-[100vh] transition-all border-r border-transparent ',
-				sidebarOpen && 'border-zinc-200 bg-zinc-50',
+				'w-full transition-all border-r border-transparent',
+				sidebarOpen && 'border-zinc-200 bg-zinc-50 ',
 			)}>
 			{/* sidebar header */}
 			<div
@@ -51,12 +51,12 @@ export default function Sidebar({ logout }: { logout: () => Promise<void> }) {
 			</div>
 			<div
 				className={cn(
-					'flex flex-col justify-between w-0 p-4 overflow-hidden',
+					'flex flex-col justify-between w-0 h-[90vh] overflow-auto',
 					sidebarOpen && 'w-[250px] transition-all overflow-auto',
 				)}>
 				<ul
 					className={cn(
-						'flex flex-col gap-3 flex-grow',
+						'flex flex-col p-4 gap-3 flex-grow',
 						sidebarOpen ? 'w-auto overflow-auto' : 'w-0 overflow-hidden',
 					)}>
 					{DashboardNavigation.map((navigation, index) => (

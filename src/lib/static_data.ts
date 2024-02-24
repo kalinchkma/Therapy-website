@@ -523,6 +523,11 @@ export const DashboardNavigation: DashboardNavigationType[] = [
 		icon: IconType.Schedule,
 	},
 	{
+		title: 'Image Gellary',
+		link: '/dashboard/image-gellary',
+		icon: IconType.Pages,
+	},
+	{
 		title: 'Visite Website',
 		link: '/',
 		icon: IconType.House,

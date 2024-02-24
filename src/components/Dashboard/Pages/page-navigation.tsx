@@ -12,7 +12,7 @@ export default function PageNavigation() {
 	const pathname = usePathname();
 
 	return (
-		<ul className='flex flex-wrap w-full justify-start items-center'>
+		<ul className='flex flex-wrap w-full justify-start items-center border-b py-2 my-4'>
 			{NavigationLinks.map((nav, index) => (
 				<li key={index}>
 					<Link

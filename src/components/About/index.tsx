@@ -6,13 +6,26 @@ import PageBreadcrumb from '../common/page-breadcrumb';
 import ContentWrapper from '../common/content-wrapper';
 import Image from 'next/image';
 import Team from '../common/team';
+import { getPageBanner } from '@/methods/page-banner-mothod';
+import { Banner } from '@/actions/page-banner-actions';
 
-export default function AboutPageComponent() {
+export default async function AboutPageComponent() {
+	const get_banner = await getPageBanner("about");
+
+	let page_banner: Banner = {};
+	if (get_banner.length > 0) {
+		page_banner = JSON.parse(String(get_banner[0].content)) as Banner
+	}
 	return (
 		<div className='w-full'>
 			<PageTitle
-				title='About Us'
-				description='We offer physiotherapy service since 2017'
+				description={page_banner.subTitle ? page_banner.subTitle : 'We offer physiotherapy service since 2017'}
+				title={page_banner.title ? page_banner.title : "About Us"}
+				className='py-0'
+				bgImageUrl={page_banner.bgImage}
+				overlayStyles='bg-zinc-800 py-28 bg-opacity-70'
+				titleStyle='text-white'
+				
 			/>
 			<PageBreadcrumb
 				paths={[

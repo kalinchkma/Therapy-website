@@ -13,9 +13,9 @@ import { v4 } from 'uuid';
 import { z } from 'zod';
 
 export type Banner = {
-	title: string;
-	subTitle: string;
-	bgImage: string;
+	title?: string;
+	subTitle?: string;
+	bgImage?: string;
 };
 
 // setup banner section

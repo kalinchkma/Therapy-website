@@ -12,7 +12,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { useFormState } from 'react-dom';
 
-export default function AboutBanner({
+export default function BlogBanner({
 	banner,
 }: {
 	banner: {
@@ -63,7 +63,7 @@ export default function AboutBanner({
 
 	// update state
 	const initialState: BannerUpdateState = { status: 100 };
-	const update_function = pageBannerUpdate.bind(null, banner.id, 'about');
+	const update_function = pageBannerUpdate.bind(null, banner.id, 'blog');
 	const [state, dispatch] = useFormState(update_function, initialState);
 
 	return (

@@ -27,11 +27,11 @@ export default function ContactLink({
 	const contact_numbers = informations[0].contact_numbers.split(',');
 	const location = informations[0].location;
 	const social_links = JSON.parse(String(informations[0].social_links)) as {
-		Facebook: string;
-		Instagram: string;
-		Twitter: string;
-		LinkedIn: string;
-		YouTube: string;
+		Facebook?: string;
+		Instagram?: string;
+		Twitter?: string;
+		LinkedIn?: string;
+		YouTube?: string;
 	};
 
 	return (

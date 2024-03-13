@@ -11,6 +11,7 @@ import ContentWrapper from '../common/content-wrapper';
 export default function Navigation({
 	className,
 	informations,
+	host,
 }: {
 	className?: string;
 	informations: {
@@ -24,6 +25,7 @@ export default function Navigation({
 		website_name: string;
 		product_shipping_charge: unknown;
 	}[];
+	host: string;
 }) {
 	const [sticky, setSticky] = useState<boolean>(false);
 	useEffect(() => {
@@ -52,7 +54,7 @@ export default function Navigation({
 				<div className='flex'>
 					{informations.length > 0 && (
 						<AppLogo
-							logo={informations[0].logo}
+							logo={`${host}${informations[0].logo}`}
 							name={informations[0].website_name}
 						/>
 					)}

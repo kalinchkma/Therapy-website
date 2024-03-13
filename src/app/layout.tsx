@@ -60,6 +60,7 @@ export default async function RootLayout({
 						auth={hasAuth}
 						authType={userType}
 						informations={informations}
+						host={process.env.HOST!}
 					/>
 					{children}
 					{informations.length > 0 && (

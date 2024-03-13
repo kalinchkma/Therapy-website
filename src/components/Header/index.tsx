@@ -13,6 +13,7 @@ export default function Header({
 	auth,
 	authType,
 	informations,
+	host,
 }: {
 	auth?: boolean;
 	authType?: string;
@@ -27,6 +28,7 @@ export default function Header({
 		website_name: string;
 		product_shipping_charge: unknown;
 	}[];
+	host: string;
 }) {
 	const pathname = usePathname();
 	return !pathname.startsWith('/dashboard') &&
@@ -37,7 +39,7 @@ export default function Header({
 				<TopHeader auth={auth} informations={informations} />
 			)}
 
-			<Navigation informations={informations} />
+			<Navigation informations={informations} host={host} />
 		</header>
 	) : (
 		<></>

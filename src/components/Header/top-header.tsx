@@ -10,6 +10,7 @@ import { IoMdTimer } from 'react-icons/io';
 
 import ContentWrapper from '../common/content-wrapper';
 import { PhoneCall } from 'lucide-react';
+import SocialLinkCreator2 from '../common/social-link-2';
 
 export default function TopHeader({
 	className,
@@ -31,6 +32,15 @@ export default function TopHeader({
 	}[];
 }) {
 	const contact_numbers = informations[0].contact_numbers.split(',');
+
+	const social_links = JSON.parse(String(informations[0].social_links)) as {
+		Facebook?: string;
+		Instagram?: string;
+		Twitter?: string;
+		LinkedIn?: string;
+		YouTube?: string;
+	};
+
 	return (
 		<nav className='bg-blue-900 py-1 w-full text-white'>
 			<ContentWrapper
@@ -59,15 +69,51 @@ export default function TopHeader({
 				<div className='flex gap-3'>
 					<div className='flex'>
 						<ul className='flex items-center justify-end gap-4'>
-							{SocialLinks.map((link) => (
-								<li key={link.title}>
-									<SocialLinkCreator
-										icon={link.icon}
-										link={link.link}
-										className='font-bold text-xl text-white'
+							{social_links.Facebook && (
+								<li>
+									<SocialLinkCreator2
+										title='facebook'
+										link={social_links.Facebook}
+										className='text-zinc-200 text-3xl hover:text-zinc-100 transition-colors'
 									/>
 								</li>
-							))}
+							)}
+							{social_links.Instagram && (
+								<li>
+									<SocialLinkCreator2
+										title='instagram'
+										link={social_links.Instagram}
+										className='text-zinc-200 text-3xl hover:text-zinc-100 transition-colors'
+									/>
+								</li>
+							)}
+							{social_links.LinkedIn && (
+								<li>
+									<SocialLinkCreator2
+										title='linkedin'
+										link={social_links.LinkedIn}
+										className='text-zinc-200 text-3xl hover:text-zinc-100 transition-colors'
+									/>
+								</li>
+							)}
+							{social_links.Twitter && (
+								<li>
+									<SocialLinkCreator2
+										title='Twitter'
+										link={social_links.Twitter}
+										className='text-zinc-200 text-3xl hover:text-zinc-100 transition-colors'
+									/>
+								</li>
+							)}
+							{social_links.YouTube && (
+								<li>
+									<SocialLinkCreator2
+										title='youtube'
+										link={social_links.YouTube}
+										className='text-zinc-200 text-3xl hover:text-zinc-100 transition-colors'
+									/>
+								</li>
+							)}
 						</ul>
 					</div>
 				</div>

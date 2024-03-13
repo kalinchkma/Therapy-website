@@ -19,6 +19,7 @@ export const config = {
 
 export const connection = mysql.createPool(config);
 
+
 const logger = process.env.NODE_ENV === 'production' ? false : true;
 
 export const db = drizzle(connection, {

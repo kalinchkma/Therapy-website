@@ -17,6 +17,9 @@ import { fetchBanner } from '@/methods/home-page-methods';
 import { Content } from '@/actions/home-page-actions';
 import { cn } from '@/lib/utils';
 
+const host = process.env.HOST;
+console.log(host);
+
 export default async function HomePageBanner({
 	className,
 }: {
@@ -32,8 +35,8 @@ export default async function HomePageBanner({
 						return (
 							<CarouselItem key={index}>
 								<PageBanner
-									bgImageUrl={banner.image}
-									className='h-[50vh] md:h-[80vh] p-3 container'>
+									bgImageUrl={`${host}${banner.image}`}
+									className='h-[50vh] md:h-[90vh] p-3'>
 									<BannerContent
 										bannerTitle={banner.title}
 										bannerSecondaryTitle={banner.subTitle}

@@ -35,7 +35,7 @@ export default function TopHeader({
 		<nav className='bg-blue-900 py-1 w-full text-white'>
 			<ContentWrapper
 				className={cn(
-					'flex container flex-col md:flex-row items-center justify-center gap-2 md:justify-between py-2 ',
+					'flex flex-col md:flex-row items-center justify-center gap-2 md:justify-between py-2 ',
 					className,
 				)}>
 				<div className='flex gap-4 items-center justify-center flex-wrap '>

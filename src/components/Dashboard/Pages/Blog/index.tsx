@@ -10,9 +10,11 @@ export default async function BlogPageConfig() {
 
 	return (
 		<div className='w-full flex flex-col gap-2'>
-			<div className='flex items-center justify-start gap-2'>
-				<SetupBlogPage />
-			</div>
+			{get_banner.length <= 0 && (
+				<div className='flex items-center justify-start gap-2'>
+					<SetupBlogPage />
+				</div>
+			)}
 			{/* page banner */}
 			{get_banner.length > 0 && <BlogBanner banner={get_banner[0]} />}
 		</div>

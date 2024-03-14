@@ -14,21 +14,27 @@ import { Banner } from '@/actions/page-banner-actions';
 export default async function ServiceAreaCompenent() {
 	const all_service_area = await getAllServiceArea();
 
-	const get_banner = await getPageBanner("services");
+	const get_banner = await getPageBanner('service-area');
 
 	let page_banner: Banner = {};
 	if (get_banner.length > 0) {
-		page_banner = JSON.parse(String(get_banner[0].content)) as Banner
+		page_banner = JSON.parse(String(get_banner[0].content)) as Banner;
 	}
 
 	return (
 		<div className='w-full'>
 			<PageTitle
-				description={page_banner.subTitle ? page_banner.subTitle : 'We have a service available over many areas'}
-				title={page_banner.title ? page_banner.title : "Services area"}
+				description={
+					page_banner.subTitle
+						? page_banner.subTitle
+						: 'We have a service available over many areas'
+				}
+				title={page_banner.title ? page_banner.title : 'Services area'}
 				className={get_banner.length > 0 ? 'py-0' : ''}
 				bgImageUrl={page_banner.bgImage}
-				overlayStyles={get_banner.length > 0 ? 'bg-zinc-800 py-28 bg-opacity-70' : ''}
+				overlayStyles={
+					get_banner.length > 0 ? 'bg-zinc-800 py-28 bg-opacity-70' : ''
+				}
 				titleStyle={get_banner.length > 0 ? 'text-white' : ''}
 			/>
 			<PageBreadcrumb

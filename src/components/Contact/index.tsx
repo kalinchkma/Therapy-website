@@ -13,6 +13,8 @@ import { Input } from '../ui/input';
 import ContactInfo from './contact-info';
 import ContactForm from './contact-form';
 import { getInformations } from '@/methods/information-method';
+import { getPageBanner } from '@/methods/page-banner-mothod';
+import { Banner } from '@/actions/page-banner-actions';
 
 type Openning = {
 	Friday: string;
@@ -32,9 +34,26 @@ export default async function ContactPageComponent() {
 			String(getInformation[0].openning_hours),
 		) as Openning;
 	}
+
+	const get_banner = await getPageBanner('blog');
+	let page_banner: Banner = {};
+	if (get_banner.length > 0) {
+		page_banner = JSON.parse(String(get_banner[0].content)) as Banner;
+	}
+	const host = process.env.HOST as string;
 	return (
 		<div className='w-full'>
-			<PageTitle title='Contact' />
+			{/* <PageTitle title='Contact' /> */}
+			<PageTitle
+				description={page_banner.subTitle ? page_banner.subTitle : ''}
+				title={page_banner.title ? page_banner.title : 'Contact Us'}
+				className={get_banner.length > 0 ? 'py-0' : ''}
+				bgImageUrl={`${host}${page_banner.bgImage}`}
+				overlayStyles={
+					get_banner.length > 0 ? 'bg-zinc-800 py-28 bg-opacity-70' : ''
+				}
+				titleStyle={get_banner.length > 0 ? 'text-white' : ''}
+			/>
 			<PageBreadcrumb
 				paths={[
 					{ name: 'Home', url: '/' },

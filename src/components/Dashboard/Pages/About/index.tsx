@@ -12,9 +12,11 @@ export default async function AboutPageConfig() {
 
 	return (
 		<div className='w-full flex flex-col gap-2'>
-			<div className='flex items-center justify-start gap-2'>
-				<SetupAboutPage />
-			</div>
+			{get_banner.length <= 0 && (
+				<div className='flex items-center justify-start gap-2'>
+					<SetupAboutPage />
+				</div>
+			)}
 			{/* page banner */}
 			{get_banner.length > 0 && <AboutBanner banner={get_banner[0]} />}
 		</div>

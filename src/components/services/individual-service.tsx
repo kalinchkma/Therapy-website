@@ -10,14 +10,19 @@ import ContentWrapper from '../common/content-wrapper';
 import ActionButton from '../common/action-button';
 import Markdown from 'react-markdown';
 
-export default function IndividualService({ service }: { service: Service }) {
+export default function IndividualService({
+	service,
+	host,
+}: {
+	service: Service;
+	host: string;
+}) {
 	return (
 		<div className='w-full'>
-			{/* <PageTitle title={service.name} /> */}
 			<PageTitle
 				title={service.name}
 				className='text-center py-0'
-				bgImageUrl={service.thumbnailImage!}
+				bgImageUrl={`${host}${service.thumbnailImage}`}
 				overlayStyles='bg-gray-700 py-28 bg-opacity-60'
 				titleStyle='text-white'
 			/>

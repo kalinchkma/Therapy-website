@@ -13,7 +13,7 @@ export default async function IdividualServicePage({
 	params: { id: string };
 }) {
 	noStore();
-	const service_id = Number(params.id.slice(-1));
+	const service_id = Number(params.id);
 	const res_service = await getServiceById(service_id);
 	if (!res_service) {
 		notFound();
@@ -22,10 +22,11 @@ export default async function IdividualServicePage({
 	if (res_service[0].published === 0) {
 		notFound();
 	}
+	const host = process.env.HOST!;
 
 	return (
 		<div className='w-full'>
-			<IndividualService service={res_service[0]} />
+			<IndividualService service={res_service[0]} host={host} />
 		</div>
 	);
 }

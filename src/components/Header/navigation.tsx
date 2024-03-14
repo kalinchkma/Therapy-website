@@ -66,7 +66,7 @@ export default function Navigation({
 					{/* Small Screen Navigation */}
 					{informations.length > 0 && (
 						<SmallNavigation
-							logo={informations[0].logo}
+							logo={`${host}${informations[0].logo}`}
 							name={informations[0].website_name}
 						/>
 					)}

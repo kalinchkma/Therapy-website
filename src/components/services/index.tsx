@@ -16,20 +16,27 @@ export default async function ServicesPageComponent() {
 	if (!allServices) {
 		notFound();
 	}
-	const get_banner = await getPageBanner("services");
+	const get_banner = await getPageBanner('services');
 
 	let page_banner: Banner = {};
 	if (get_banner.length > 0) {
-		page_banner = JSON.parse(String(get_banner[0].content)) as Banner
+		page_banner = JSON.parse(String(get_banner[0].content)) as Banner;
 	}
+	const host = process.env.HOST!;
 	return (
 		<div className='w-full'>
 			<PageTitle
-				description={page_banner.subTitle ? page_banner.subTitle : 'Check out comprehensive therapy services'}
-				title={page_banner.title ? page_banner.title : "Services"}
+				description={
+					page_banner.subTitle
+						? page_banner.subTitle
+						: 'Check out comprehensive therapy services'
+				}
+				title={page_banner.title ? page_banner.title : 'Services'}
 				className={get_banner.length > 0 ? 'py-0' : ''}
-				bgImageUrl={page_banner.bgImage}
-				overlayStyles={get_banner.length > 0 ? 'bg-zinc-800 py-28 bg-opacity-70' : ''}
+				bgImageUrl={`${host}${page_banner.bgImage}`}
+				overlayStyles={
+					get_banner.length > 0 ? 'bg-zinc-800 py-28 bg-opacity-70' : ''
+				}
 				titleStyle={get_banner.length > 0 ? 'text-white' : ''}
 			/>
 
@@ -45,9 +52,9 @@ export default async function ServicesPageComponent() {
 						allServices.map((service, index) => (
 							<ServiceCard
 								title={service.name}
-								serviceLink={`/services/${uuidv4()}${service.id}`}
+								serviceLink={`/services/${service.id}`}
 								description={service.description!}
-								thumbnailImage={service.thumbnailImage}
+								thumbnailImage={`${host}${service.thumbnailImage}`}
 								key={index}
 							/>
 						))

@@ -24,7 +24,7 @@ type Post = {
 	comment: number | null;
 	keywords: string | null;
 };
-import { HOST } from '@/lib/static_data';
+
 import { getPageBanner } from '@/methods/page-banner-mothod';
 import { Banner } from '@/actions/page-banner-actions';
 
@@ -34,21 +34,23 @@ export default async function BlogPageComponent({
 	all_blog: Post[];
 }) {
 	const all_blog_key = await getBlogs();
-	const get_banner = await getPageBanner("blog");
+	const get_banner = await getPageBanner('blog');
 
 	let page_banner: Banner = {};
 	if (get_banner.length > 0) {
-		page_banner = JSON.parse(String(get_banner[0].content)) as Banner
+		page_banner = JSON.parse(String(get_banner[0].content)) as Banner;
 	}
-	
+	const host = process.env.HOST as string;
 	return (
 		<div className='w-full'>
 			<PageTitle
 				description={page_banner.subTitle ? page_banner.subTitle : ''}
-				title={page_banner.title ? page_banner.title : "Blog"}
+				title={page_banner.title ? page_banner.title : 'Blog'}
 				className={get_banner.length > 0 ? 'py-0' : ''}
-				bgImageUrl={page_banner.bgImage}
-				overlayStyles={get_banner.length > 0 ? 'bg-zinc-800 py-28 bg-opacity-70' : ''}
+				bgImageUrl={`${host}${page_banner.bgImage}`}
+				overlayStyles={
+					get_banner.length > 0 ? 'bg-zinc-800 py-28 bg-opacity-70' : ''
+				}
 				titleStyle={get_banner.length > 0 ? 'text-white' : ''}
 			/>
 			<PageBreadcrumb
@@ -67,9 +69,8 @@ export default async function BlogPageComponent({
 						{/* all blog list */}
 						<AllBlogPost
 							posts={all_blog}
-							uid={uuidv4()}
 							all_blog_key={all_blog_key}
-							host={HOST!}
+							host={host}
 						/>
 					</div>
 				)}

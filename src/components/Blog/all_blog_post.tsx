@@ -20,13 +20,12 @@ type Post = {
 
 export default function AllBlogPost({
 	posts,
-	uid,
+
 	all_blog_key,
 	host,
 }: {
 	posts: Post[];
 	all_blog_key: Post[];
-	uid: string;
 	host: string;
 }) {
 	const [all_blog, setAll_blog] = useState<Post[]>([]);
@@ -68,10 +67,10 @@ export default function AllBlogPost({
 							<BlogCard
 								key={index}
 								author={blog.author}
-								blogLink={`/blog/${uid}${blog.id}`}
+								blogLink={`/blog/${blog.id}`}
 								comments={blog.comment!}
 								description={blog.summary}
-								thumbnilImage={blog.thumbnailImage!}
+								thumbnilImage={`${host}${blog.thumbnailImage}`}
 								keywords={blog.keywords!}
 								title={blog.title}
 								createdAt={blog.createdAt}
@@ -88,10 +87,10 @@ export default function AllBlogPost({
 						<BlogCard
 							key={index}
 							author={blog.author}
-							blogLink={`/blog/${uid}${blog.id}`}
+							blogLink={`/blog/${blog.id}`}
 							comments={blog.comment!}
 							description={blog.summary}
-							thumbnilImage={blog.thumbnailImage!}
+							thumbnilImage={`${host}${blog.thumbnailImage}`}
 							keywords={blog.keywords!}
 							title={blog.title}
 							createdAt={blog.createdAt}
@@ -103,20 +102,13 @@ export default function AllBlogPost({
 						<h4>No Blog post found!</h4>
 					</div>
 				)}
-
-				{/* {posts.length <= 0 ||
-					(all_blog.length <= 0 && (
-						<div className='w-full h-full flex items-start justify-center'>
-							<h4>No Blog post found!</h4>
-						</div>
-					))} */}
 			</div>
 			{/* side menu */}
 			<SideMenu
 				location='multiple'
 				keywords={keywords}
 				all_blogs={all_blog_key}
-				uid={v4()}
+				host={host}
 				setSearchKey={setSearchKey}
 			/>
 		</>

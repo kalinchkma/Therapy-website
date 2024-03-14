@@ -75,6 +75,6 @@ export async function getBlogById(id: number) {
 
 		return blog_post[0];
 	} catch (error) {
-		redirect('/errors');
+		redirect('/404');
 	}
 }

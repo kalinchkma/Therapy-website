@@ -11,6 +11,8 @@ import LatestBlog from './latest-blog';
 import { getInformations } from '@/methods/information-method';
 import { redirect } from 'next/navigation';
 
+const host = process.env.HOST!;
+
 export default async function HomePageComponent() {
 	const information = await getInformations();
 	if (information.length <= 0) {
@@ -25,7 +27,7 @@ export default async function HomePageComponent() {
 			{/* Contact summary */}
 			<ContactSummary information={information[0]} />
 			{/* Customer review */}
-			<CustomerReview />
+			<CustomerReview host={host} />
 			{/* Meet our Theam */}
 			<Team
 				title='Meet our team'

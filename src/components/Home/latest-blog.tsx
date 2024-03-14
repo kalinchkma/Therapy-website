@@ -22,6 +22,7 @@ type Blog = {
 };
 
 export default async function LatestBlog() {
+	const host = process.env.HOST;
 	const all_blog: Blog[] = await getBlogs();
 	return (
 		all_blog.length > 0 && (
@@ -33,10 +34,10 @@ export default async function LatestBlog() {
 							<BlogCard
 								author={blog.author}
 								createdAt={blog.createdAt}
-								blogLink={`/blog/${v4()}${blog.id}`}
+								blogLink={`/blog/${blog.id}`}
 								comments={blog.comment!}
 								description={blog.summary}
-								thumbnilImage={blog.thumbnailImage!}
+								thumbnilImage={`${host}${blog.thumbnailImage}`}
 								title={blog.title}
 								key={index}
 								imageStyles='w-[100%] h-[200px] md:h-[200px] lg:h-[200px]'

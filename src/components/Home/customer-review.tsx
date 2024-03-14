@@ -24,7 +24,7 @@ type Review = {
 	thumbnail_image: string;
 };
 
-export default async function CustomerReview() {
+export default async function CustomerReview({ host }: { host: string }) {
 	const reviews: Review[] = await getAllCustomerReview();
 	return (
 		reviews.length > 0 && (
@@ -48,7 +48,7 @@ export default async function CustomerReview() {
 										<div className=''>
 											<ReviewCard
 												videoUrl={data.video_url}
-												thumbnil={data.thumbnail_image}
+												thumbnil={`${host}${data.thumbnail_image}`}
 											/>
 										</div>
 									</CarouselItem>

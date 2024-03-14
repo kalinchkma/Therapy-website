@@ -18,7 +18,6 @@ import { Content } from '@/actions/home-page-actions';
 import { cn } from '@/lib/utils';
 
 const host = process.env.HOST;
-console.log(host);
 
 export default async function HomePageBanner({
 	className,

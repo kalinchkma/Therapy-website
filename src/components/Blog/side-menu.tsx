@@ -26,14 +26,14 @@ export default function SideMenu({
 	location,
 	keywords,
 	all_blogs,
-	uid,
 	setSearchKey,
+	host,
 }: {
 	location: string;
 	keywords: string[];
 	all_blogs: Post[];
-	uid: string;
 	setSearchKey?: React.Dispatch<React.SetStateAction<string | undefined>>;
+	host: string;
 }) {
 	// slice recent post
 	let recent_post: Post[] = [];
@@ -57,10 +57,10 @@ export default function SideMenu({
 					{recent_post.map((blog, index) => (
 						<li key={index}>
 							<Link
-								href={`/blog/${uid}${blog.id}`}
+								href={`/blog/${blog.id}`}
 								className='flex items-start justify-start gap-2 hover:opacity-90'>
 								<Image
-									src={blog.thumbnailImage!}
+									src={`${host}${blog.thumbnailImage}`}
 									width={50}
 									height={50}
 									alt='blog-image'

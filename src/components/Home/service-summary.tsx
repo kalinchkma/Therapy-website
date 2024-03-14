@@ -20,6 +20,7 @@ type S = {
 };
 
 export default async function ServiceSummary() {
+	const host = process.env.HOST;
 	const services = await getAllServicesPublic();
 	let service_pin: S[] = [];
 	if (services) {
@@ -59,7 +60,7 @@ export default async function ServiceSummary() {
 							<ServiceCard
 								title={service.name}
 								description={service.description!}
-								thumbnailImage={service.thumbnailImage}
+								thumbnailImage={`${host}${service.thumbnailImage}`}
 								serviceLink={`/services/${v4()}${service.id}`}
 							/>
 						</div>

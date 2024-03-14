@@ -35,8 +35,10 @@ type Post = {
 
 export default async function SingleBlogPostComponent({
 	blog_post,
+	host,
 }: {
 	blog_post: Post;
+	host: string;
 }) {
 	const uploaded_at = new Date(blog_post.createdAt as Date);
 	const all_comments = await getCommentsByPostId(blog_post.id);
@@ -57,7 +59,7 @@ export default async function SingleBlogPostComponent({
 			<PageTitle
 				title={blog_post.title}
 				className='text-center py-0'
-				bgImageUrl={blog_post.thumbnailImage!}
+				bgImageUrl={`${host}${blog_post.thumbnailImage}`}
 				overlayStyles='bg-gray-700 py-28 bg-opacity-60'
 				titleStyle='text-white'
 			/>
@@ -76,7 +78,7 @@ export default async function SingleBlogPostComponent({
 						<div className='w-full relative'>
 							<div className='flex items-center justify-center w-full'>
 								<Image
-									src={blog_post.thumbnailImage!}
+									src={`${host}${blog_post.thumbnailImage}`}
 									width={400}
 									height={350}
 									alt='blog image'
@@ -152,7 +154,7 @@ export default async function SingleBlogPostComponent({
 						location='single'
 						keywords={keywords}
 						all_blogs={all_blogs}
-						uid={v4()}
+						host={host}
 					/>
 				</div>
 			</ContentWrapper>

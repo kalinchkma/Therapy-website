@@ -18,6 +18,7 @@ export default async function Team({
 	className?: string;
 	titleStyles?: string;
 }) {
+	const host = process.env.HOST!;
 	const team = await getTeam();
 	return (
 		<section className={cn('w-full py-16', className)}>
@@ -32,7 +33,7 @@ export default async function Team({
 							key={index}
 							name={member.name!}
 							profession={member.designation!}
-							imageUrl={member.avatar!}
+							imageUrl={`${host}${member.avatar!}`}
 							socialLinks={[]}
 							summary={member.description!}
 							profileUrl={''}

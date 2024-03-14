@@ -40,8 +40,8 @@ export default async function ContactSummary({ information }: Props) {
 							<div className='flex items-center justify-start'>
 								<MoreBtn
 									link={'/appointment'}
-									title='অ্যাপয়েন্টমেন্ট বুক করুন'
-									className='text-white bg-blue-950 py-2 px-4 flex items-center justify-center rounded-full'
+									title='Book Appointment'
+									className='text-white bg-blue-700 py-2 px-4 flex items-center justify-center rounded-full'
 								/>
 							</div>
 						</div>

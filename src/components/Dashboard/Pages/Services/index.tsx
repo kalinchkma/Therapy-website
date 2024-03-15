@@ -16,7 +16,12 @@ export default async function ServicesConfig() {
 				</div>
 			)}
 			{/* page banner */}
-			{get_banner.length > 0 && <ServicesBanner banner={get_banner[0]} />}
+			{get_banner.length > 0 && (
+				<ServicesBanner
+					banner={get_banner[0]}
+					host={process.env.HOST as string}
+				/>
+			)}
 		</div>
 	);
 }

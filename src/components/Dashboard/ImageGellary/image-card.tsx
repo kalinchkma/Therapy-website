@@ -15,6 +15,7 @@ import { useToast } from '@/components/ui/use-toast';
 
 export default function ImageCard({
 	imageInfo,
+	host,
 }: {
 	imageInfo: {
 		id: number;
@@ -23,13 +24,14 @@ export default function ImageCard({
 		image_path: string;
 		image_url: string;
 	};
+	host: string;
 }) {
 	const { toast } = useToast();
 	const delete_image = deleteGellaryImage.bind(null, imageInfo.id);
 	return (
 		<div className='flex items-center justify-center w-full relative'>
 			<Image
-				src={imageInfo.image_path}
+				src={imageInfo.image_url}
 				width={200}
 				height={200}
 				alt='image'
@@ -44,7 +46,7 @@ export default function ImageCard({
 						className='flex flex-col items-center justify-center max-w-full
                      md:max-w-[600px]'>
 						<Image
-							src={imageInfo.image_path}
+							src={imageInfo.image_url}
 							width={600}
 							height={600}
 							alt='image'
@@ -64,7 +66,7 @@ export default function ImageCard({
 				<Button
 					variant={'secondary'}
 					onClick={async () => {
-						await navigator.clipboard.writeText(imageInfo.image_url);
+						await navigator.clipboard.writeText(`${imageInfo.image_url}`);
 						toast({
 							title: 'Copy',
 							description: 'Image link copied',

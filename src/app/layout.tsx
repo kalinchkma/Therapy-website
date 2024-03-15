@@ -66,7 +66,10 @@ export default async function RootLayout({
 					{informations.length > 0 && (
 						<Footer informations={informations} services={services} />
 					)}
-					<ShopCart shipping_cost={shipping_cost} />
+					<ShopCart
+						shipping_cost={shipping_cost}
+						host={process.env.HOST as string}
+					/>
 					<Toaster />
 				</body>
 			</html>

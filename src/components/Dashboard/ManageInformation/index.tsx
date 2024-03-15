@@ -15,7 +15,10 @@ export default async function ManageInformationPageComponent() {
 				{information?.length <= 0 ? (
 					<SetupInformation />
 				) : (
-					<UpdateInformation information={information} />
+					<UpdateInformation
+						information={information}
+						host={process.env.HOST!}
+					/>
 				)}
 			</div>
 		</div>

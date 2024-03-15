@@ -218,11 +218,7 @@ export default function AddNewUser({ label }: { label: string }) {
 							className='col-span-4'
 						/>
 					</div>
-					<div
-						className={cn(
-							'hidden grid-cols-4 items-center gap-4',
-							memberType === UsersType['team-member'] && 'grid',
-						)}>
+					<div className={cn(' grid-cols-4 items-center gap-4', 'grid')}>
 						<Label htmlFor='avatar' className='col-span-4'>
 							Member Image
 						</Label>

@@ -22,6 +22,7 @@ import { useFormState } from 'react-dom';
 
 export default function UpdateInformation({
 	information,
+	host,
 }: {
 	information: {
 		id: number;
@@ -34,6 +35,7 @@ export default function UpdateInformation({
 		website_name: string;
 		product_shipping_charge: unknown;
 	}[];
+	host: string;
 }) {
 	// update log
 	const update_logo = updateWebsiteLogo.bind(null, Number(information[0].id));
@@ -109,7 +111,7 @@ export default function UpdateInformation({
 				</Label>
 				{information[0].logo && (
 					<Image
-						src={information[0].logo}
+						src={`${host}${information[0].logo}`}
 						width='300'
 						height='300'
 						alt='Website logo'

@@ -14,6 +14,7 @@ import { useFormState } from 'react-dom';
 
 export default function ServiceAreaBanner({
 	banner,
+	host,
 }: {
 	banner: {
 		id: number;
@@ -21,6 +22,7 @@ export default function ServiceAreaBanner({
 		content: unknown;
 		page: string;
 	};
+	host: string;
 }) {
 	// parse banner content
 	let b = JSON.parse(String(banner.content)) as Banner;
@@ -116,7 +118,7 @@ export default function ServiceAreaBanner({
 						)}
 						{!fileDataURL && b.bgImage && (
 							<Image
-								src={b.bgImage}
+								src={`${host}${b.bgImage}`}
 								width={300}
 								height={300}
 								alt='banner-image'

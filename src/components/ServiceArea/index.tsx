@@ -21,6 +21,7 @@ export default async function ServiceAreaCompenent() {
 		page_banner = JSON.parse(String(get_banner[0].content)) as Banner;
 	}
 
+	const host = process.env.HOST!;
 	return (
 		<div className='w-full'>
 			<PageTitle
@@ -31,7 +32,7 @@ export default async function ServiceAreaCompenent() {
 				}
 				title={page_banner.title ? page_banner.title : 'Services area'}
 				className={get_banner.length > 0 ? 'py-0' : ''}
-				bgImageUrl={page_banner.bgImage}
+				bgImageUrl={`${host}${page_banner.bgImage}`}
 				overlayStyles={
 					get_banner.length > 0 ? 'bg-zinc-800 py-28 bg-opacity-70' : ''
 				}

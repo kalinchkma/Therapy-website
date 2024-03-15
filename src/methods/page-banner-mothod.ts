@@ -24,3 +24,20 @@ export async function getPageBanner(pageName: string) {
 		return [];
 	}
 }
+
+export async function getAbout() {
+	try {
+		// connect db
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+		const banner = await db
+			.select()
+			.from(page)
+			.where(and(eq(page.page, 'about'), eq(page.section, 'about')));
+		// close db
+		conn.end();
+		return banner;
+	} catch (error) {
+		return [];
+	}
+}

@@ -32,7 +32,13 @@ type Product = {
 };
 
 // create new product
-export default function EditProduct({ product }: { product: Product }) {
+export default function EditProduct({
+	product,
+	host,
+}: {
+	product: Product;
+	host: string;
+}) {
 	const [open, setOpen] = useState<boolean>(false);
 
 	const [file, setFile] = useState<File>();
@@ -129,7 +135,7 @@ export default function EditProduct({ product }: { product: Product }) {
 						<Input type='file' name='product-image' onChange={changeHandler} />
 						{!fileDataURL && product.image && (
 							<Image
-								src={product.image}
+								src={`${host}${product.image}`}
 								width={300}
 								height={300}
 								alt='Product image'

@@ -16,7 +16,9 @@ export default async function BlogPageConfig() {
 				</div>
 			)}
 			{/* page banner */}
-			{get_banner.length > 0 && <BlogBanner banner={get_banner[0]} />}
+			{get_banner.length > 0 && (
+				<BlogBanner banner={get_banner[0]} host={process.env.HOST as string} />
+			)}
 		</div>
 	);
 }

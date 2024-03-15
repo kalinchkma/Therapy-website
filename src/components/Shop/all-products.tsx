@@ -12,10 +12,11 @@ type Product = {
 };
 
 export default function AllProducs({ products }: { products: Product[] }) {
+	const host = process.env.HOST!;
 	return (
 		<>
 			{products.map((product, index) => (
-				<ProductCard key={index} product={product} />
+				<ProductCard key={index} product={product} host={host} />
 			))}
 		</>
 	);

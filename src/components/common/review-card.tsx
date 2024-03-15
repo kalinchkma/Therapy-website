@@ -55,14 +55,6 @@ export default function ReviewCard({
 								width={'100%'}
 								height={'100%'}
 								controls={true}
-								// light={
-								// 	<Image
-								// 		src={thumbnil!}
-								// 		alt='video thumbnil'
-								// 		width={'1000'}
-								// 		height={'1000'}
-								// 	/>
-								// }
 							/>
 						</div>
 					</DialogContent>

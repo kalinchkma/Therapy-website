@@ -16,7 +16,12 @@ export default async function ServiceAreaConfig() {
 				</div>
 			)}
 			{/* page banner */}
-			{get_banner.length > 0 && <ServiceAreaBanner banner={get_banner[0]} />}
+			{get_banner.length > 0 && (
+				<ServiceAreaBanner
+					banner={get_banner[0]}
+					host={process.env.HOST as string}
+				/>
+			)}
 		</div>
 	);
 }

@@ -14,13 +14,22 @@ export default function CopyRight({ website_name }: { website_name: string }) {
 				</h6>
 				<p className='flex items-center justify-center text-white gap-3 border-t border-zinc-700 md:border-0 md:py-0 md:pl-4 md:border-l py-2'>
 					Developed By
+				</p>
+				<div className='flex items-center justify-center flex-wrap gap-3'>
 					<Link
 						target='_blank'
 						href={'https://github.com/kalinchkma'}
-						className='font-extrabold italic text-green-500 text-lg'>
+						className='font-extrabold italic text-green-500 text-sm'>
 						Kalin Chakma
+					</Link>{' '}
+					<span className='text-white'>|</span>
+					<Link
+						target='_blank'
+						href={'https://github.com/Unified-Tech-Guild'}
+						className='font-extrabold italic text-green-500 text-sm'>
+						Unified Tech Guild
 					</Link>
-				</p>
+				</div>
 			</ContentWrapper>
 		</div>
 	);

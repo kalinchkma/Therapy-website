@@ -21,6 +21,7 @@ import Markdown from 'react-markdown';
 
 export default function UpdateBlog({
 	blog,
+	host,
 }: {
 	blog: {
 		author: string;
@@ -34,6 +35,7 @@ export default function UpdateBlog({
 		thumbnailImage: string | null;
 		comment: number | null;
 	};
+	host: string;
 }) {
 	const [open, setOpen] = useState<boolean>(false);
 
@@ -244,7 +246,7 @@ export default function UpdateBlog({
 								/>
 							) : (
 								<Image
-									src={blog.thumbnailImage!}
+									src={`${host}${blog.thumbnailImage}`}
 									width={'600'}
 									height={'600'}
 									alt='preview'
@@ -257,7 +259,9 @@ export default function UpdateBlog({
 							{keywords && <h3 className='italic m-0'>Keywords: {keywords}</h3>}
 						</div>
 						<div className='flex'>{abstract}</div>
-						<Markdown className='content-preview'>{content}</Markdown>
+						<Markdown className='content-preview blog-content'>
+							{content}
+						</Markdown>
 					</div>
 				</form>
 			</DialogContent>

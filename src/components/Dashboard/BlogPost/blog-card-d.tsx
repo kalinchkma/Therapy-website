@@ -1,8 +1,3 @@
-/**
- *
- * @format
- */
-
 /** @format */
 
 import { cn } from '@/lib/utils';
@@ -71,7 +66,7 @@ export default async function BlogCard({
 			<div className='w-full relative'>
 				<div className='flex items-center justify-center w-full'>
 					<Image
-						src={thumbnilImage}
+						src={`${host}${thumbnilImage}`}
 						width={300}
 						height={300}
 						alt='blog image'
@@ -118,7 +113,7 @@ export default async function BlogCard({
 				</Button>
 			</form>
 			<div className='flex flex-wrap w-full items-center justify-center py-6 gap-4'>
-				<UpdateBlog blog={blog!} />
+				<UpdateBlog blog={blog!} host={host} />
 				<form action={delete_blog}>
 					<Button type='submit' variant='destructive'>
 						Delete

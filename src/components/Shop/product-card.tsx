@@ -22,11 +22,15 @@ interface ProductCardProps {
 		image: string;
 		price: number;
 	};
-
+	host: string;
 	className?: string;
 }
 
-export default function ProductCard({ product, className }: ProductCardProps) {
+export default function ProductCard({
+	product,
+	className,
+	host,
+}: ProductCardProps) {
 	const dispatch = useAppDispatch();
 
 	const { cartDetails } = useAppSelector((state) => state.cart);
@@ -69,7 +73,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 				className,
 			)}>
 			<Image
-				src={product.image}
+				src={`${host}${product.image}`}
 				width={400}
 				height={400}
 				alt='product image'

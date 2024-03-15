@@ -25,9 +25,14 @@ interface ProductCardProps {
 		price: number;
 	};
 	className?: string;
+	host: string;
 }
 
-export default function ProductCardD({ product, className }: ProductCardProps) {
+export default function ProductCardD({
+	product,
+	className,
+	host,
+}: ProductCardProps) {
 	return (
 		<div
 			className={cn(
@@ -35,7 +40,7 @@ export default function ProductCardD({ product, className }: ProductCardProps) {
 				className,
 			)}>
 			<Image
-				src={product.image}
+				src={`${host}${product.image}`}
 				width={300}
 				height={300}
 				alt='product image'
@@ -56,7 +61,7 @@ export default function ProductCardD({ product, className }: ProductCardProps) {
 			</div>
 			{/* order button */}
 			<div className='flex items-center justify-center w-full gap-2'>
-				<EditProduct product={product} />
+				<EditProduct product={product} host={host} />
 				<DeleteProduct id={product.id} />
 			</div>
 		</div>

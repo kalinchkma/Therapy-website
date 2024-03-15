@@ -30,7 +30,13 @@ export type Review = {
 	thumbnail_image: string;
 };
 
-export default function UpdateCustomerReview({ review }: { review: Review }) {
+export default function UpdateCustomerReview({
+	review,
+	host,
+}: {
+	review: Review;
+	host: string;
+}) {
 	const [open, setOpen] = useState<boolean>(false);
 	const [formMessage, setFormMessage] = useState<string>();
 	const [file, setFile] = useState<File>();
@@ -171,7 +177,10 @@ export default function UpdateCustomerReview({ review }: { review: Review }) {
 				</form>
 				{fileDataURL && videoURL && (
 					<div className='w-full flex items-center justify-center'>
-						<ReviewCard videoUrl={videoURL} thumbnil={fileDataURL!} />
+						<ReviewCard
+							videoUrl={videoURL}
+							thumbnil={`${host}${fileDataURL}`}
+						/>
 					</div>
 				)}
 			</DialogContent>

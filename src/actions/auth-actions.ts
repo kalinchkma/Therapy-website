@@ -182,10 +182,11 @@ export async function login(prevState: LoginState, formData: FormData) {
 		const user = await db.select().from(users).where(eq(users.email, email));
 
 		// check user exist or not
-		if (user.length !== 0) {
+		if (user.length > 0) {
 			// if user exist verify user password
 			const verify = await verify_password(password, user[0].password);
 			if (verify) {
+				console.log('user is ok');
 				// create auth token for app access
 				const authData: AuthTokenData = {
 					name: user[0].name,
@@ -203,12 +204,16 @@ export async function login(prevState: LoginState, formData: FormData) {
 						path: '/',
 					});
 					revalidatePath('/login', 'page');
-					return '';
+					return 'Login success';
 				} else {
 					// close connection
 					conn.end();
 					return 'Somethings went wrong, Try again';
 				}
+			} else {
+				console.log('Invalid user password');
+				conn.end();
+				return 'Invalid Email and password';
 			}
 		} else {
 			// close connection
@@ -216,6 +221,7 @@ export async function login(prevState: LoginState, formData: FormData) {
 			return 'Invalid Email and password';
 		}
 	} catch (error) {
+		console.log(error);
 		return 'Somethings went wrong, Try again';
 	}
 }

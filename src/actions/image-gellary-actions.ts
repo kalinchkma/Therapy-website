@@ -40,7 +40,7 @@ export async function uploadGellaryImage(
 		// inset image info to database
 		await db.insert(image_gellary).values({
 			image_path: image_path,
-			image_url: `${process.env.HOST}/${image_path}`,
+			image_url: `${process.env.HOST}${image_path}`,
 		});
 		// close connection
 		conn.end();

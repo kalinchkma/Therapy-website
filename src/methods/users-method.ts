@@ -3,7 +3,7 @@
 import { config, createDBConnection } from '@/db';
 import mysql from 'mysql2/promise';
 import { users } from '@/db/schema/users';
-import { and, eq, ne, or } from 'drizzle-orm';
+import { and, eq, ne, not, or } from 'drizzle-orm';
 import { User, UsersType } from '@/lib/definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 
@@ -47,7 +47,10 @@ export async function getAllUsers(): Promise<User[] | undefined> {
 
 		const dbConn = createDBConnection(conn);
 
-		const allUsers = await dbConn.select().from(users);
+		const allUsers = await dbConn
+			.select()
+			.from(users)
+			.where(not(eq(users.user_type, UsersType.admin)));
 
 		// close connection
 		conn.end();
@@ -71,12 +74,7 @@ export async function getTeam(): Promise<User[]> {
 		const allUsers = await dbConn
 			.select()
 			.from(users)
-			.where(
-				or(
-					eq(users.user_type, UsersType['team-member']),
-					eq(users.user_type, UsersType.admin),
-				),
-			);
+			.where(or(eq(users.user_type, UsersType['team-member'])));
 
 		// close connection
 		conn.end();

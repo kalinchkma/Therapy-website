@@ -18,6 +18,84 @@ export type Banner = {
 	bgImage?: string;
 };
 
+const UpdateAboutSchema = z.object({
+	content: z.string({
+		invalid_type_error: 'Content must be a string',
+	}),
+});
+
+export type AboutWriteState = {
+	errors?: {
+		content?: string[];
+	};
+	message?: string;
+	status: number;
+};
+
+// setup banner section
+export async function updateAbout(
+	prevState: AboutWriteState,
+	formData: FormData,
+) {
+	// validate inputs
+	const validateFields = UpdateAboutSchema.safeParse({
+		content: formData.get('content'),
+	});
+
+	if (!validateFields.success) {
+		return {
+			errors: validateFields.error.flatten().fieldErrors,
+			status: 400,
+		};
+	}
+
+	// pasrse content
+	const { content } = validateFields.data;
+	try {
+		// create database connection
+		const conn = mysql.createPool(config);
+		const db = createDBConnection(conn);
+
+		// check about alread exist
+		const about = await db
+			.select()
+			.from(page)
+			.where(and(eq(page.page, 'about'), eq(page.section, 'about')));
+
+		if (about.length > 0) {
+			await db
+				.update(page)
+				.set({
+					content: {
+						text: content,
+					},
+				})
+				.where(and(eq(page.page, 'about'), eq(page.section, 'about')));
+		} else {
+			await db.insert(page).values({
+				page: 'about',
+				section: 'about',
+				content: {
+					text: content,
+				},
+			});
+		}
+
+		// close database connection
+		conn.end();
+		revalidatePath('/dashboard/pages/about', 'page');
+		return {
+			status: 200,
+			message: 'About us successfully updated',
+		};
+	} catch (error) {
+		return {
+			status: 500,
+			messsage: 'Internal server error',
+		};
+	}
+}
+
 // setup banner section
 export async function setupBanner(pageName: string) {
 	try {

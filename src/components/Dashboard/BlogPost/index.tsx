@@ -5,7 +5,6 @@ import CreateNewBlog from './create-new-blog';
 import { getBlogsForAdmin } from '@/methods/blog-method';
 import BlogCard from './blog-card-d';
 import SearchBlog from './search-blog';
-import { HOST } from '@/lib/static_data';
 
 export default async function BlogPostComponent({
 	search,
@@ -13,7 +12,7 @@ export default async function BlogPostComponent({
 	search?: string;
 }) {
 	const blogs = await getBlogsForAdmin(search);
-
+	const host = process.env.HOST;
 	return (
 		<div className='w-full p-4'>
 			<div className='flex gap-3'>
@@ -28,11 +27,11 @@ export default async function BlogPostComponent({
 						blogLink={`/blog/${blog.id}`}
 						comments={blog.comment!}
 						description={blog.summary}
-						thumbnilImage={blog.thumbnailImage!}
+						thumbnilImage={`${host}${blog.thumbnailImage}`}
 						title={blog.title}
 						keywords={blog.keywords!}
 						blog={blog}
-						host={HOST!}
+						host={host!}
 					/>
 				))}
 			</div>

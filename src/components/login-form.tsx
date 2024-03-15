@@ -39,15 +39,13 @@ export default function LoginForm() {
 					className={cn('w-full')}
 				/>
 			</div>
-			<Button type='submit' className='w-full' aria-disabled={pending}>
+			<Button type='submit' className='w-full'>
 				Login
 			</Button>
 			<div className='flex w-full mt-2'>
 				<p className='text-center w-full'>
 					Don&apos;t have an account?
-					<Link className='text-blue-500' href={'/signup'}>
-						Signup
-					</Link>
+					{/* e */}
 				</p>
 			</div>
 		</form>

@@ -25,8 +25,10 @@ import { OrderFormState, placeOrder } from '@/actions/order-actions';
 
 export default function ShopCart({
 	shipping_cost,
+	host,
 }: {
 	shipping_cost: Shipping_cost;
+	host: string;
 }) {
 	const dispatch = useAppDispatch();
 	const { cartDetails } = useAppSelector((state) => state.cart);
@@ -89,7 +91,9 @@ export default function ShopCart({
 						<div className='h-full w-full grid grid-cols-1 md:grid-cols-2'>
 							{state.status === 200 ? (
 								<div className='md:col-span-2 col-span-1 flex flex-col items-center justify-center'>
-									<h4 className='text-green-500'>{state.message}</h4>
+									<h4 className='text-green-500 text-center'>
+										{state.message}
+									</h4>
 									<h5 className='text-blue-500'>
 										Total Cost with shipping {state.total_cost} Taka
 									</h5>
@@ -122,7 +126,7 @@ export default function ShopCart({
 												key={index}>
 												<div className='flex items-center gap-2'>
 													<Image
-														src={item.image}
+														src={`${host}${item.image}`}
 														width={100}
 														height={100}
 														alt='item-image'

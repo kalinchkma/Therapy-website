@@ -30,7 +30,13 @@ type Content = {
 	image: string;
 };
 
-export default function BannerCard({ banner }: { banner: Banner }) {
+export default function BannerCard({
+	banner,
+	host,
+}: {
+	banner: Banner;
+	host: string;
+}) {
 	const content = JSON.parse(String(banner.content)) as Content;
 
 	const [file, setFile] = useState<File>();
@@ -135,7 +141,7 @@ export default function BannerCard({ banner }: { banner: Banner }) {
 				</div>
 				{content.image && !fileDataURL && (
 					<Image
-						src={content.image}
+						src={`${host}${content.image}`}
 						width={300}
 						height={300}
 						alt='banner image'
